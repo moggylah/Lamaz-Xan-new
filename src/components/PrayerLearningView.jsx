@@ -160,13 +160,21 @@ function StepLesson({ title, steps, onBack, onComplete, kids = false }) {
   const isLast = index === steps.length - 1;
 
 
+  function changeStep(nextIndex) {
+    const scrollY = window.scrollY;
+    setIndex(Math.max(0, Math.min(steps.length - 1, nextIndex)));
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollY, behavior: 'auto' });
+    });
+  }
+
   function next() {
     if (isLast) {
       onComplete?.();
       onBack();
       return;
     }
-    setIndex((value) => value + 1);
+    changeStep(index + 1);
   }
 
   return (
@@ -185,12 +193,12 @@ function StepLesson({ title, steps, onBack, onComplete, kids = false }) {
           <span className="learning-eyebrow">{title}</span>
           <h2>{step.title}</h2>
           <p>{step.short || step.text}</p>
-          {!kids && <Details item={step} />}
+          {!kids && <Details key={step.id} item={step} />}
         </div>
       </article>
 
       <div className="learning-step-actions">
-        <button type="button" className="learning-secondary-button" onClick={() => setIndex((value) => Math.max(0, value - 1))} disabled={index === 0}>Назад</button>
+        <button type="button" className="learning-secondary-button" onClick={() => changeStep(index - 1)} disabled={index === 0}>Назад</button>
         <button type="button" className="learning-primary-button" onClick={next}>{isLast ? 'Завершить' : 'Дальше'}</button>
       </div>
     </div>
