@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import tzLookup from 'tz-lookup';
 import Header from './components/Header.jsx';
 import PrayerTimesView from './components/PrayerTimesView.jsx';
@@ -35,6 +35,7 @@ function readString(key, fallback) {
 export default function App() {
   const [view, setView] = useState('prayers');
   const [language, setLanguage] = useState(() => readString('lamaz-language', 'ru'));
+  const [theme, setTheme] = useState(() => readString('lamaz-theme', 'light') === 'dark' ? 'dark' : 'light');
   const [location, setLocation] = useState(() => readJson('lamaz-location', DEFAULT_LOCATION));
   const [timeZone, setTimeZone] = useState(() => {
     try { return tzLookup(readJson('lamaz-location', DEFAULT_LOCATION).lat, readJson('lamaz-location', DEFAULT_LOCATION).lng); }
@@ -62,6 +63,15 @@ export default function App() {
     const timer = window.setInterval(() => setNow(new Date()), 1000);
     return () => window.clearInterval(timer);
   }, []);
+
+  useLayoutEffect(() => {
+    const resolvedTheme = theme === 'dark' ? 'dark' : 'light';
+    localStorage.setItem('lamaz-theme', resolvedTheme);
+    document.documentElement.dataset.theme = resolvedTheme;
+    document.documentElement.style.colorScheme = resolvedTheme;
+    const themeMeta = document.querySelector('meta[name=\"theme-color\"]');
+    if (themeMeta) themeMeta.setAttribute('content', resolvedTheme === 'dark' ? '#0d1713' : '#f8f5ee');
+  }, [theme]);
 
   useEffect(() => { localStorage.setItem('lamaz-location', JSON.stringify(location)); }, [location]);
   useEffect(() => {
@@ -233,6 +243,8 @@ export default function App() {
           onRequestNotifications={requestNotifications}
           language={language}
           onLanguageChange={setLanguage}
+          theme={theme}
+          onThemeChange={setTheme}
         />
       </main>
     );
