@@ -263,6 +263,7 @@ export default function App() {
         onHome={() => navigateTo('prayers')}
         onSettings={() => navigateTo('settings')}
         language={language}
+        theme={theme}
       />
 
       {view === 'prayers' && (
