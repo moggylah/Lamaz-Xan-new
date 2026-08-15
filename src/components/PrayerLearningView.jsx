@@ -43,19 +43,76 @@ function LearningIcon({ type }) {
 }
 
 function TopicIcon({ kind }) {
-  const paths = {
-    prep: 'M7 19V8l5-4 5 4v11M9 11h6M12 4v15',
-    steps: 'M5 6h3v3H5V6Zm0 8h3v3H5v-3Zm6-7h8M11 15h8',
-    read: 'M5 5.5c4-1 6-.2 7 1.2 1-1.4 3-2.2 7-1.2V18c-4-1-6-.2-7 1.2-1-1.4-3-2.2-7-1.2V5.5Z',
-    quiz: 'M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm-2.2-10a2.3 2.3 0 1 1 3.8 1.8c-1 .7-1.6 1.2-1.6 2.2M12 16.7h.01',
-    rules: 'M6 5h12v14H6V5Zm3 4h6M9 13h6M9 17h4',
-    travel: 'M4 16h16M7 16l2-7h6l2 7M9 9l2-3h2l2 3',
-    sahw: 'M12 4a8 8 0 1 0 7.4 5M16 4h4v4M9 10.5h6M9 14h4',
-    people: 'M8 19v-3.5c0-2.5 1.6-4.5 4-4.5s4 2 4 4.5V19M12 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+  const common = {
+    stroke: 'currentColor',
+    strokeWidth: 1.7,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
   };
+
+  const icons = {
+    prep: (
+      <>
+        <path d="M12 3.5C9.4 7 7.2 9.5 7.2 13a4.8 4.8 0 0 0 9.6 0C16.8 9.5 14.6 7 12 3.5Z" {...common} />
+        <path d="m10 13.2 1.4 1.4 2.9-3" {...common} />
+      </>
+    ),
+    pillars: (
+      <>
+        <path d="M4 7h16M6 7v11M10 7v11M14 7v11M18 7v11M4 18h16" {...common} />
+        <path d="M5.5 4.5h13L20 7H4l1.5-2.5Z" {...common} />
+      </>
+    ),
+    steps: (
+      <>
+        <path d="M5 18h4v-4h4v-4h4V6h3" {...common} />
+        <path d="m17.5 3.5 2.5 2.5-2.5 2.5" {...common} />
+      </>
+    ),
+    read: (
+      <>
+        <path d="M4.5 5.5c3.4-.8 5.8-.2 7.5 1.5 1.7-1.7 4.1-2.3 7.5-1.5v13c-3.4-.8-5.8-.2-7.5 1.5-1.7-1.7-4.1-2.3-7.5-1.5v-13Z" {...common} />
+        <path d="M12 7v13" {...common} />
+      </>
+    ),
+    surahs: (
+      <>
+        <path d="M6 4.5h10.5A1.5 1.5 0 0 1 18 6v13H7.5A1.5 1.5 0 0 1 6 17.5v-13Z" {...common} />
+        <path d="M9 8h6M9 11h5M8 19V6" {...common} />
+        <path d="m15.7 14 .45.9 1 .15-.72.7.17 1-.9-.47-.9.47.17-1-.72-.7 1-.15.45-.9Z" {...common} />
+      </>
+    ),
+    mistakes: (
+      <>
+        <path d="M12 4 21 20H3L12 4Z" {...common} />
+        <path d="M12 9v5M12 17.3h.01" {...common} />
+      </>
+    ),
+    people: (
+      <>
+        <circle cx="8.2" cy="8" r="2.6" {...common} />
+        <circle cx="16.4" cy="8.5" r="2.3" {...common} />
+        <path d="M3.8 19v-2.2c0-3 1.8-5 4.4-5s4.4 2 4.4 5V19M13.2 19v-2c0-2.4 1.3-4.1 3.4-4.1 2.2 0 3.6 1.7 3.6 4.1v2" {...common} />
+      </>
+    ),
+    travel: (
+      <>
+        <rect x="5" y="8" width="14" height="11" rx="2" {...common} />
+        <path d="M9 8V6.5A1.5 1.5 0 0 1 10.5 5h3A1.5 1.5 0 0 1 15 6.5V8M5 12h14M9 12v2M15 12v2" {...common} />
+      </>
+    ),
+    sahw: (
+      <>
+        <path d="M18.5 7.5A7.5 7.5 0 1 0 19 16" {...common} />
+        <path d="M18.5 3.8v3.7h-3.7" {...common} />
+        <path d="M8.2 14.5c1.1-2 2.3-3 3.8-3s2.7 1 3.8 3M9.2 16.5h5.6" {...common} />
+      </>
+    ),
+  };
+
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d={paths[kind] || paths.rules} stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+      {icons[kind] || icons.steps}
     </svg>
   );
 }
@@ -210,7 +267,7 @@ function StaticTopic({ topic, onBack }) {
     <div className="learning-simple-page">
       <SectionBack onClick={onBack} />
       <div className="learning-page-heading">
-        <span className="learning-kicker">Для взрослых</span>
+        <span className="learning-kicker">Обучение намазу</span>
         <h2>{topic.title}</h2>
         <p>{topic.intro}</p>
       </div>
@@ -357,12 +414,12 @@ export default function PrayerLearningView({ language = 'ru' }) {
   if (screen.name === 'kids-steps') return <StepLesson kids title="Намаз шаг за шагом" steps={kidsSteps} onBack={() => go('kids')} onComplete={() => markDone('kids-steps')} />;
   if (screen.name === 'kids-reading') return <ReadingCards onBack={() => go('kids')} />;
   if (screen.name === 'kids-quiz') return <KidsQuiz onBack={() => go('kids')} onComplete={() => markDone('kids-quiz')} />;
-  if (screen.name === 'adult-prep') return <Preparation onBack={() => go('adult')} onComplete={() => markDone('adult-prep')} />;
-  if (screen.name === 'adult-steps') return <StepLesson title="2 ракаата по сунне" steps={adultSteps} onBack={() => go('adult')} onComplete={() => markDone('adult-steps')} />;
-  if (screen.name === 'adult-reading') return <ReadingCards onBack={() => go('adult')} />;
-  if (screen.name === 'adult-surahs') return <ReadingCards surahs onBack={() => go('adult')} />;
-  if (screen.name === 'adult-mistakes') return <Mistakes onBack={() => go('adult')} />;
-  if (screen.name === 'adult-topic') return <StaticTopic topic={adultTopics[screen.topic]} onBack={() => go('adult')} />;
+  if (screen.name === 'adult-prep') return <Preparation onBack={() => go('home')} onComplete={() => markDone('adult-prep')} />;
+  if (screen.name === 'adult-steps') return <StepLesson title="2 ракаата по сунне" steps={adultSteps} onBack={() => go('home')} onComplete={() => markDone('adult-steps')} />;
+  if (screen.name === 'adult-reading') return <ReadingCards onBack={() => go('home')} />;
+  if (screen.name === 'adult-surahs') return <ReadingCards surahs onBack={() => go('home')} />;
+  if (screen.name === 'adult-mistakes') return <Mistakes onBack={() => go('home')} />;
+  if (screen.name === 'adult-topic') return <StaticTopic topic={adultTopics[screen.topic]} onBack={() => go('home')} />;
 
   if (screen.name === 'kids') {
     return (
@@ -383,44 +440,25 @@ export default function PrayerLearningView({ language = 'ru' }) {
     );
   }
 
-  if (screen.name === 'adult') {
-    return (
-      <section className="learning-screen">
-        <SectionBack onClick={() => go('home')} />
-        <div className="learning-mode-banner adult-banner">
-          <span className="learning-mode-art"><LearningIcon type="adult" /></span>
-          <div><span>Подробный режим</span><h2>Для взрослых</h2><p>Пошаговый намаз, чтения, ошибки и дополнительные ситуации.</p></div>
-        </div>
-        <div className="learning-dashboard">
-          <DashboardCard icon="prep" title="Подготовка к намазу" text="Чистота, одежда, кибла, время" done={completedSet.has('adult-prep')} onClick={() => go('adult-prep')} />
-          <DashboardCard icon="rules" title="Столпы и сунны" text="Что является основой намаза" onClick={() => go('adult-topic', { topic: 'obligations' })} />
-          <DashboardCard icon="steps" title="2 ракаата по сунне" text={`${adultSteps.length} шагов с объяснениями`} done={completedSet.has('adult-steps')} onClick={() => go('adult-steps')} />
-          <DashboardCard icon="read" title="Что читать" text="Арабский, транскрипция, перевод" onClick={() => go('adult-reading')} />
-          <DashboardCard icon="read" title="Короткие суры" text="Аль-Ихляс, Аль-Фаляк, Ан-Нас" onClick={() => go('adult-surahs')} />
-          <DashboardCard icon="quiz" title="Частые ошибки" text="Что проверить в своём намазе" onClick={() => go('adult-mistakes')} />
-          <DashboardCard icon="people" title="Мужчины и женщины" text="Общее и различия в деталях" onClick={() => go('adult-topic', { topic: 'gender' })} />
-          <DashboardCard icon="travel" title="Намаз в пути" text="Сокращение и объединение" onClick={() => go('adult-topic', { topic: 'travel' })} />
-          <DashboardCard icon="sahw" title="Суджуд ас-саху" text="Если забыл или ошибся" onClick={() => go('adult-topic', { topic: 'sahw' })} />
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section className="learning-screen learning-home">
       {language !== 'ru' && <div className="learning-language-note">Учебные тексты пока доступны на русском языке.</div>}
       <div className="learning-intro">
         <span className="learning-kicker">Обучение намазу</span>
         <h2>Научись намазу шаг за шагом</h2>
-        <p>Пошаговое обучение намазу для взрослых с иллюстрациями, чтениями и пояснениями.</p>
+        <p>Пошаговые положения, чтения, правила и дополнительные ситуации — всё в одном разделе.</p>
       </div>
 
-      <div className="learning-mode-grid">
-        <button type="button" className="learning-mode-card adult" onClick={() => go('adult')}>
-          <span className="learning-mode-card-icon"><LearningIcon type="adult" /></span>
-          <span className="learning-mode-card-copy"><small>Пошаговое обучение</small><strong>Намаз для взрослых</strong><em>Шаги · чтения · ошибки · ситуации</em></span>
-          <ChevronIcon size={22} />
-        </button>
+      <div className="learning-dashboard learning-home-dashboard">
+        <DashboardCard icon="prep" title="Подготовка к намазу" text="Чистота, одежда, кибла, время" done={completedSet.has('adult-prep')} onClick={() => go('adult-prep')} />
+        <DashboardCard icon="pillars" title="Столпы и сунны" text="Что является основой намаза" onClick={() => go('adult-topic', { topic: 'obligations' })} />
+        <DashboardCard icon="steps" title="2 ракаата по сунне" text={`${adultSteps.length} шагов с иллюстрациями и объяснениями`} done={completedSet.has('adult-steps')} onClick={() => go('adult-steps')} />
+        <DashboardCard icon="read" title="Что читать" text="Арабский, транскрипция, перевод" onClick={() => go('adult-reading')} />
+        <DashboardCard icon="surahs" title="Короткие суры" text="Аль-Ихляс, Аль-Фаляк, Ан-Нас" onClick={() => go('adult-surahs')} />
+        <DashboardCard icon="mistakes" title="Частые ошибки" text="Что проверить в своём намазе" onClick={() => go('adult-mistakes')} />
+        <DashboardCard icon="people" title="Мужчины и женщины" text="Общее и различия в деталях" onClick={() => go('adult-topic', { topic: 'gender' })} />
+        <DashboardCard icon="travel" title="Намаз в пути" text="Сокращение и объединение" onClick={() => go('adult-topic', { topic: 'travel' })} />
+        <DashboardCard icon="sahw" title="Суджуд ас-саху" text="Если забыл или ошибся" onClick={() => go('adult-topic', { topic: 'sahw' })} />
       </div>
 
       <div className="learning-sunnah-note">
