@@ -3457,21 +3457,27 @@ button { -webkit-tap-highlight-color: transparent; }
   box-shadow:0 10px 30px rgba(40,57,48,.055);
 }
 .learning-step-visual {
-  min-height:190px;
+  /* Stable frame: every prayer pose occupies the same vertical area.
+     This prevents the page from jumping between portrait and landscape illustrations. */
+  height:360px;
+  height:clamp(320px, 46svh, 390px);
+  min-height:0;
   display:grid;
   place-items:center;
-  padding:12px 10px;
+  padding:10px 8px;
+  overflow:hidden;
   background:radial-gradient(circle at 50% 35%, rgba(232,242,232,.95), rgba(250,247,239,.93));
   border-bottom:1px solid rgba(23,79,58,.07);
 }
 .kids-lesson .learning-step-visual { background:radial-gradient(circle at 50% 35%, rgba(250,240,204,.92), rgba(251,248,239,.95)); }
 .learning-step-visual img {
   display:block;
-  width:auto;
-  height:auto;
-  max-width:100%;
-  max-height:430px;
+  width:100%;
+  height:100%;
+  max-width:none;
+  max-height:none;
   object-fit:contain;
+  object-position:center;
 }
 .learning-step-copy { padding:17px 17px 16px; }
 .learning-step-copy h2 { font-size:22px; }
@@ -3530,8 +3536,8 @@ button { -webkit-tap-highlight-color: transparent; }
   .learning-mode-card-icon { width:54px;height:54px;border-radius:18px; }
   .learning-mode-card-icon svg { width:39px;height:39px; }
   .learning-mode-card-copy strong { font-size:18px; }
-  .learning-step-visual { min-height:180px; padding:10px 8px; }
-  .learning-step-visual img { width:auto; height:auto; max-width:100%; max-height:390px; }
+  .learning-step-visual { height:320px; height:clamp(300px, 45svh, 340px); min-height:0; padding:8px 6px; }
+  .learning-step-visual img { width:100%; height:100%; max-width:none; max-height:none; }
   .learning-arabic { font-size:18px; }
   .kids-fact-grid { grid-template-columns:1fr; }
   .kids-fact-grid > div { min-height:70px;grid-template-columns:36px 1fr;justify-items:start;text-align:left; }
