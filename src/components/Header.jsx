@@ -10,7 +10,7 @@ const titleKeys = {
   learning: 'tab.learning',
 };
 
-export default function Header({ dates, onSettings, onHome, language = 'ru', view = 'prayers' }) {
+export default function Header({ dates, onSettings, onHome, language = 'ru', view = 'prayers', theme = 'light' }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function Header({ dates, onSettings, onHome, language = 'ru', vie
     return (
       <header className="app-header app-header-home">
         <div className="brand-row">
-          <BrandLogo className="header-logo" />
+          <BrandLogo className="header-logo" theme={theme} />
           <button
             type="button"
             className="icon-button settings-button"
@@ -66,7 +66,7 @@ export default function Header({ dates, onSettings, onHome, language = 'ru', vie
       </div>
 
       <div className="section-brand">
-        <BrandLogo variant="mark" className="section-brand-mark" />
+        <BrandLogo variant="mark" className="section-brand-mark" theme={theme} />
         <div className="section-brand-copy">
           <span>Lamaz Xan</span>
           <strong>{t(language, titleKeys[view] || 'tab.prayers')}</strong>
