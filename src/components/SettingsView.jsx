@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import MapPicker from './MapPicker.jsx';
 import MosqueSelector from './MosqueSelector.jsx';
-import { BackIcon, BellIcon, CalcIcon, ChevronIcon, DownIcon, GlobeIcon, LocationIcon, MosqueIcon } from './Icons.jsx';
+import { BackIcon, BellIcon, CalcIcon, ChevronIcon, DownIcon, GlobeIcon, LocationIcon, MoonIcon, MosqueIcon, SunIcon } from './Icons.jsx';
 import { MADHAB_OPTIONS, METHOD_OPTIONS } from '../lib/prayer.js';
 import { NOTIFICATION_ROWS } from '../lib/notifications.js';
 import { LANGUAGES, t } from '../lib/i18n.js';
@@ -20,7 +20,7 @@ export default function SettingsView({
   onBack, location, onLocationChange, onUseGps, gpsStatus, timeZone, method, onMethodChange, madhab, onMadhabChange,
   selectedMosque, onMosqueSelect, onMosqueClear, mosqueScheduleStatus, duhaOffset, onDuhaOffsetChange,
   notificationPrefs, onNotificationPrefsChange, notificationPermission, onRequestNotifications,
-  language = 'ru', onLanguageChange,
+  language = 'ru', onLanguageChange, theme = 'light', onThemeChange,
 }) {
   const [open, setOpen] = useState(null);
   const toggle = (name) => setOpen((current) => current === name ? null : name);
@@ -116,6 +116,25 @@ export default function SettingsView({
             <p className="notification-note">{t(language, 'settings.notificationNote')}</p>
           </div>
         )}
+      </div>
+
+      <h2 className="language-title">{t(language, 'settings.appearance')}</h2>
+      <div className="appearance-card">
+        <div className="appearance-card-copy">
+          <span className="settings-leading appearance-icon">{theme === 'dark' ? <MoonIcon size={25}/> : <SunIcon size={25}/>}</span>
+          <span>
+            <strong>{t(language, 'settings.appearance')}</strong>
+            <small>{t(language, 'settings.appearanceHint')}</small>
+          </span>
+        </div>
+        <div className="appearance-switch" role="group" aria-label={t(language, 'settings.appearance')}>
+          <button type="button" className={theme === 'light' ? 'active' : ''} onClick={() => onThemeChange?.('light')} aria-pressed={theme === 'light'}>
+            <SunIcon size={17}/><span>{t(language, 'settings.light')}</span>
+          </button>
+          <button type="button" className={theme === 'dark' ? 'active' : ''} onClick={() => onThemeChange?.('dark')} aria-pressed={theme === 'dark'}>
+            <MoonIcon size={17}/><span>{t(language, 'settings.dark')}</span>
+          </button>
+        </div>
       </div>
 
       <h2 className="language-title">{t(language, 'settings.chooseLanguage')}</h2>
