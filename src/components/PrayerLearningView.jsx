@@ -415,18 +415,13 @@ export default function PrayerLearningView({ language = 'ru' }) {
       <div className="learning-intro">
         <span className="learning-kicker">Обучение намазу</span>
         <h2>Научись намазу шаг за шагом</h2>
-        <p>Выберите простой детский режим или подробное обучение для взрослых.</p>
+        <p>Пошаговое обучение намазу для взрослых с иллюстрациями, чтениями и пояснениями.</p>
       </div>
 
       <div className="learning-mode-grid">
-        <button type="button" className="learning-mode-card kids" onClick={() => go('kids')}>
-          <span className="learning-mode-card-icon"><LearningIcon type="kids" /></span>
-          <span className="learning-mode-card-copy"><small>Просто и наглядно</small><strong>Для детей</strong><em>Картинки · 10 шагов · мини-квиз</em></span>
-          <ChevronIcon size={22} />
-        </button>
         <button type="button" className="learning-mode-card adult" onClick={() => go('adult')}>
           <span className="learning-mode-card-icon"><LearningIcon type="adult" /></span>
-          <span className="learning-mode-card-copy"><small>По сунне, подробно</small><strong>Для взрослых</strong><em>Шаги · чтения · ошибки · ситуации</em></span>
+          <span className="learning-mode-card-copy"><small>Пошаговое обучение</small><strong>Намаз для взрослых</strong><em>Шаги · чтения · ошибки · ситуации</em></span>
           <ChevronIcon size={22} />
         </button>
       </div>
