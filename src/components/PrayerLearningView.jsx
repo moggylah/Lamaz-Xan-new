@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { BackIcon, CheckIcon, ChevronIcon } from './Icons.jsx';
 import {
   LEARNING_DISCLAIMER,
@@ -102,9 +102,6 @@ function StepLesson({ title, steps, onBack, onComplete, kids = false }) {
   const step = steps[index];
   const isLast = index === steps.length - 1;
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [index]);
 
   function next() {
     if (isLast) {
