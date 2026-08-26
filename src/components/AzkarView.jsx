@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { CheckIcon } from './Icons.jsx';
+import { BackIcon, CheckIcon, ChevronIcon, DhikrIcon, SunriseIcon, SunsetIcon } from './Icons.jsx';
 import { AZKAR, getAzkarMeaning, getAzkarName } from '../lib/azkar.js';
 import { triggerHaptic } from '../lib/haptics.js';
 import { t } from '../lib/i18n.js';
@@ -17,9 +17,9 @@ const SCRIPTURE_KEYS = {
 function getBaseId(id = '') { return id.replace(/^after-/, ''); }
 
 const categories = [
-  { key: 'morning', titleKey: 'azkar.morning', hintKey: 'azkar.morningHint' },
-  { key: 'evening', titleKey: 'azkar.evening', hintKey: 'azkar.eveningHint' },
-  { key: 'afterPrayer', titleKey: 'azkar.afterPrayer', hintKey: 'azkar.afterPrayerHint' },
+  { key: 'morning', titleKey: 'azkar.morning', hintKey: 'azkar.morningHint', Icon: SunriseIcon },
+  { key: 'evening', titleKey: 'azkar.evening', hintKey: 'azkar.eveningHint', Icon: SunsetIcon },
+  { key: 'afterPrayer', titleKey: 'azkar.afterPrayer', hintKey: 'azkar.afterPrayerHint', Icon: DhikrIcon },
 ];
 
 function makeCounterKey(category, item) {
@@ -41,6 +41,7 @@ function firstIncompleteIndex(category, items, remaining) {
 
 export default function AzkarView({ language = 'ru', hapticsEnabled = true, counterEnabled = true }) {
   const [category, setCategory] = useState('morning');
+  const [readerOpen, setReaderOpen] = useState(false);
   const [remaining, setRemaining] = useState(readCounters);
   const [currentIndex, setCurrentIndex] = useState(() => firstIncompleteIndex('morning', AZKAR.morning, readCounters()));
   const [transcriptionOpen, setTranscriptionOpen] = useState(true);
@@ -91,6 +92,11 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
     const nextItems = AZKAR[nextCategory] || [];
     setCategory(nextCategory);
     setCurrentIndex(firstIncompleteIndex(nextCategory, nextItems, remaining));
+  }
+
+  function openCategory(nextCategory) {
+    changeCategory(nextCategory);
+    setReaderOpen(true);
   }
 
   function decrement(item) {
@@ -164,6 +170,47 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
     else goTo(currentIndex - 1);
   }
 
+  if (!readerOpen) {
+    return (
+      <section className="azkar-screen azkar-sections-screen">
+        <aside className="azkar-time-guide">
+          <p>
+            Время утренних азкаров начинается с наступлением времени утренней молитвы (фаджр).
+            Их можно читать как до совершения молитвы, так и после неё — вплоть до наступления
+            зухра (обеденной молитвы).
+          </p>
+          <p>
+            Время вечерних азкаров начинается с наступлением асра (послеполуденной молитвы)
+            и продолжается до магриба. Если вы не успели прочитать их до магриба, можно сделать
+            это до наступления иши, а если не успели и до иши — до начала последней трети ночи.
+          </p>
+          <small>А Аллаху известно лучше.</small>
+        </aside>
+
+        <div className="azkar-section-list">
+          {categories.map(({ key, titleKey, hintKey, Icon }) => {
+            const categoryItems = AZKAR[key] || [];
+            const done = categoryItems.filter(
+              (item) => remaining[makeCounterKey(key, item)] === 0,
+            ).length;
+
+            return (
+              <button className="azkar-section-card" type="button" key={key} onClick={() => openCategory(key)}>
+                <span className={`azkar-section-icon ${key}`}><Icon size={25} /></span>
+                <span className="azkar-section-copy">
+                  <strong>{t(language, titleKey)}</strong>
+                  <small>{t(language, hintKey)}</small>
+                  <span>{t(language, 'azkar.itemsCount', { count: categoryItems.length })}{done > 0 ? ` · ${t(language, 'azkar.progress', { done, total: categoryItems.length })}` : ''}</span>
+                </span>
+                <ChevronIcon size={21} />
+              </button>
+            );
+          })}
+        </div>
+      </section>
+    );
+  }
+
   if (!currentItem) return null;
 
   const count = getRemaining(currentItem);
@@ -174,34 +221,15 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
 
   return (
     <section className="azkar-screen">
-      <aside className="azkar-time-guide">
-        <p>
-          Время утренних азкаров начинается с наступлением времени утренней молитвы (фаджр).
-          Их можно читать как до совершения молитвы, так и после неё — вплоть до наступления
-          зухра (обеденной молитвы).
-        </p>
-        <p>
-          Время вечерних азкаров начинается с наступлением асра (послеполуденной молитвы)
-          и продолжается до магриба. Если вы не успели прочитать их до магриба, можно сделать
-          это до наступления иши, а если не успели и до иши — до начала последней трети ночи.
-        </p>
-        <small>А Аллаху известно лучше.</small>
-      </aside>
-
-      <div className="azkar-category-tabs" role="tablist" aria-label={t(language, 'azkar.title')}>
-        {categories.map((item) => (
-          <button
-            key={item.key}
-            type="button"
-            className={category === item.key ? 'active' : ''}
-            onClick={() => changeCategory(item.key)}
-            role="tab"
-            aria-selected={category === item.key}
-          >
-            {t(language, item.titleKey)}
-          </button>
-        ))}
-      </div>
+      <header className="azkar-reader-header">
+        <button type="button" onClick={() => setReaderOpen(false)} aria-label={t(language, 'aria.back')}>
+          <BackIcon size={22} />
+        </button>
+        <div>
+          <strong>{t(language, selectedCategory.titleKey)}</strong>
+          <span>{t(language, selectedCategory.hintKey)}</span>
+        </div>
+      </header>
 
       <div className="azkar-position-card">
         <div className="azkar-position-copy">

@@ -227,6 +227,7 @@ const translations = {
 const extraTranslations = {
   ce: {
     'azkar.position': '{current} / {total}',
+    'azkar.itemsCount': '{count} zikr',
     'azkar.next': 'Roġera azkar',
     'azkar.details': 'Transkripci a, goç dar a',
     'azkar.translation': 'Goç dar',
@@ -238,6 +239,7 @@ const extraTranslations = {
   },
   ru: {
     'azkar.position': '{current} из {total}',
+    'azkar.itemsCount': 'Зикров: {count}',
     'azkar.details': 'Транскрипция и перевод',
     'azkar.translation': 'Перевод',
     'azkar.previous': 'Предыдущий азкар',
@@ -250,6 +252,7 @@ const extraTranslations = {
   },
   en: {
     'azkar.position': '{current} of {total}',
+    'azkar.itemsCount': '{count} dhikr',
     'azkar.details': 'Transcription and translation',
     'azkar.translation': 'Translation',
     'azkar.previous': 'Previous dhikr',
@@ -262,6 +265,7 @@ const extraTranslations = {
   },
   de: {
     'azkar.position': '{current} von {total}',
+    'azkar.itemsCount': '{count} Dhikr',
     'azkar.details': 'Transkription und Übersetzung',
     'azkar.translation': 'Übersetzung',
     'azkar.previous': 'Vorheriger Dhikr',
@@ -273,6 +277,7 @@ const extraTranslations = {
   },
   fr: {
     'azkar.position': '{current} sur {total}',
+    'azkar.itemsCount': '{count} dhikrs',
     'azkar.details': 'Transcription et traduction',
     'azkar.translation': 'Traduction',
     'azkar.previous': 'Dhikr précédent',
@@ -284,6 +289,7 @@ const extraTranslations = {
   },
   es: {
     'azkar.position': '{current} de {total}',
+    'azkar.itemsCount': '{count} dhikrs',
     'azkar.details': 'Transcripción y traducción',
     'azkar.translation': 'Traducción',
     'azkar.previous': 'Dhikr anterior',
@@ -295,6 +301,7 @@ const extraTranslations = {
   },
   ar: {
     'azkar.position': '{current} من {total}',
+    'azkar.itemsCount': '{count} أذكار',
     'azkar.details': 'النطق والترجمة',
     'azkar.translation': 'الترجمة',
     'azkar.previous': 'الذكر السابق',
