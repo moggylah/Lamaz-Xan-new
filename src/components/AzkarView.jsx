@@ -289,20 +289,23 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
               <span className="azkar-number">{t(language, 'azkar.dhikrNumber', { number: currentIndex + 1 })}</span>
               <strong className="azkar-item-title">{SCRIPTURE_KEYS[getBaseId(currentItem.id)] ? t(language, SCRIPTURE_KEYS[getBaseId(currentItem.id)]) : getAzkarName(currentItem, language)}</strong>
             </div>
-            <span className="azkar-repeat-label">{t(language, 'azkar.times', { count: currentItem.repetitions })}</span>
+            <div className="azkar-top-actions">
+              <span className="azkar-repeat-label">{t(language, 'azkar.times', { count: currentItem.repetitions })}</span>
+              <button
+                type="button"
+                className={isSpeaking ? 'azkar-audio-compact is-playing' : 'azkar-audio-compact'}
+                onClick={toggleSpeech}
+                aria-label={isSpeaking ? t(language, 'azkar.stopAudio') : t(language, 'azkar.playAudio')}
+                title={isSpeaking ? t(language, 'azkar.stopAudio') : t(language, 'azkar.playAudio')}
+              >
+                <span aria-hidden="true">{isSpeaking ? '■' : '▶'}</span>
+              </button>
+            </div>
           </div>
 
           <div className="azkar-scroll-area" ref={scrollAreaRef}>
             <p className="azkar-arabic azkar-arabic-slide" dir="rtl" lang="ar">{currentItem.arabic}</p>
 
-            <button type="button" className={isSpeaking ? 'azkar-audio-control is-playing' : 'azkar-audio-control'} onClick={toggleSpeech}>
-              <span className="azkar-audio-button" aria-hidden="true">{isSpeaking ? '■' : '▶'}</span>
-              <span className="azkar-audio-copy">
-                <strong>{isSpeaking ? t(language, 'azkar.stopAudio') : t(language, 'azkar.playAudio')}</strong>
-                <small>{t(language, 'azkar.audioHint')}</small>
-              </span>
-              <span className="azkar-audio-wave" aria-hidden="true"><i/><i/><i/><i/><i/></span>
-            </button>
 
             <div className="azkar-folds">
               <details className="azkar-fold" open={transcriptionOpen} onToggle={(event) => setTranscriptionOpen(event.currentTarget.open)}>

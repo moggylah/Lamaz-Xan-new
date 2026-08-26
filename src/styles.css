@@ -4579,3 +4579,74 @@ html[data-theme="dark"] .azkar-scroll-hint {
   border-color: rgba(255,255,255,.13);
   background: rgba(33,91,67,.96);
 }
+
+
+/* Compact azkar audio control */
+.azkar-slide-topline > .azkar-top-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+
+.azkar-audio-compact {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid rgba(23,79,58,.14);
+  border-radius: 12px;
+  background: rgba(23,79,58,.065);
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .15s ease, color .15s ease, background .15s ease;
+}
+
+.azkar-audio-compact span {
+  margin-left: 2px;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.azkar-audio-compact:active {
+  transform: scale(.94);
+}
+
+.azkar-audio-compact.is-playing {
+  color: #fff;
+  background: var(--green-solid);
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(23,79,58,.08);
+}
+
+.azkar-audio-compact.is-playing::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1px solid rgba(23,79,58,.24);
+  border-radius: 15px;
+  animation: azkarAudioPulse 1.25s ease-out infinite;
+}
+
+.azkar-audio-compact.is-playing span {
+  margin-left: 0;
+  font-size: 9px;
+}
+
+@keyframes azkarAudioPulse {
+  0% { opacity: .65; transform: scale(.94); }
+  100% { opacity: 0; transform: scale(1.1); }
+}
+
+html[data-theme="dark"] .azkar-audio-compact {
+  border-color: rgba(177,202,188,.13);
+  background: rgba(145,184,164,.08);
+}
+
+html[data-theme="dark"] .azkar-audio-compact.is-playing {
+  color: #fff;
+  background: var(--green-solid);
+}
