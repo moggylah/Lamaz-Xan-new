@@ -174,6 +174,20 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
 
   return (
     <section className="azkar-screen">
+      <aside className="azkar-time-guide">
+        <p>
+          Время утренних азкаров начинается с наступлением времени утренней молитвы (фаджр).
+          Их можно читать как до совершения молитвы, так и после неё — вплоть до наступления
+          зухра (обеденной молитвы).
+        </p>
+        <p>
+          Время вечерних азкаров начинается с наступлением асра (послеполуденной молитвы)
+          и продолжается до магриба. Если вы не успели прочитать их до магриба, можно сделать
+          это до наступления иши, а если не успели и до иши — до начала последней трети ночи.
+        </p>
+        <small>А Аллаху известно лучше.</small>
+      </aside>
+
       <div className="azkar-category-tabs" role="tablist" aria-label={t(language, 'azkar.title')}>
         {categories.map((item) => (
           <button

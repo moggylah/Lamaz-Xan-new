@@ -180,11 +180,10 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
 
           <div
             className={`compass-qibla-pointer ${heading == null ? 'is-idle' : ''}`}
-            style={{ transform: `rotate(${qiblaNeedleAngle}deg)`, '--qibla-angle': `${qiblaNeedleAngle}deg` }}
+            style={{ transform: `rotate(${qiblaNeedleAngle}deg)` }}
             aria-hidden="true"
           >
             <span className="compass-qibla-arrow" />
-            <span className="compass-qibla-label"><QiblaIcon size={24} /></span>
           </div>
 
           <div className="compass-center" aria-hidden="true">

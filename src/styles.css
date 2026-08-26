@@ -1600,21 +1600,6 @@ button { -webkit-tap-highlight-color: transparent; }
   filter: drop-shadow(0 6px 6px rgba(142,99,12,.24));
 }
 
-.compass-qibla-label {
-  position: absolute;
-  left: -19px;
-  bottom: 82px;
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
-  border-radius: 13px;
-  color: #fff;
-  background: #b8871c;
-  border: 2px solid #fff8e6;
-  box-shadow: 0 6px 16px rgba(142,99,12,.28);
-  transform: rotate(calc(-1 * var(--qibla-angle, 0deg)));
-}
 
 .compass-center {
   position: absolute;
@@ -2311,6 +2296,33 @@ button { -webkit-tap-highlight-color: transparent; }
 .azkar-screen {
   overflow: hidden;
   padding-bottom: 8px;
+}
+
+.azkar-time-guide {
+  margin-bottom: 14px;
+  padding: 16px 17px;
+  border: 1px solid rgba(226,221,211,.9);
+  border-radius: 20px;
+  background: rgba(255,255,255,.5);
+  color: #4f5953;
+}
+
+.azkar-time-guide p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.62;
+}
+
+.azkar-time-guide p + p {
+  margin-top: 10px;
+}
+
+.azkar-time-guide small {
+  display: block;
+  margin-top: 12px;
+  color: var(--green);
+  font-size: 11.5px;
+  font-weight: 650;
 }
 
 .azkar-category-tabs {
@@ -3834,6 +3846,13 @@ html[data-theme="dark"] .appearance-switch button.active {
   color:var(--green);
   background:#1a2d24;
   box-shadow:0 2px 8px rgba(0,0,0,.24);
+}
+
+/* Azkar time guide */
+html[data-theme="dark"] .azkar-time-guide {
+  color:#b7c1bb;
+  border-color:rgba(177,202,188,.12);
+  background:rgba(19,33,27,.78);
 }
 
 /* Qibla */
