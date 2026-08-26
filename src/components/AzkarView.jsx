@@ -44,8 +44,8 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
   const [readerOpen, setReaderOpen] = useState(false);
   const [remaining, setRemaining] = useState(readCounters);
   const [currentIndex, setCurrentIndex] = useState(() => firstIncompleteIndex('morning', AZKAR.morning, readCounters()));
-  const [transcriptionOpen, setTranscriptionOpen] = useState(true);
-  const [translationOpen, setTranslationOpen] = useState(true);
+  const [transcriptionOpen, setTranscriptionOpen] = useState(false);
+  const [translationOpen, setTranslationOpen] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [showScrollHint, setShowScrollHint] = useState(false);
   const touchStartRef = useRef(null);
@@ -69,6 +69,8 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
   useEffect(() => {
     window.speechSynthesis?.cancel();
     setIsSpeaking(false);
+    setTranscriptionOpen(false);
+    setTranslationOpen(false);
 
     if (!readerOpen) return undefined;
 
