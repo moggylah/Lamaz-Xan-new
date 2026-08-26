@@ -4506,3 +4506,76 @@ html[data-theme="dark"] .azkar-item-title { color:#e8efea; }
 html[data-theme="dark"] .azkar-audio-control { border-color:rgba(177,202,188,.12); background:linear-gradient(135deg, rgba(24,43,34,.9), rgba(16,29,23,.92)); }
 html[data-theme="dark"] .azkar-audio-copy small { color:#96a29b; }
 html[data-theme="dark"] .azkar-counter-zone { background:rgba(145,184,164,.07); }
+
+
+/* Natural page scrolling for long azkar */
+.azkar-screen > .azkar-swipe-stage > .azkar-slide {
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+.azkar-screen .azkar-scroll-area {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 10px 0 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  overscroll-behavior: auto !important;
+  scrollbar-width: none;
+}
+
+.azkar-screen .azkar-scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+.azkar-scroll-hint {
+  position: fixed;
+  left: 50%;
+  bottom: calc(84px + env(safe-area-inset-bottom));
+  z-index: 30;
+  max-width: calc(100vw - 40px);
+  padding: 10px 15px 10px 11px;
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 999px;
+  background: rgba(23,79,58,.94);
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(18,52,39,.25);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.2;
+  transform: translateX(-50%);
+  pointer-events: none;
+  animation: azkarScrollHintIn .24s ease-out;
+}
+
+.azkar-scroll-hint span {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.13);
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  animation: azkarScrollHintArrow 1.25s ease-in-out infinite;
+}
+
+@keyframes azkarScrollHintIn {
+  from { opacity: 0; transform: translate(-50%, 8px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes azkarScrollHintArrow {
+  0%, 100% { transform: translateY(2px); }
+  50% { transform: translateY(-2px); }
+}
+
+html[data-theme="dark"] .azkar-scroll-hint {
+  border-color: rgba(255,255,255,.13);
+  background: rgba(33,91,67,.96);
+}

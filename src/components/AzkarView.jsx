@@ -47,6 +47,7 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
   const [transcriptionOpen, setTranscriptionOpen] = useState(true);
   const [translationOpen, setTranslationOpen] = useState(true);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [showScrollHint, setShowScrollHint] = useState(false);
   const touchStartRef = useRef(null);
   const advanceTimer = useRef(null);
   const scrollAreaRef = useRef(null);
@@ -66,10 +67,48 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
   useEffect(() => () => window.clearTimeout(advanceTimer.current), []);
 
   useEffect(() => {
-    scrollAreaRef.current?.scrollTo({ top: 0, behavior: 'auto' });
     window.speechSynthesis?.cancel();
     setIsSpeaking(false);
-  }, [category, currentIndex]);
+
+    if (!readerOpen) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      document.querySelector('.azkar-reader-header')?.scrollIntoView({ block: 'start' });
+
+      let hintSeen = false;
+      try {
+        hintSeen = localStorage.getItem('lamaz-azkar-scroll-hint-seen') === 'true';
+      } catch {
+        hintSeen = false;
+      }
+
+      const content = scrollAreaRef.current;
+      const isLong = content && content.scrollHeight > window.innerHeight * 0.62;
+      setShowScrollHint(!hintSeen && Boolean(isLong));
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [category, currentIndex, readerOpen]);
+
+  useEffect(() => {
+    if (!showScrollHint) return undefined;
+
+    const dismissHint = () => {
+      setShowScrollHint(false);
+      try {
+        localStorage.setItem('lamaz-azkar-scroll-hint-seen', 'true');
+      } catch {
+        return;
+      }
+    };
+
+    window.addEventListener('scroll', dismissHint, { passive: true, once: true });
+    window.addEventListener('touchmove', dismissHint, { passive: true, once: true });
+    return () => {
+      window.removeEventListener('scroll', dismissHint);
+      window.removeEventListener('touchmove', dismissHint);
+    };
+  }, [showScrollHint]);
 
   const completedCount = useMemo(
     () => items.filter((item) => remaining[makeCounterKey(category, item)] === 0).length,
@@ -311,6 +350,13 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
         </article>
 
       </div>
+
+      {showScrollHint && (
+        <div className="azkar-scroll-hint" role="status">
+          <span aria-hidden="true">↑</span>
+          {t(language, 'azkar.scrollContinue')}
+        </div>
+      )}
 
       <nav className="azkar-reader-nav" aria-label={t(language, 'azkar.title')}>
         <button type="button" onClick={() => goTo(currentIndex - 1)} disabled={currentIndex === 0}>‹ {t(language, 'azkar.previous')}</button>
