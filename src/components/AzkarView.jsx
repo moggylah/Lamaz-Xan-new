@@ -4,6 +4,18 @@ import { AZKAR, getAzkarMeaning, getAzkarName } from '../lib/azkar.js';
 import { triggerHaptic } from '../lib/haptics.js';
 import { t } from '../lib/i18n.js';
 
+const SUMMARY_IDS = new Set(['sayyid-istighfar', 'afiyah', 'ghayb', 'hayyu-qayyum', 'morning-kingdom', 'morning-life', 'fitrah', 'evening-kingdom', 'evening-life', 'baqarah-last', 'after-full-dhikr', 'after-tahlil', 'ayat-kursi']);
+
+const SCRIPTURE_KEYS = {
+  ikhlas: 'azkar.surahIkhlas',
+  falaq: 'azkar.surahFalaq',
+  nas: 'azkar.surahNas',
+  'baqarah-last': 'azkar.baqarahLast',
+  'ayat-kursi': 'azkar.ayatKursi',
+};
+
+function getBaseId(id = '') { return id.replace(/^after-/, ''); }
+
 const categories = [
   { key: 'morning', titleKey: 'azkar.morning', hintKey: 'azkar.morningHint' },
   { key: 'evening', titleKey: 'azkar.evening', hintKey: 'azkar.eveningHint' },
@@ -27,12 +39,13 @@ function firstIncompleteIndex(category, items, remaining) {
   return index >= 0 ? index : 0;
 }
 
-export default function AzkarView({ language = 'ru', hapticsEnabled = true }) {
+export default function AzkarView({ language = 'ru', hapticsEnabled = true, counterEnabled = true }) {
   const [category, setCategory] = useState('morning');
   const [remaining, setRemaining] = useState(readCounters);
   const [currentIndex, setCurrentIndex] = useState(() => firstIncompleteIndex('morning', AZKAR.morning, readCounters()));
   const [transcriptionOpen, setTranscriptionOpen] = useState(true);
   const [translationOpen, setTranslationOpen] = useState(true);
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const touchStartRef = useRef(null);
   const advanceTimer = useRef(null);
   const scrollAreaRef = useRef(null);
@@ -53,8 +66,8 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true }) {
 
   useEffect(() => {
     scrollAreaRef.current?.scrollTo({ top: 0, behavior: 'auto' });
-    setTranscriptionOpen(true);
-    setTranslationOpen(true);
+    window.speechSynthesis?.cancel();
+    setIsSpeaking(false);
   }, [category, currentIndex]);
 
   const completedCount = useMemo(
@@ -90,10 +103,6 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true }) {
     setRemaining((current) => ({ ...current, [key]: nextValue }));
     triggerHaptic(nextValue === 0 ? [22, 45, 34] : 18, hapticsEnabled);
 
-    if (nextValue === 0 && currentIndex < items.length - 1) {
-      window.clearTimeout(advanceTimer.current);
-      advanceTimer.current = window.setTimeout(() => setCurrentIndex((index) => Math.min(index + 1, items.length - 1)), 420);
-    }
   }
 
   function resetItem(item) {
@@ -103,12 +112,29 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true }) {
   }
 
   function resetCategory() {
+    if (!window.confirm(t(language, 'azkar.resetConfirm'))) return;
     setRemaining((current) => {
       const next = { ...current };
       for (const item of items) next[makeCounterKey(category, item)] = item.repetitions;
       return next;
     });
     setCurrentIndex(0);
+  }
+
+  function toggleSpeech() {
+    if (!('speechSynthesis' in window)) return;
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(currentItem.arabic);
+    utterance.lang = 'ar-SA';
+    utterance.rate = 0.72;
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    setIsSpeaking(true);
+    window.speechSynthesis.speak(utterance);
   }
 
   function handleTouchStart(event) {
@@ -145,7 +171,6 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true }) {
   const itemProgress = currentItem.repetitions > 0
     ? Math.round(((currentItem.repetitions - count) / currentItem.repetitions) * 100)
     : 100;
-  const positionProgress = items.length ? ((currentIndex + 1) / items.length) * 100 : 0;
 
   return (
     <section className="azkar-screen">
@@ -172,23 +197,29 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true }) {
           </div>
           <button type="button" onClick={resetCategory}>{t(language, 'azkar.resetAll')}</button>
         </div>
-        <div className="azkar-position-progress" aria-hidden="true">
-          <span style={{ width: `${positionProgress}%` }} />
-        </div>
       </div>
 
       <div className="azkar-swipe-stage" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <article className={`azkar-slide ${complete ? 'complete' : ''}`} key={`${category}-${currentItem.id}`}>
           <div className="azkar-slide-topline">
             <div>
-              <span className="azkar-number">{t(language, 'azkar.number', { number: currentIndex + 1 })}</span>
-              <h3>{getAzkarName(currentItem, language)}</h3>
+              <span className="azkar-number">{t(language, 'azkar.dhikrNumber', { number: currentIndex + 1 })}</span>
+              <strong className="azkar-item-title">{SCRIPTURE_KEYS[getBaseId(currentItem.id)] ? t(language, SCRIPTURE_KEYS[getBaseId(currentItem.id)]) : getAzkarName(currentItem, language)}</strong>
             </div>
             <span className="azkar-repeat-label">{t(language, 'azkar.times', { count: currentItem.repetitions })}</span>
           </div>
 
           <div className="azkar-scroll-area" ref={scrollAreaRef}>
             <p className="azkar-arabic azkar-arabic-slide" dir="rtl" lang="ar">{currentItem.arabic}</p>
+
+            <button type="button" className={isSpeaking ? 'azkar-audio-control is-playing' : 'azkar-audio-control'} onClick={toggleSpeech}>
+              <span className="azkar-audio-button" aria-hidden="true">{isSpeaking ? '■' : '▶'}</span>
+              <span className="azkar-audio-copy">
+                <strong>{isSpeaking ? t(language, 'azkar.stopAudio') : t(language, 'azkar.playAudio')}</strong>
+                <small>{t(language, 'azkar.audioHint')}</small>
+              </span>
+              <span className="azkar-audio-wave" aria-hidden="true"><i/><i/><i/><i/><i/></span>
+            </button>
 
             <div className="azkar-folds">
               <details className="azkar-fold" open={transcriptionOpen} onToggle={(event) => setTranscriptionOpen(event.currentTarget.open)}>
@@ -199,7 +230,7 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true }) {
               </details>
 
               <details className="azkar-fold azkar-translation-fold" open={translationOpen} onToggle={(event) => setTranslationOpen(event.currentTarget.open)}>
-                <summary>{t(language, 'azkar.translation')}</summary>
+                <summary>{t(language, SUMMARY_IDS.has(getBaseId(currentItem.id)) ? 'azkar.meaningSummary' : 'azkar.translation')}</summary>
                 <div className="azkar-fold-content">
                   <p>{getAzkarMeaning(currentItem, language)}</p>
                 </div>
@@ -213,11 +244,12 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true }) {
             )}
           </div>
 
-          <div className="azkar-counter-zone">
+          {counterEnabled && (
+          <div className="azkar-counter-zone" role="button" tabIndex={complete ? -1 : 0} onClick={() => decrement(currentItem)} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); decrement(currentItem); } }}>
             <button
               type="button"
               className={`azkar-counter azkar-counter-large ${complete ? 'done' : ''}`}
-              onClick={() => decrement(currentItem)}
+              onClick={(event) => { event.stopPropagation(); decrement(currentItem); }}
               disabled={complete}
               aria-label={t(language, 'azkar.counterLabel', { count })}
               style={{ '--counter-progress': `${itemProgress * 3.6}deg` }}
@@ -229,28 +261,20 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true }) {
 
             <div className="azkar-counter-copy">
               <strong>{complete ? t(language, 'azkar.done') : t(language, 'azkar.remaining', { count })}</strong>
-              <span>{complete ? t(language, 'azkar.completedHint') : t(language, 'azkar.tapHint')}</span>
-              <button type="button" onClick={() => resetItem(currentItem)}>{t(language, 'azkar.reset')}</button>
+              <span>{complete ? t(language, 'azkar.completedHint') : t(language, 'azkar.tapOptional')}</span>
+              <button type="button" onClick={(event) => { event.stopPropagation(); resetItem(currentItem); }}>{t(language, 'azkar.reset')}</button>
             </div>
           </div>
+          )}
         </article>
 
       </div>
 
-      <div className="azkar-dots" aria-label={t(language, 'azkar.position', { current: currentIndex + 1, total: items.length })}>
-        {items.map((item, index) => (
-          <button
-            key={item.id}
-            type="button"
-            className={`${index === currentIndex ? 'active' : ''} ${getRemaining(item) === 0 ? 'complete' : ''}`}
-            onClick={() => goTo(index)}
-            aria-label={t(language, 'azkar.number', { number: index + 1 })}
-          />
-        ))}
-      </div>
-
-      <p className="azkar-swipe-hint">{t(language, 'azkar.swipeHint')}</p>
-      <p className="azkar-completed-total">{t(language, 'azkar.progress', { done: completedCount, total: items.length })}</p>
+      <nav className="azkar-reader-nav" aria-label={t(language, 'azkar.title')}>
+        <button type="button" onClick={() => goTo(currentIndex - 1)} disabled={currentIndex === 0}>‹ {t(language, 'azkar.previous')}</button>
+        <button type="button" onClick={() => goTo(currentIndex + 1)} disabled={currentIndex === items.length - 1}>{t(language, 'azkar.next')} ›</button>
+      </nav>
+      {counterEnabled && <p className="azkar-completed-total">{t(language, 'azkar.progress', { done: completedCount, total: items.length })}</p>}
     </section>
   );
 }

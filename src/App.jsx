@@ -6,7 +6,6 @@ import QiblaCompass from './components/QiblaCompass.jsx';
 import SettingsView from './components/SettingsView.jsx';
 import CalendarView from './components/CalendarView.jsx';
 import AzkarView from './components/AzkarView.jsx';
-import PrayerLearningView from './components/PrayerLearningView.jsx';
 import { addCalendarDays, getDateDisplay, getLocalDateParts } from './lib/date.js';
 import { calculatePrayerData, getLastThirdStart, getNextFard } from './lib/prayer.js';
 import { DEFAULT_NOTIFICATION_PREFS, sendDueNotifications } from './lib/notifications.js';
@@ -55,6 +54,8 @@ export default function App() {
       prayers: { ...DEFAULT_NOTIFICATION_PREFS.prayers, ...(saved.prayers || {}) },
     };
   });
+  const [hapticsEnabled, setHapticsEnabled] = useState(() => readString('lamaz-haptics', 'true') !== 'false');
+  const [azkarCounterEnabled, setAzkarCounterEnabled] = useState(() => readString('lamaz-azkar-counter', 'true') !== 'false');
   const [notificationPermission, setNotificationPermission] = useState(() => ('Notification' in window ? Notification.permission : 'unsupported'));
   const [gpsStatus, setGpsStatus] = useState('idle');
   const [now, setNow] = useState(new Date());
@@ -83,6 +84,8 @@ export default function App() {
   useEffect(() => { localStorage.setItem('lamaz-madhab', madhab); }, [madhab]);
   useEffect(() => { localStorage.setItem('lamaz-duha-offset', String(duhaOffset)); }, [duhaOffset]);
   useEffect(() => { localStorage.setItem('lamaz-notifications', JSON.stringify(notificationPrefs)); }, [notificationPrefs]);
+  useEffect(() => { localStorage.setItem('lamaz-haptics', String(hapticsEnabled)); }, [hapticsEnabled]);
+  useEffect(() => { localStorage.setItem('lamaz-azkar-counter', String(azkarCounterEnabled)); }, [azkarCounterEnabled]);
   useEffect(() => {
     if (selectedMosque) localStorage.setItem('lamaz-selected-mosque', JSON.stringify(selectedMosque));
     else localStorage.removeItem('lamaz-selected-mosque');
@@ -241,6 +244,10 @@ export default function App() {
           onNotificationPrefsChange={setNotificationPrefs}
           notificationPermission={notificationPermission}
           onRequestNotifications={requestNotifications}
+          hapticsEnabled={hapticsEnabled}
+          onHapticsChange={setHapticsEnabled}
+          azkarCounterEnabled={azkarCounterEnabled}
+          onAzkarCounterChange={setAzkarCounterEnabled}
           language={language}
           onLanguageChange={setLanguage}
           theme={theme}
@@ -262,6 +269,7 @@ export default function App() {
         view={view}
         onHome={() => navigateTo('prayers')}
         onSettings={() => navigateTo('settings')}
+        onThemeToggle={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
         language={language}
         theme={theme}
       />
@@ -284,11 +292,7 @@ export default function App() {
       )}
 
       {view === 'azkar' && (
-        <AzkarView language={language} hapticsEnabled={notificationPrefs.vibration !== false}/>
-      )}
-
-      {view === 'learning' && (
-        <PrayerLearningView language={language} />
+        <AzkarView language={language} hapticsEnabled={hapticsEnabled} counterEnabled={azkarCounterEnabled}/>
       )}
 
       {view === 'calendar' && (

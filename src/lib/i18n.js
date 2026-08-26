@@ -12,7 +12,7 @@ const translations = {
   ru: {
     'aria.sections': 'Разделы', 'aria.date': 'Дата', 'aria.settings': 'Настройки', 'aria.back': 'Назад', 'aria.map': 'Карта выбора местоположения',
     'tab.prayers': 'Намазы', 'tab.qibla': 'Кибла', 'tab.azkar': 'Азкары', 'tab.calendar': 'Календарь', 'tab.learning': 'Обучение намазу', 'learning.homeHint': 'Пошаговое обучение намазу',
-    'calendar.date': 'Дата', 'calendar.previous': 'Предыдущий месяц', 'calendar.next': 'Следующий месяц', 'calendar.downloadPdf': 'Скачать расписание в PDF', 'calendar.pdfTitle': 'Расписание намазов', 'calendar.source': 'Источник', 'calendar.mosqueSource': 'Расписание мечети: {mosque}', 'calendar.calculatedSource': 'Расписание рассчитано по выбранному методу',
+    'calendar.date': 'Дата', 'calendar.previous': 'Предыдущий месяц', 'calendar.next': 'Следующий месяц', 'calendar.downloadPdf': 'Скачать PDF', 'calendar.pdfTitle': 'Расписание намазов', 'calendar.source': 'Источник', 'calendar.mosqueSource': 'Расписание мечети: {mosque}', 'calendar.calculatedSource': 'Рассчитано по выбранному методу', 'calendar.today': 'Сегодня', 'calendar.day': 'День', 'calendar.month': 'Месяц', 'calendar.view': 'Вид календаря', 'calendar.previousWeek': 'Предыдущая неделя', 'calendar.nextWeek': 'Следующая неделя',
     'azkar.title': 'Азкары', 'azkar.morning': 'Утренние азкары', 'azkar.morningHint': 'После Фаджра и утром', 'azkar.evening': 'Вечерние азкары', 'azkar.eveningHint': 'После Асра и вечером', 'azkar.afterPrayer': 'После намаза', 'azkar.afterPrayerHint': 'Азкары после обязательной молитвы', 'azkar.coming': 'скоро', 'azkar.progress': 'Выполнено {done} из {total}', 'azkar.resetAll': 'Сбросить всё', 'azkar.number': 'Азкар №{number}', 'azkar.times': '{count}×', 'azkar.counterLabel': 'Осталось {count}', 'azkar.done': 'Готово', 'azkar.remaining': 'Осталось: {count}', 'azkar.completedHint': 'Азкар выполнен', 'azkar.tapHint': 'Нажимайте после каждого прочтения', 'azkar.reset': 'Сброс', 'azkar.transcription': 'Транскрипция',
     'prayer.fajr': 'Фаджр', 'prayer.sunrise': 'Восход', 'prayer.duha': 'Духа', 'prayer.dhuhr': 'Зухр', 'prayer.asr': 'Аср', 'prayer.maghrib': 'Магриб', 'prayer.isha': 'Иша', 'prayer.qiyam': 'Ночная молитва', 'prayer.lastThird': 'последняя треть',
     'prayer.next': 'Следующий намаз', 'prayer.in': 'через', 'prayer.until': 'до {time}', 'prayer.schedule': 'Расписание намазов', 'prayer.iqamah': 'Икама {time}',
@@ -32,7 +32,7 @@ const translations = {
   en: {
     'aria.sections': 'Sections', 'aria.date': 'Date', 'aria.settings': 'Settings', 'aria.back': 'Back', 'aria.map': 'Location selection map',
     'tab.prayers': 'Prayers', 'tab.qibla': 'Q̇ilbe', 'tab.azkar': 'Adhkar', 'tab.calendar': 'Calendar', 'tab.learning': 'Learn prayer', 'learning.homeHint': 'Step-by-step prayer guide',
-    'calendar.date': 'Date', 'calendar.previous': 'Previous month', 'calendar.next': 'Next month', 'calendar.downloadPdf': 'Download schedule as PDF', 'calendar.pdfTitle': 'Prayer schedule', 'calendar.source': 'Source', 'calendar.mosqueSource': 'Mosque schedule: {mosque}', 'calendar.calculatedSource': 'Schedule calculated with the selected method',
+    'calendar.date': 'Date', 'calendar.previous': 'Previous month', 'calendar.next': 'Next month', 'calendar.downloadPdf': 'Download PDF', 'calendar.pdfTitle': 'Prayer schedule', 'calendar.source': 'Source', 'calendar.mosqueSource': 'Mosque schedule: {mosque}', 'calendar.calculatedSource': 'Calculated with the selected method', 'calendar.today': 'Today', 'calendar.day': 'Day', 'calendar.month': 'Month', 'calendar.view': 'Calendar view', 'calendar.previousWeek': 'Previous week', 'calendar.nextWeek': 'Next week',
     'azkar.title': 'Adhkar', 'azkar.morning': 'Morning adhkar', 'azkar.morningHint': 'After Fajr and in the morning', 'azkar.evening': 'Evening adhkar', 'azkar.eveningHint': 'After Asr and in the evening', 'azkar.afterPrayer': 'After prayer', 'azkar.afterPrayerHint': 'Adhkar after the obligatory prayer', 'azkar.coming': 'soon', 'azkar.progress': '{done} of {total} completed', 'azkar.resetAll': 'Reset all', 'azkar.number': 'Dhikr #{number}', 'azkar.times': '{count}×', 'azkar.counterLabel': '{count} remaining', 'azkar.done': 'Done', 'azkar.remaining': 'Remaining: {count}', 'azkar.completedHint': 'Dhikr completed', 'azkar.tapHint': 'Tap after each recitation', 'azkar.reset': 'Reset', 'azkar.transcription': 'Transliteration',
     'prayer.fajr': 'Fajr', 'prayer.sunrise': 'Sunrise', 'prayer.duha': 'Duha', 'prayer.dhuhr': 'Dhuhr', 'prayer.asr': 'Asr', 'prayer.maghrib': 'Maghrib', 'prayer.isha': 'Isha', 'prayer.qiyam': 'Night prayer', 'prayer.lastThird': 'last third',
     'prayer.next': 'Next prayer', 'prayer.in': 'in', 'prayer.until': 'at {time}', 'prayer.schedule': 'Prayer schedule', 'prayer.iqamah': 'Iqamah {time}',
@@ -52,7 +52,7 @@ const translations = {
   de: {
     'aria.sections': 'Bereiche', 'aria.date': 'Datum', 'aria.settings': 'Einstellungen', 'aria.back': 'Zurück', 'aria.map': 'Karte zur Standortauswahl',
     'tab.prayers': 'Gebete', 'tab.qibla': 'Q̇ilbe', 'tab.azkar': 'Adhkar', 'tab.calendar': 'Kalender', 'tab.learning': 'Gebet lernen', 'learning.homeHint': 'Gebet Schritt für Schritt',
-    'calendar.date': 'Datum', 'calendar.previous': 'Vorheriger Monat', 'calendar.next': 'Nächster Monat', 'calendar.downloadPdf': 'Gebetsplan als PDF herunterladen', 'calendar.pdfTitle': 'Gebetsplan', 'calendar.source': 'Quelle', 'calendar.mosqueSource': 'Moscheeplan: {mosque}', 'calendar.calculatedSource': 'Gebetsplan nach der gewählten Methode berechnet',
+    'calendar.date': 'Datum', 'calendar.previous': 'Vorheriger Monat', 'calendar.next': 'Nächster Monat', 'calendar.downloadPdf': 'PDF laden', 'calendar.pdfTitle': 'Gebetsplan', 'calendar.source': 'Quelle', 'calendar.mosqueSource': 'Moscheeplan: {mosque}', 'calendar.calculatedSource': 'Nach gewählter Methode berechnet', 'calendar.today': 'Heute', 'calendar.day': 'Tag', 'calendar.month': 'Monat', 'calendar.view': 'Kalenderansicht', 'calendar.previousWeek': 'Vorherige Woche', 'calendar.nextWeek': 'Nächste Woche',
     'azkar.title': 'Adhkar', 'azkar.morning': 'Morgen-Adhkar', 'azkar.morningHint': 'Nach Fajr und am Morgen', 'azkar.evening': 'Abend-Adhkar', 'azkar.eveningHint': 'Nach Asr und am Abend', 'azkar.afterPrayer': 'Nach dem Gebet', 'azkar.afterPrayerHint': 'Adhkar nach dem Pflichtgebet', 'azkar.coming': 'bald', 'azkar.progress': '{done} von {total} abgeschlossen', 'azkar.resetAll': 'Alles zurücksetzen', 'azkar.number': 'Dhikr Nr. {number}', 'azkar.times': '{count}×', 'azkar.counterLabel': 'Noch {count}', 'azkar.done': 'Fertig', 'azkar.remaining': 'Noch: {count}', 'azkar.completedHint': 'Dhikr abgeschlossen', 'azkar.tapHint': 'Nach jeder Wiederholung tippen', 'azkar.reset': 'Zurücksetzen', 'azkar.transcription': 'Transkription',
     'prayer.fajr': 'Fajr', 'prayer.sunrise': 'Sonnenaufgang', 'prayer.duha': 'Duha', 'prayer.dhuhr': 'Dhuhr', 'prayer.asr': 'Asr', 'prayer.maghrib': 'Maghrib', 'prayer.isha': 'Isha', 'prayer.qiyam': 'Nachtgebet', 'prayer.lastThird': 'letztes Drittel',
     'prayer.next': 'Nächstes Gebet', 'prayer.in': 'in', 'prayer.until': 'um {time}', 'prayer.schedule': 'Gebetsplan', 'prayer.iqamah': 'Iqama {time}',
@@ -72,7 +72,7 @@ const translations = {
   fr: {
     'aria.sections': 'Sections', 'aria.date': 'Date', 'aria.settings': 'Réglages', 'aria.back': 'Retour', 'aria.map': 'Carte de sélection de la position',
     'tab.prayers': 'Prières', 'tab.qibla': 'Q̇ilbe', 'tab.azkar': 'Adhkar', 'tab.calendar': 'Calendrier', 'tab.learning': 'Apprendre la prière', 'learning.homeHint': 'Prière étape par étape',
-    'calendar.date': 'Date', 'calendar.previous': 'Mois précédent', 'calendar.next': 'Mois suivant', 'calendar.downloadPdf': 'Télécharger le calendrier en PDF', 'calendar.pdfTitle': 'Horaires de prière', 'calendar.source': 'Source', 'calendar.mosqueSource': 'Horaires de la mosquée : {mosque}', 'calendar.calculatedSource': 'Horaires calculés avec la méthode sélectionnée',
+    'calendar.date': 'Date', 'calendar.previous': 'Mois précédent', 'calendar.next': 'Mois suivant', 'calendar.downloadPdf': 'Télécharger PDF', 'calendar.pdfTitle': 'Horaires de prière', 'calendar.source': 'Source', 'calendar.mosqueSource': 'Horaires de la mosquée : {mosque}', 'calendar.calculatedSource': 'Calculé avec la méthode sélectionnée', 'calendar.today': "Aujourd’hui", 'calendar.day': 'Jour', 'calendar.month': 'Mois', 'calendar.view': 'Vue du calendrier', 'calendar.previousWeek': 'Semaine précédente', 'calendar.nextWeek': 'Semaine suivante',
     'azkar.title': 'Adhkar', 'azkar.morning': 'Adhkar du matin', 'azkar.morningHint': 'Après Fajr et le matin', 'azkar.evening': 'Adhkar du soir', 'azkar.eveningHint': 'Après Asr et le soir', 'azkar.afterPrayer': 'Après la prière', 'azkar.afterPrayerHint': 'Adhkar après la prière obligatoire', 'azkar.coming': 'bientôt', 'azkar.progress': '{done} sur {total} terminés', 'azkar.resetAll': 'Tout réinitialiser', 'azkar.number': 'Dhikr n°{number}', 'azkar.times': '{count}×', 'azkar.counterLabel': '{count} restant', 'azkar.done': 'Terminé', 'azkar.remaining': 'Restant : {count}', 'azkar.completedHint': 'Dhikr terminé', 'azkar.tapHint': 'Appuyez après chaque récitation', 'azkar.reset': 'Réinitialiser', 'azkar.transcription': 'Transcription',
     'prayer.fajr': 'Fajr', 'prayer.sunrise': 'Lever du soleil', 'prayer.duha': 'Duha', 'prayer.dhuhr': 'Dhuhr', 'prayer.asr': 'Asr', 'prayer.maghrib': 'Maghrib', 'prayer.isha': 'Isha', 'prayer.qiyam': 'Prière nocturne', 'prayer.lastThird': 'dernier tiers',
     'prayer.next': 'Prochaine prière', 'prayer.in': 'dans', 'prayer.until': 'à {time}', 'prayer.schedule': 'Horaires de prière', 'prayer.iqamah': 'Iqama {time}',
@@ -92,7 +92,7 @@ const translations = {
   es: {
     'aria.sections': 'Secciones', 'aria.date': 'Fecha', 'aria.settings': 'Ajustes', 'aria.back': 'Atrás', 'aria.map': 'Mapa para seleccionar ubicación',
     'tab.prayers': 'Oraciones', 'tab.qibla': 'Q̇ilbe', 'tab.azkar': 'Adhkar', 'tab.calendar': 'Calendario', 'tab.learning': 'Aprender la oración', 'learning.homeHint': 'Oración paso a paso',
-    'calendar.date': 'Fecha', 'calendar.previous': 'Mes anterior', 'calendar.next': 'Mes siguiente', 'calendar.downloadPdf': 'Descargar horario en PDF', 'calendar.pdfTitle': 'Horario de oraciones', 'calendar.source': 'Fuente', 'calendar.mosqueSource': 'Horario de la mezquita: {mosque}', 'calendar.calculatedSource': 'Horario calculado con el método seleccionado',
+    'calendar.date': 'Fecha', 'calendar.previous': 'Mes anterior', 'calendar.next': 'Mes siguiente', 'calendar.downloadPdf': 'Descargar PDF', 'calendar.pdfTitle': 'Horario de oraciones', 'calendar.source': 'Fuente', 'calendar.mosqueSource': 'Horario de la mezquita: {mosque}', 'calendar.calculatedSource': 'Calculado con el método seleccionado', 'calendar.today': 'Hoy', 'calendar.day': 'Día', 'calendar.month': 'Mes', 'calendar.view': 'Vista del calendario', 'calendar.previousWeek': 'Semana anterior', 'calendar.nextWeek': 'Semana siguiente',
     'azkar.title': 'Adhkar', 'azkar.morning': 'Adhkar de la mañana', 'azkar.morningHint': 'Después de Fajr y por la mañana', 'azkar.evening': 'Adhkar de la tarde', 'azkar.eveningHint': 'Después de Asr y por la tarde', 'azkar.afterPrayer': 'Después de la oración', 'azkar.afterPrayerHint': 'Adhkar después de la oración obligatoria', 'azkar.coming': 'pronto', 'azkar.progress': '{done} de {total} completados', 'azkar.resetAll': 'Restablecer todo', 'azkar.number': 'Dhikr n.º {number}', 'azkar.times': '{count}×', 'azkar.counterLabel': 'Quedan {count}', 'azkar.done': 'Hecho', 'azkar.remaining': 'Quedan: {count}', 'azkar.completedHint': 'Dhikr completado', 'azkar.tapHint': 'Toca después de cada recitación', 'azkar.reset': 'Restablecer', 'azkar.transcription': 'Transcripción',
     'prayer.fajr': 'Fajr', 'prayer.sunrise': 'Amanecer', 'prayer.duha': 'Duha', 'prayer.dhuhr': 'Dhuhr', 'prayer.asr': 'Asr', 'prayer.maghrib': 'Maghrib', 'prayer.isha': 'Isha', 'prayer.qiyam': 'Oración nocturna', 'prayer.lastThird': 'último tercio',
     'prayer.next': 'Próxima oración', 'prayer.in': 'en', 'prayer.until': 'a las {time}', 'prayer.schedule': 'Horario de oraciones', 'prayer.iqamah': 'Iqama {time}',
@@ -127,6 +127,7 @@ const translations = {
     'calendar.downloadPdf': 'Lamazan xenaş PDF çuyaqa',
     'calendar.pdfTitle': 'Lamazan xenaş',
     'calendar.source': 'Hülurg',
+    'calendar.today': 'Taxana', 'calendar.day': 'De', 'calendar.month': 'Butt', 'calendar.view': 'Ruzman guy', 'calendar.previousWeek': 'Ẋalxara kʼira', 'calendar.nextWeek': 'Thebogu kʼira',
     'azkar.title': 'Azkarash',
     'azkar.morning': 'Jüyranna azkaraş',
     'azkar.morningHint': 'Jüyra t’ah a, jüyranna a',
@@ -202,7 +203,7 @@ const translations = {
   ar: {
     'aria.sections': 'الأقسام', 'aria.date': 'التاريخ', 'aria.settings': 'الإعدادات', 'aria.back': 'رجوع', 'aria.map': 'خريطة اختيار الموقع',
     'tab.prayers': 'الصلوات', 'tab.qibla': 'القبلة', 'tab.azkar': 'الأذكار', 'tab.calendar': 'التقويم', 'tab.learning': 'تعلم الصلاة', 'learning.homeHint': 'تعلم الصلاة خطوة بخطوة',
-    'calendar.date': 'التاريخ', 'calendar.previous': 'الشهر السابق', 'calendar.next': 'الشهر التالي', 'calendar.downloadPdf': 'تنزيل الجدول PDF', 'calendar.pdfTitle': 'جدول مواقيت الصلاة', 'calendar.source': 'المصدر', 'calendar.mosqueSource': 'جدول المسجد: {mosque}', 'calendar.calculatedSource': 'الجدول محسوب بالطريقة المختارة',
+    'calendar.date': 'التاريخ', 'calendar.previous': 'الشهر السابق', 'calendar.next': 'الشهر التالي', 'calendar.downloadPdf': 'تنزيل PDF', 'calendar.pdfTitle': 'جدول مواقيت الصلاة', 'calendar.source': 'المصدر', 'calendar.mosqueSource': 'جدول المسجد: {mosque}', 'calendar.calculatedSource': 'محسوب بالطريقة المختارة', 'calendar.today': 'اليوم', 'calendar.day': 'اليوم', 'calendar.month': 'الشهر', 'calendar.view': 'عرض التقويم', 'calendar.previousWeek': 'الأسبوع السابق', 'calendar.nextWeek': 'الأسبوع التالي',
     'azkar.title': 'الأذكار', 'azkar.morning': 'أذكار الصباح', 'azkar.morningHint': 'بعد الفجر وفي الصباح', 'azkar.evening': 'أذكار المساء', 'azkar.eveningHint': 'بعد العصر وفي المساء', 'azkar.afterPrayer': 'بعد الصلاة', 'azkar.afterPrayerHint': 'أذكار بعد الصلاة المفروضة', 'azkar.coming': 'قريبًا', 'azkar.progress': 'اكتمل {done} من {total}', 'azkar.resetAll': 'إعادة الكل', 'azkar.number': 'الذكر رقم {number}', 'azkar.times': '{count}×', 'azkar.counterLabel': 'المتبقي {count}', 'azkar.done': 'تم', 'azkar.remaining': 'المتبقي: {count}', 'azkar.completedHint': 'تم إكمال الذكر', 'azkar.tapHint': 'اضغط بعد كل مرة', 'azkar.reset': 'إعادة', 'azkar.transcription': 'النطق',
     'prayer.fajr': 'الفجر', 'prayer.sunrise': 'الشروق', 'prayer.duha': 'الضحى', 'prayer.dhuhr': 'الظهر', 'prayer.asr': 'العصر', 'prayer.maghrib': 'المغرب', 'prayer.isha': 'العشاء', 'prayer.qiyam': 'قيام الليل', 'prayer.lastThird': 'الثلث الأخير',
     'prayer.next': 'الصلاة التالية', 'prayer.in': 'بعد', 'prayer.until': 'عند {time}', 'prayer.schedule': 'مواقيت الصلاة', 'prayer.iqamah': 'الإقامة {time}',
@@ -244,6 +245,8 @@ const extraTranslations = {
     'azkar.swipeHint': 'Листайте влево и вправо',
     'settings.vibration': 'Вибрация',
     'settings.vibrationHint': 'Счётчик азкаров и уведомления, если устройство поддерживает вибрацию',
+    'settings.title': 'Настройки', 'settings.prayerGroup': 'Намаз и местоположение', 'settings.alertsGroup': 'Уведомления', 'settings.applicationGroup': 'Приложение', 'settings.manualCoordinates': 'Ввести координаты вручную', 'settings.notificationVibration': 'Вибрация уведомлений', 'settings.notificationVibrationHint': 'Вибрировать при уведомлении о намазе', 'settings.notificationHelp': 'Почему уведомления могут не работать?', 'settings.haptics': 'Тактильный отклик', 'settings.hapticsHint': 'Вибрация счётчика азкаров при нажатии',
+    'azkar.dhikrNumber': 'Зикр № {number}', 'azkar.playAudio': 'Прослушать', 'azkar.stopAudio': 'Остановить', 'azkar.audioHint': 'Произношение арабского текста', 'azkar.tapOptional': 'При желании отмечайте каждое прочтение', 'azkar.meaningSummary': 'О чём этот зикр', 'azkar.resetConfirm': 'Сбросить прогресс всей категории?', 'azkar.surahIkhlas': 'Сура «Аль-Ихляс»', 'azkar.surahFalaq': 'Сура «Аль-Фаляк»', 'azkar.surahNas': 'Сура «Ан-Нас»', 'azkar.baqarahLast': 'Сура «Аль-Бакара», аяты 285–286', 'azkar.ayatKursi': 'Аят аль-Курси · 2:255', 'settings.azkarCounter': 'Счётчик азкаров', 'settings.azkarCounterHint': 'Показывать необязательную отметку повторений',
   },
   en: {
     'azkar.position': '{current} of {total}',
@@ -254,6 +257,8 @@ const extraTranslations = {
     'azkar.swipeHint': 'Swipe left or right',
     'settings.vibration': 'Vibration',
     'settings.vibrationHint': 'Dhikr counter and notifications when vibration is supported',
+    'settings.title': 'Settings', 'settings.prayerGroup': 'Prayer and location', 'settings.alertsGroup': 'Notifications', 'settings.applicationGroup': 'App', 'settings.manualCoordinates': 'Enter coordinates manually', 'settings.notificationVibration': 'Notification vibration', 'settings.notificationVibrationHint': 'Vibrate for prayer notifications', 'settings.notificationHelp': 'Why might notifications not work?', 'settings.haptics': 'Haptic feedback', 'settings.hapticsHint': 'Vibration when tapping the dhikr counter',
+    'azkar.dhikrNumber': 'Dhikr No. {number}', 'azkar.playAudio': 'Listen', 'azkar.stopAudio': 'Stop', 'azkar.audioHint': 'Arabic pronunciation', 'azkar.tapOptional': 'Optionally mark each reading', 'azkar.meaningSummary': 'What this dhikr is about', 'azkar.resetConfirm': 'Reset progress for this category?', 'azkar.surahIkhlas': 'Surah Al-Ikhlas', 'azkar.surahFalaq': 'Surah Al-Falaq', 'azkar.surahNas': 'Surah An-Nas', 'azkar.baqarahLast': 'Surah Al-Baqarah · 2:285–286', 'azkar.ayatKursi': 'Ayat al-Kursi · 2:255', 'settings.azkarCounter': 'Dhikr counter', 'settings.azkarCounterHint': 'Show the optional repetition tracker',
   },
   de: {
     'azkar.position': '{current} von {total}',
@@ -264,6 +269,7 @@ const extraTranslations = {
     'azkar.swipeHint': 'Nach links oder rechts wischen',
     'settings.vibration': 'Vibration',
     'settings.vibrationHint': 'Dhikr-Zähler und Benachrichtigungen, sofern Vibration unterstützt wird',
+    'settings.title': 'Einstellungen', 'settings.prayerGroup': 'Gebet und Standort', 'settings.alertsGroup': 'Benachrichtigungen', 'settings.applicationGroup': 'App', 'settings.manualCoordinates': 'Koordinaten manuell eingeben', 'settings.notificationVibration': 'Benachrichtigungsvibration', 'settings.notificationVibrationHint': 'Bei Gebetsbenachrichtigungen vibrieren', 'settings.notificationHelp': 'Warum funktionieren Benachrichtigungen eventuell nicht?', 'settings.haptics': 'Haptisches Feedback', 'settings.hapticsHint': 'Vibration beim Dhikr-Zähler',
   },
   fr: {
     'azkar.position': '{current} sur {total}',
@@ -274,6 +280,7 @@ const extraTranslations = {
     'azkar.swipeHint': 'Balayez vers la gauche ou la droite',
     'settings.vibration': 'Vibration',
     'settings.vibrationHint': 'Compteur de dhikr et notifications si la vibration est prise en charge',
+    'settings.title': 'Réglages', 'settings.prayerGroup': 'Prière et localisation', 'settings.alertsGroup': 'Notifications', 'settings.applicationGroup': 'Application', 'settings.manualCoordinates': 'Saisir les coordonnées', 'settings.notificationVibration': 'Vibration des notifications', 'settings.notificationVibrationHint': 'Vibrer lors des notifications de prière', 'settings.notificationHelp': 'Pourquoi les notifications peuvent-elles échouer ?', 'settings.haptics': 'Retour haptique', 'settings.hapticsHint': 'Vibration du compteur de dhikr',
   },
   es: {
     'azkar.position': '{current} de {total}',
@@ -284,6 +291,7 @@ const extraTranslations = {
     'azkar.swipeHint': 'Desliza a la izquierda o a la derecha',
     'settings.vibration': 'Vibración',
     'settings.vibrationHint': 'Contador de dhikr y notificaciones si el dispositivo admite vibración',
+    'settings.title': 'Ajustes', 'settings.prayerGroup': 'Oración y ubicación', 'settings.alertsGroup': 'Notificaciones', 'settings.applicationGroup': 'Aplicación', 'settings.manualCoordinates': 'Introducir coordenadas', 'settings.notificationVibration': 'Vibración de notificaciones', 'settings.notificationVibrationHint': 'Vibrar con los avisos de oración', 'settings.notificationHelp': '¿Por qué pueden fallar las notificaciones?', 'settings.haptics': 'Respuesta háptica', 'settings.hapticsHint': 'Vibración del contador de dhikr',
   },
   ar: {
     'azkar.position': '{current} من {total}',
@@ -294,6 +302,7 @@ const extraTranslations = {
     'azkar.swipeHint': 'اسحب يمينًا أو يسارًا',
     'settings.vibration': 'الاهتزاز',
     'settings.vibrationHint': 'عداد الأذكار والإشعارات إذا كان الجهاز يدعم الاهتزاز',
+    'settings.title': 'الإعدادات', 'settings.prayerGroup': 'الصلاة والموقع', 'settings.alertsGroup': 'الإشعارات', 'settings.applicationGroup': 'التطبيق', 'settings.manualCoordinates': 'إدخال الإحداثيات يدويًا', 'settings.notificationVibration': 'اهتزاز الإشعارات', 'settings.notificationVibrationHint': 'الاهتزاز عند إشعارات الصلاة', 'settings.notificationHelp': 'لماذا قد لا تعمل الإشعارات؟', 'settings.haptics': 'الاستجابة اللمسية', 'settings.hapticsHint': 'اهتزاز عداد الأذكار عند الضغط',
   },
 };
 

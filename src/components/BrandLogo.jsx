@@ -2,7 +2,7 @@ export default function BrandLogo({ className = '', variant = 'full', theme = 'l
   const isDark = theme === 'dark';
   const src = variant === 'mark'
     ? (isDark ? '/lamaz-xan-logo-dark.png' : '/lamaz-xan-logo.png')
-    : (isDark ? '/lamaz-xan-header-dark.png' : '/lamaz-xan-header.png');
+    : (isDark ? '/lamaz-xan-header-dark-v2.png' : '/lamaz-xan-header.png');
 
   return (
     <img

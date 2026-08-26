@@ -16,6 +16,8 @@ function smoothHeading(previous, next, factor = 0.18) {
   return normalize(previous + delta * factor);
 }
 
+const SENSOR_TIMEOUT_MS = 5000;
+
 function getScreenAngle() {
   if (Number.isFinite(window.screen?.orientation?.angle)) return window.screen.orientation.angle;
   if (Number.isFinite(window.orientation)) return window.orientation;
@@ -30,6 +32,8 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
   const listenersRef = useRef([]);
   const headingRef = useRef(null);
   const sourceRef = useRef(null);
+  const timeoutRef = useRef(null);
+  const lastEventRef = useRef(0);
 
   const difference = useMemo(() => {
     if (heading == null) return null;
@@ -37,7 +41,8 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
   }, [heading, qiblaBearing]);
 
   const aligned = difference != null && Math.abs(difference) <= 6;
-  const needleAngle = heading == null ? 0 : normalize(-heading);
+  const dialAngle = heading == null ? 0 : normalize(-heading);
+  const qiblaNeedleAngle = difference == null ? 0 : difference;
   const turnDegrees = difference == null ? 0 : Math.round(Math.abs(difference));
 
   function removeListeners() {
@@ -45,6 +50,10 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
       window.removeEventListener(eventName, handler, true);
     }
     listenersRef.current = [];
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
   }
 
   useEffect(() => () => removeListeners(), []);
@@ -52,6 +61,10 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
   function applyHeading(value, source, sensorAccuracy = null) {
     if (!Number.isFinite(value)) return;
     if (sourceRef.current === 'webkit' && source !== 'webkit') return;
+
+    const now = performance.now();
+    if (sourceRef.current === source && now - lastEventRef.current < 12) return;
+    lastEventRef.current = now;
 
     if (source === 'webkit') sourceRef.current = 'webkit';
     else if (!sourceRef.current) sourceRef.current = source;
@@ -64,16 +77,25 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
     headingRef.current = next;
     setHeading(next);
     setStatus('active');
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
   }
 
   function handleOrientation(event) {
     if (Number.isFinite(event.webkitCompassHeading)) {
-      applyHeading(event.webkitCompassHeading, 'webkit', event.webkitCompassAccuracy);
+      applyHeading(
+        event.webkitCompassHeading + getScreenAngle(),
+        'webkit',
+        event.webkitCompassAccuracy,
+      );
       return;
     }
 
-    if (event.absolute === true && Number.isFinite(event.alpha)) {
-      applyHeading(360 - event.alpha + getScreenAngle(), 'absolute');
+    if (Number.isFinite(event.alpha)) {
+      const source = event.absolute === true ? 'absolute' : 'relative';
+      applyHeading(360 - event.alpha + getScreenAngle(), source);
     }
   }
 
@@ -98,17 +120,21 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
       removeListeners();
       headingRef.current = null;
       sourceRef.current = null;
+      lastEventRef.current = 0;
       setAccuracy(null);
-
-      window.addEventListener('deviceorientation', handleOrientation, true);
-      listenersRef.current.push({ eventName: 'deviceorientation', handler: handleOrientation });
 
       if ('ondeviceorientationabsolute' in window) {
         window.addEventListener('deviceorientationabsolute', handleOrientation, true);
         listenersRef.current.push({ eventName: 'deviceorientationabsolute', handler: handleOrientation });
+      } else {
+        window.addEventListener('deviceorientation', handleOrientation, true);
+        listenersRef.current.push({ eventName: 'deviceorientation', handler: handleOrientation });
       }
 
       setStatus('listening');
+      timeoutRef.current = window.setTimeout(() => {
+        if (headingRef.current == null) setStatus('unavailable');
+      }, SENSOR_TIMEOUT_MS);
     } catch (error) {
       console.error(error);
       setStatus('error');
@@ -138,24 +164,27 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
 
       <div className={`compass-shell compass-clean ${aligned ? 'is-aligned' : ''}`}>
         <div className="compass-face">
-          <div className="compass-ticks" aria-hidden="true" />
           <div className="compass-inner-ring" aria-hidden="true" />
 
-          <span className="cardinal north">N</span>
-          <span className="cardinal east">E</span>
-          <span className="cardinal south">S</span>
-          <span className="cardinal west">W</span>
+          <div className="compass-dial" style={{ transform: `rotate(${dialAngle}deg)` }} aria-hidden="true">
+            <div className="compass-ticks" />
+            <span className="cardinal north">N</span>
+            <span className="cardinal east">E</span>
+            <span className="cardinal south">S</span>
+            <span className="cardinal west">W</span>
+          </div>
 
           <div className={`qibla-top-target ${aligned ? 'is-visible' : ''}`} aria-hidden="true">
             {aligned ? <QiblaIcon size={42} /> : <span />}
           </div>
 
           <div
-            className="compass-north-pointer"
-            style={{ transform: `rotate(${needleAngle}deg)` }}
+            className={`compass-qibla-pointer ${heading == null ? 'is-idle' : ''}`}
+            style={{ transform: `rotate(${qiblaNeedleAngle}deg)`, '--qibla-angle': `${qiblaNeedleAngle}deg` }}
             aria-hidden="true"
           >
-            <span className="compass-arrow" />
+            <span className="compass-qibla-arrow" />
+            <span className="compass-qibla-label"><QiblaIcon size={24} /></span>
           </div>
 
           <div className="compass-center" aria-hidden="true">
@@ -180,13 +209,13 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
 
       {needsActivation && (
         <button className="compass-activate" type="button" onClick={startCompass}>
-          {status === 'requesting' ? t(language, 'qibla.requesting') : t(language, 'qibla.enable')}
+          {['requesting', 'listening'].includes(status) ? t(language, 'qibla.requesting') : t(language, 'qibla.enable')}
         </button>
       )}
 
       {lowAccuracy && <p className="sensor-note">{t(language, 'qibla.calibrate')}</p>}
 
-      {['denied', 'unsupported', 'error'].includes(status) && (
+      {['denied', 'unsupported', 'unavailable', 'error'].includes(status) && (
         <p className="sensor-note">{t(language, 'qibla.unavailable')}</p>
       )}
     </section>

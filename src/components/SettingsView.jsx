@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import MapPicker from './MapPicker.jsx';
 import MosqueSelector from './MosqueSelector.jsx';
-import { BackIcon, BellIcon, CalcIcon, ChevronIcon, DownIcon, GlobeIcon, LocationIcon, MoonIcon, MosqueIcon, SunIcon } from './Icons.jsx';
+import { BackIcon, BellIcon, CalcIcon, DhikrIcon, ChevronIcon, DownIcon, GlobeIcon, LocationIcon, MoonIcon, MosqueIcon, SunIcon } from './Icons.jsx';
 import { MADHAB_OPTIONS, METHOD_OPTIONS } from '../lib/prayer.js';
 import { NOTIFICATION_ROWS } from '../lib/notifications.js';
 import { LANGUAGES, t } from '../lib/i18n.js';
@@ -20,7 +20,7 @@ export default function SettingsView({
   onBack, location, onLocationChange, onUseGps, gpsStatus, timeZone, method, onMethodChange, madhab, onMadhabChange,
   selectedMosque, onMosqueSelect, onMosqueClear, mosqueScheduleStatus, duhaOffset, onDuhaOffsetChange,
   notificationPrefs, onNotificationPrefsChange, notificationPermission, onRequestNotifications,
-  language = 'ru', onLanguageChange, theme = 'light', onThemeChange,
+  language = 'ru', onLanguageChange, theme = 'light', onThemeChange, hapticsEnabled = true, onHapticsChange, azkarCounterEnabled = true, onAzkarCounterChange,
 }) {
   const [open, setOpen] = useState(null);
   const toggle = (name) => setOpen((current) => current === name ? null : name);
@@ -36,16 +36,20 @@ export default function SettingsView({
       <div className="settings-top-pattern" aria-hidden="true"/>
 
       <div className="settings-cards">
-        <SettingCard Icon={LocationIcon} title={t(language, 'settings.location')} subtitle={`${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`} onClick={() => toggle('location')} expanded={open === 'location'}/>
+        <h2 className="settings-group-title">{t(language, 'settings.prayerGroup')}</h2>
+        <SettingCard Icon={LocationIcon} title={t(language, 'settings.location')} subtitle={t(language, 'settings.timezone', { zone: timeZone })} onClick={() => toggle('location')} expanded={open === 'location'}/>
         {open === 'location' && (
           <div className="settings-panel location-panel">
             <button className="primary-action" onClick={onUseGps}>{gpsStatus === 'loading' ? t(language, 'settings.detecting') : t(language, 'settings.useCurrent')}</button>
             {gpsStatus === 'error' && <p className="panel-error">{t(language, 'settings.gpsError')}</p>}
             <div className="map-frame"><MapPicker location={location} onChange={onLocationChange} language={language}/></div>
-            <div className="coordinate-fields">
-              <label>{t(language, 'settings.latitude')}<input type="number" step="0.000001" value={location.lat} onChange={(e) => onLocationChange({ ...location, lat: Number(e.target.value) })}/></label>
-              <label>{t(language, 'settings.longitude')}<input type="number" step="0.000001" value={location.lng} onChange={(e) => onLocationChange({ ...location, lng: Number(e.target.value) })}/></label>
-            </div>
+            <details className="settings-advanced">
+              <summary>{t(language, 'settings.manualCoordinates')}</summary>
+              <div className="coordinate-fields">
+                <label>{t(language, 'settings.latitude')}<input type="number" step="0.000001" value={location.lat} onChange={(e) => onLocationChange({ ...location, lat: Number(e.target.value) })}/></label>
+                <label>{t(language, 'settings.longitude')}<input type="number" step="0.000001" value={location.lng} onChange={(e) => onLocationChange({ ...location, lng: Number(e.target.value) })}/></label>
+              </div>
+            </details>
             <p className="timezone-line">{t(language, 'settings.timezone', { zone: timeZone })}</p>
           </div>
         )}
@@ -73,6 +77,7 @@ export default function SettingsView({
           </div>
         )}
 
+        <h2 className="settings-group-title settings-group-spaced">{t(language, 'settings.alertsGroup')}</h2>
         <SettingCard Icon={BellIcon} title={t(language, 'settings.notifications')} subtitle={notificationPrefs.enabled && notificationPermission === 'granted' ? t(language, 'settings.enabled') : t(language, 'settings.disabled')} onClick={() => toggle('notifications')} expanded={open === 'notifications'}/>
         {open === 'notifications' && (
           <div className="settings-panel notification-panel">
@@ -87,8 +92,8 @@ export default function SettingsView({
 
             <label className="notification-toggle vibration-toggle">
               <span>
-                <strong>{t(language, 'settings.vibration')}</strong>
-                <small>{t(language, 'settings.vibrationHint')}</small>
+                <strong>{t(language, 'settings.notificationVibration')}</strong>
+                <small>{t(language, 'settings.notificationVibrationHint')}</small>
               </span>
               <input
                 type="checkbox"
@@ -113,12 +118,15 @@ export default function SettingsView({
               ))}
             </div>
             {notificationPermission === 'denied' && <p className="panel-error">{t(language, 'settings.permissionDenied')}</p>}
-            <p className="notification-note">{t(language, 'settings.notificationNote')}</p>
+            <details className="settings-help">
+              <summary>{t(language, 'settings.notificationHelp')}</summary>
+              <p className="notification-note">{t(language, 'settings.notificationNote')}</p>
+            </details>
           </div>
         )}
       </div>
 
-      <h2 className="language-title">{t(language, 'settings.appearance')}</h2>
+      <h2 className="language-title">{t(language, 'settings.applicationGroup')}</h2>
       <div className="appearance-card">
         <div className="appearance-card-copy">
           <span className="settings-leading appearance-icon">{theme === 'dark' ? <MoonIcon size={25}/> : <SunIcon size={25}/>}</span>
@@ -135,6 +143,24 @@ export default function SettingsView({
             <MoonIcon size={17}/><span>{t(language, 'settings.dark')}</span>
           </button>
         </div>
+      </div>
+
+      <div className="settings-simple-card">
+        <span className="settings-leading"><DhikrIcon size={25}/></span>
+        <span className="settings-simple-copy">
+          <strong>{t(language, 'settings.haptics')}</strong>
+          <small>{t(language, 'settings.hapticsHint')}</small>
+        </span>
+        <input type="checkbox" checked={hapticsEnabled} onChange={(event) => onHapticsChange?.(event.target.checked)} aria-label={t(language, 'settings.haptics')}/>
+      </div>
+
+      <div className="settings-simple-card">
+        <span className="settings-leading"><DhikrIcon size={25}/></span>
+        <span className="settings-simple-copy">
+          <strong>{t(language, 'settings.azkarCounter')}</strong>
+          <small>{t(language, 'settings.azkarCounterHint')}</small>
+        </span>
+        <input type="checkbox" checked={azkarCounterEnabled} onChange={(event) => onAzkarCounterChange?.(event.target.checked)} aria-label={t(language, 'settings.azkarCounter')}/>
       </div>
 
       <h2 className="language-title">{t(language, 'settings.chooseLanguage')}</h2>

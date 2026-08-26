@@ -1,5 +1,5 @@
 import {
-  CalendarIcon, CheckIcon, CurrentIcon, DhikrIcon, EmptyCircleIcon, LearnIcon, MoonIcon, QiblaIcon, StarIcon, SunIcon, SunriseIcon, SunsetIcon,
+  CalendarIcon, CheckIcon, CurrentIcon, DhikrIcon, EmptyCircleIcon, MoonIcon, QiblaIcon, StarIcon, SunIcon, SunriseIcon, SunsetIcon,
 } from './Icons.jsx';
 import { formatClock } from '../lib/date.js';
 import { getPastStatus } from '../lib/prayer.js';
@@ -62,15 +62,6 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
         </button>
       </nav>
 
-      <button type="button" className="home-learning-card" onClick={() => onNavigate?.('learning')}>
-        <span className="home-learning-icon"><LearnIcon size={28} /></span>
-        <span className="home-learning-copy">
-          <strong>{t(language, 'tab.learning')}</strong>
-          <small>{t(language, 'learning.homeHint')}</small>
-        </span>
-        <span className="home-learning-arrow" aria-hidden="true">→</span>
-      </button>
-
       <div className="schedule-heading">
         <div>
           <strong>{t(language, 'prayer.schedule')}</strong>
@@ -118,6 +109,7 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
           );
         })}
       </div>
+
     </section>
   );
 }

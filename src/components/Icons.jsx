@@ -20,9 +20,10 @@ export function TimeIcon({ size = 24, className = '' }) {
 export function QiblaIcon({ size = 24, className = '' }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="m5.2 8.2 6.8-3.3 6.8 3.3v8.3L12 19.1l-6.8-2.6V8.2Z" stroke="currentColor" strokeWidth="1.45" strokeLinejoin="round"/>
-      <path d="m5.5 8.3 6.5 2.5 6.5-2.5M12 10.8v8M8.1 6.9l6.6 2.5M15.7 6.7 9.2 9.3" stroke="currentColor" strokeWidth="1.15" strokeLinecap="round"/>
-      <path d="M9 13.5h6v3.2H9z" stroke="currentColor" strokeWidth="1.05"/>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.65"/>
+      <path d="M12 4.3v1.4M12 18.3v1.4M4.3 12h1.4M18.3 12h1.4" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round"/>
+      <path d="m14.9 7.1-1.45 4.45-4.35 1.35 1.45-4.35 4.35-1.45Z" fill="currentColor" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round"/>
+      <circle cx="12" cy="12" r="1.15" fill="var(--cream-2, white)" stroke="currentColor" strokeWidth="1.15"/>
     </svg>
   );
 }
