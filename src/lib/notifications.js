@@ -1,4 +1,4 @@
-import { formatClock } from './date.js';
+import { formatClock, getLocalDateParts, wallTimeToDate } from './date.js';
 import { t } from './i18n.js';
 
 export const DEFAULT_NOTIFICATION_PREFS = {
@@ -6,6 +6,10 @@ export const DEFAULT_NOTIFICATION_PREFS = {
   leadMinutes: 0,
   vibration: true,
   prayers: { fajr: true, dhuhr: true, asr: true, maghrib: true, isha: true, qiyam: false },
+  azkar: {
+    morning: { enabled: false, time: '07:00' },
+    evening: { enabled: false, time: '18:00' },
+  },
 };
 
 export const NOTIFICATION_ROWS = [
@@ -21,6 +25,14 @@ function readSent() {
 function writeSent(value) {
   try { localStorage.setItem('lamaz-notifications-sent', JSON.stringify(value)); }
   catch { /* Ignore storage restrictions. */ }
+}
+
+function getDailyTime(value, now, timeZone) {
+  if (!/^\d{2}:\d{2}$/.test(value || '')) return null;
+  const [hour, minute] = value.split(':').map(Number);
+  if (hour > 23 || minute > 59) return null;
+  const local = getLocalDateParts(now, timeZone);
+  return wallTimeToDate({ ...local, hour, minute }, timeZone);
 }
 
 async function displayNotification(title, options) {
@@ -80,5 +92,30 @@ export async function sendDueNotifications({ times, prefs, now, timeZone, mosque
     });
     if (shown) sent[tag] = nowMs;
   }
+  for (const key of ['morning', 'evening']) {
+    const reminder = prefs.azkar?.[key];
+    if (!reminder?.enabled) continue;
+
+    const reminderTime = getDailyTime(reminder.time, now, timeZone);
+    if (!reminderTime) continue;
+
+    const delta = nowMs - reminderTime.getTime();
+    if (delta < 0 || delta > 120_000) continue;
+
+    const local = getLocalDateParts(now, timeZone);
+    const tag = `lamaz-azkar-${key}-${local.year}-${local.month}-${local.day}-${reminder.time}`;
+    if (sent[tag]) continue;
+
+    const shown = await displayNotification(t(language, `notification.azkar.${key}Title`), {
+      body: t(language, 'notification.azkar.verse'),
+      tag,
+      icon: '/app-icon-192.png',
+      badge: '/app-icon-192.png',
+      data: { url: '/?view=azkar' },
+      ...(prefs.vibration !== false ? { vibrate: [180, 90, 180] } : {}),
+    });
+    if (shown) sent[tag] = nowMs;
+  }
+
   writeSent(sent);
 }

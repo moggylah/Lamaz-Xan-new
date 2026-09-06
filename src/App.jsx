@@ -31,8 +31,13 @@ function readString(key, fallback) {
   try { return localStorage.getItem(key) || fallback; } catch { return fallback; }
 }
 
+function getInitialView() {
+  const requested = new URLSearchParams(window.location.search).get('view');
+  return ['prayers', 'qibla', 'azkar', 'calendar'].includes(requested) ? requested : 'prayers';
+}
+
 export default function App() {
-  const [view, setView] = useState('prayers');
+  const [view, setView] = useState(getInitialView);
   const [language, setLanguage] = useState(() => readString('lamaz-language', 'ru'));
   const [theme, setTheme] = useState(() => readString('lamaz-theme', 'light') === 'dark' ? 'dark' : 'light');
   const [location, setLocation] = useState(() => readJson('lamaz-location', DEFAULT_LOCATION));
@@ -52,6 +57,10 @@ export default function App() {
       ...DEFAULT_NOTIFICATION_PREFS,
       ...saved,
       prayers: { ...DEFAULT_NOTIFICATION_PREFS.prayers, ...(saved.prayers || {}) },
+      azkar: {
+        morning: { ...DEFAULT_NOTIFICATION_PREFS.azkar.morning, ...(saved.azkar?.morning || {}) },
+        evening: { ...DEFAULT_NOTIFICATION_PREFS.azkar.evening, ...(saved.azkar?.evening || {}) },
+      },
     };
   });
   const [hapticsEnabled, setHapticsEnabled] = useState(() => readString('lamaz-haptics', 'true') !== 'false');

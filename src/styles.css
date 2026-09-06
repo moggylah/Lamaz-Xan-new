@@ -4650,3 +4650,94 @@ html[data-theme="dark"] .azkar-audio-compact.is-playing {
   color: #fff;
   background: var(--green-solid);
 }
+
+
+/* Scheduled azkar reminders */
+.azkar-reminder-settings {
+  margin-top: 3px;
+  padding: 13px 14px 5px;
+  border: 1px solid rgba(23,79,58,.09);
+  border-radius: 17px;
+  background: rgba(23,79,58,.025);
+}
+
+.azkar-reminder-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 5px;
+}
+
+.azkar-reminder-heading strong {
+  color: #28322c;
+  font-size: 13px;
+  font-weight: 680;
+}
+
+.azkar-reminder-heading small {
+  color: #8a918b;
+  font-size: 9.5px;
+  line-height: 1.35;
+}
+
+.azkar-reminder-row {
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid rgba(226,221,211,.82);
+}
+
+.azkar-reminder-row .notification-toggle {
+  min-width: 0;
+  min-height: 57px;
+  border: 0;
+}
+
+.azkar-reminder-time {
+  width: 92px;
+  height: 38px;
+  padding: 0 8px;
+  border: 1px solid rgba(23,79,58,.13);
+  border-radius: 11px;
+  background: rgba(255,255,255,.72);
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 650;
+  text-align: center;
+}
+
+html[data-theme="dark"] .azkar-reminder-settings {
+  border-color: rgba(177,202,188,.11);
+  background: rgba(145,184,164,.035);
+}
+
+html[data-theme="dark"] .azkar-reminder-heading strong {
+  color: #e8efea;
+}
+
+html[data-theme="dark"] .azkar-reminder-heading small {
+  color: #96a29b;
+}
+
+html[data-theme="dark"] .azkar-reminder-row {
+  border-color: #293d33;
+}
+
+html[data-theme="dark"] .azkar-reminder-time {
+  color: #e8efea;
+  border-color: #2b4036;
+  background: #111e18;
+}
+
+@media (max-width: 370px) {
+  .azkar-reminder-settings {
+    padding-inline: 11px;
+  }
+
+  .azkar-reminder-time {
+    width: 82px;
+    padding-inline: 5px;
+  }
+}

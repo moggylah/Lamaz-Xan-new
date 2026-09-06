@@ -117,6 +117,52 @@ export default function SettingsView({
                 </label>
               ))}
             </div>
+
+            <div className="azkar-reminder-settings">
+              <div className="azkar-reminder-heading">
+                <strong>{t(language, 'settings.azkarReminders')}</strong>
+                <small>{t(language, 'settings.azkarRemindersHint')}</small>
+              </div>
+
+              {['morning', 'evening'].map((key) => {
+                const reminder = notificationPrefs.azkar?.[key] || { enabled: false, time: key === 'morning' ? '07:00' : '18:00' };
+                return (
+                  <div className="azkar-reminder-row" key={key}>
+                    <label className="notification-toggle">
+                      <span>
+                        <strong>{t(language, `azkar.${key}`)}</strong>
+                        <small>{t(language, 'settings.azkarReminderTime')}</small>
+                      </span>
+                      <input
+                        type="checkbox"
+                        checked={Boolean(reminder.enabled)}
+                        onChange={(event) => onNotificationPrefsChange((current) => ({
+                          ...current,
+                          azkar: {
+                            ...current.azkar,
+                            [key]: { ...reminder, enabled: event.target.checked },
+                          },
+                        }))}
+                      />
+                    </label>
+                    <input
+                      className="azkar-reminder-time"
+                      type="time"
+                      value={reminder.time}
+                      aria-label={t(language, `azkar.${key}`)}
+                      onChange={(event) => onNotificationPrefsChange((current) => ({
+                        ...current,
+                        azkar: {
+                          ...current.azkar,
+                          [key]: { ...reminder, time: event.target.value },
+                        },
+                      }))}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+
             {notificationPermission === 'denied' && <p className="panel-error">{t(language, 'settings.permissionDenied')}</p>}
             <details className="settings-help">
               <summary>{t(language, 'settings.notificationHelp')}</summary>
