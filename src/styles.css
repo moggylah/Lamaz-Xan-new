@@ -4773,14 +4773,3 @@ html[data-theme="dark"] .location-search-results button { border-color:#293d33; 
 html[data-theme="dark"] .location-search-results strong { color:#edf3ef; }
 html[data-theme="dark"] .location-search-results small, html[data-theme="dark"] .location-search-hint, html[data-theme="dark"] .location-search-credit { color:#96a29b; }
 html[data-theme="dark"] .location-search-results button:hover, html[data-theme="dark"] .location-search-results button:focus-visible { background:rgba(145,184,164,.09); }
-
-
-/* Combined mosque sources */
-.mosque-source-note { margin:0; padding:9px 11px; border-radius:11px; background:rgba(23,79,58,.055); color:#66736b; }
-.mosque-source-badge { grid-column:1; justify-self:start; padding:4px 7px; border-radius:999px; font-size:8.5px; font-style:normal; font-weight:750; line-height:1; }
-.mosque-source-badge.official { color:#176341; background:rgba(34,124,80,.1); }
-.mosque-source-badge.calculated { color:#725b2e; background:rgba(174,132,48,.12); }
-.mosque-result > span { grid-row:1 / span 3; }
-html[data-theme="dark"] .mosque-source-note { background:rgba(145,184,164,.07); color:#a1ada6; }
-html[data-theme="dark"] .mosque-source-badge.official { color:#9ed3b4; background:rgba(88,177,125,.12); }
-html[data-theme="dark"] .mosque-source-badge.calculated { color:#dec487; background:rgba(198,157,72,.12); }
