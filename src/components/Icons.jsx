@@ -201,22 +201,29 @@ export function AzkarHandIcon({ size = 24, className = '' }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M8.1 13V7.2a1.45 1.45 0 0 1 2.9 0v4.9-7.7a1.45 1.45 0 0 1 2.9 0v7.7-6.3a1.45 1.45 0 0 1 2.9 0v6.7-3.9a1.45 1.45 0 0 1 2.9 0v6.2c0 3.5-2.8 6.3-6.3 6.3h-1.7c-2.7 0-4.7-1.2-6-3.5l-1.4-2.4a1.55 1.55 0 0 1 2.5-1.8l1.3 1.5"
+        d="M7.8 13.2V7.5a1.4 1.4 0 0 1 2.8 0v4.2-7a1.4 1.4 0 0 1 2.8 0v7-5.8a1.4 1.4 0 0 1 2.8 0v7.3-3.7a1.4 1.4 0 0 1 2.8 0v5.2c0 3.6-2.7 6.4-6.2 6.4h-1.3c-2.6 0-4.7-1.2-6-3.4l-1.3-2.3a1.45 1.45 0 0 1 2.35-1.7l1.25 1.35"
         stroke="currentColor"
         strokeWidth="1.55"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M7.3 15.1c2.9.1 5.1-.8 7-2.6l1.15-1.05"
+        d="M7.2 15.15c3 .2 5.45-.75 7.45-2.8l1.05-1.05"
         stroke="currentColor"
-        strokeWidth="1.55"
+        strokeWidth="1.7"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="15.55" cy="11.35" r="1.05" fill="currentColor"/>
-      <circle cx="15.55" cy="8.65" r=".72" fill="currentColor" opacity=".52"/>
-      <circle cx="15.55" cy="6.4" r=".62" fill="currentColor" opacity=".26"/>
+      <circle cx="15.9" cy="11.15" r="1.12" fill="currentColor"/>
+      <circle cx="15.9" cy="8.15" r=".92" stroke="currentColor" strokeWidth="1.15"/>
+      <circle cx="15.9" cy="5.45" r=".92" stroke="currentColor" strokeWidth="1.15"/>
+      <path
+        d="M20.65 6.2c.7 1.65.72 3.65.05 5.35m0 0-.2-1.55m.2 1.55 1.1-1.05"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
