@@ -7,6 +7,7 @@ const titleKeys = {
   qibla: 'tab.qibla',
   azkar: 'tab.azkar',
   calendar: 'tab.calendar',
+  quran: 'quran.title',
 };
 
 export default function Header({ dates, onSettings, onHome, onThemeToggle, language = 'ru', view = 'prayers', theme = 'light' }) {

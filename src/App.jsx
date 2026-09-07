@@ -6,6 +6,7 @@ import QiblaCompass from './components/QiblaCompass.jsx';
 import SettingsView from './components/SettingsView.jsx';
 import CalendarView from './components/CalendarView.jsx';
 import AzkarView from './components/AzkarView.jsx';
+import QuranLearningView from './components/QuranLearningView.jsx';
 import { addCalendarDays, getDateDisplay, getLocalDateParts } from './lib/date.js';
 import { calculatePrayerData, getLastThirdStart, getNextFard } from './lib/prayer.js';
 import { DEFAULT_NOTIFICATION_PREFS, sendDueNotifications } from './lib/notifications.js';
@@ -33,7 +34,7 @@ function readString(key, fallback) {
 
 function getInitialView() {
   const requested = new URLSearchParams(window.location.search).get('view');
-  return ['prayers', 'qibla', 'azkar', 'calendar'].includes(requested) ? requested : 'prayers';
+  return ['prayers', 'qibla', 'azkar', 'calendar', 'quran'].includes(requested) ? requested : 'prayers';
 }
 
 export default function App() {
@@ -303,6 +304,8 @@ export default function App() {
       {view === 'azkar' && (
         <AzkarView language={language} hapticsEnabled={hapticsEnabled} counterEnabled={azkarCounterEnabled}/>
       )}
+
+      {view === 'quran' && <QuranLearningView />}
 
       {view === 'calendar' && (
         <CalendarView
