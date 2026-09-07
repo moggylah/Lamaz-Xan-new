@@ -18,27 +18,29 @@ const courseLessonData = {
 
 function CourseLesson({ number, onBack }) {
   const lesson = courseLessonData[number];
-  const [selected, setSelected] = useState(null);
   return <section className="course-detail-lesson">
     <button type="button" className="quran-inline-back" onClick={onBack}>‹ <span>К программе курса</span></button>
     <header className="quran-lesson-heading"><div><span>Урок {number}</span><h2>{lesson.title}</h2></div><strong>{lesson.badge}</strong></header>
     <p className="course-detail-intro">{lesson.intro}</p>
     <div className="course-rule-card"><span>Правило</span><p>{lesson.rule}</p></div>
-    <div className={'course-concept-grid count-' + lesson.cards.length}>{lesson.cards.map((card,index)=><button type="button" className={selected===index?'active':''} onClick={()=>setSelected(index)} key={card.label}><small>{card.label}</small><strong dir="rtl">{card.arabic}</strong><span>{card.hint}</span></button>)}</div>
-    <div className="course-practice"><div><span>Практика</span><h3>Прочитайте самостоятельно</h3></div>{lesson.practice.map((text,index)=><button type="button" key={text} className={selected===100+index?'active':''} onClick={()=>setSelected(100+index)}><strong dir="rtl">{text}</strong><span>{selected===100+index?'Выбрано':'Нажмите, чтобы выделить'}</span></button>)}</div>
+    <div className={'course-concept-grid count-' + lesson.cards.length}>{lesson.cards.map((card,index)=><button type="button" disabled key={card.label}><small>{card.label}</small><strong dir="rtl">{card.arabic}</strong><span>{card.hint}</span></button>)}</div>
+    <div className="course-practice"><div><span>Практика</span><h3>Прочитайте самостоятельно</h3></div>{lesson.practice.map((text,index)=><div className="course-practice-example" key={text}><strong dir="rtl">{text}</strong></div>)}</div>
     <aside className="harakat-audio-note">Озвучка будет подключаться только из проверенного источника и запускаться нажатием на пример.</aside>
   </section>;
 }
 
 const harakat = [
-  { key: 'fatha', mark: 'َ', name: 'Фатха', sound: 'а', position: 'Ставится над буквой', examples: ['بَ','تَ','نَ','مَ'] },
-  { key: 'kasra', mark: 'ِ', name: 'Касра', sound: 'и', position: 'Ставится под буквой', examples: ['بِ','تِ','نِ','مِ'] },
-  { key: 'damma', mark: 'ُ', name: 'Дамма', sound: 'у', position: 'Ставится над буквой', examples: ['بُ','تُ','نُ','مُ'] },
+  { key: 'fatha', mark: 'َ', name: 'Фатха', sound: 'а', position: 'Ставится над буквой', examples: [{text:'أَحَدٌ',read:'ахадун',audio:'https://audio.qurancdn.com/wbw/112_001_004.mp3'},{text:'لَمْ',read:'лям',audio:'https://audio.qurancdn.com/wbw/112_003_001.mp3'}] },
+  { key: 'kasra', mark: 'ِ', name: 'Касра', sound: 'и', position: 'Ставится под буквой', examples: [{text:'بِسْمِ',read:'бисми',audio:'https://audio.qurancdn.com/wbw/001_001_001.mp3'},{text:'لِلَّهِ',read:'лилляхи',audio:'https://audio.qurancdn.com/wbw/001_002_002.mp3'}] },
+  { key: 'damma', mark: 'ُ', name: 'Дамма', sound: 'у', position: 'Ставится над буквой', examples: [{text:'قُلْ',read:'куль',audio:'https://audio.qurancdn.com/wbw/112_001_001.mp3'},{text:'هُوَ',read:'хува',audio:'https://audio.qurancdn.com/wbw/112_001_002.mp3'}] },
 ];
 
 function HarakatLesson({ onBack }) {
   const [selected, setSelected] = useState(0);
+  const [playingExample, setPlayingExample] = useState(null);
+  const exampleAudioRef = useRef(null);
   const item = harakat[selected];
+  function playExample(example, index) { const audio = exampleAudioRef.current; if (!audio) return; audio.src = example.audio; setPlayingExample(index); audio.play().catch(() => setPlayingExample(null)); }
   return <section className="harakat-lesson">
     <button type="button" className="quran-inline-back" onClick={onBack}>‹ <span>К программе курса</span></button>
     <header className="quran-lesson-heading"><div><span>Урок 2</span><h2>Огласовки</h2></div><strong>3 знака</strong></header>
@@ -49,9 +51,9 @@ function HarakatLesson({ onBack }) {
       <div className="harakat-focus-copy"><span>{item.name}</span><h3>Короткий звук «{item.sound}»</h3><p>{item.position}. Произносится коротко, без растягивания.</p></div>
     </div>
     <div className="harakat-position"><span className={'harakat-position-mark ' + item.key}>{'ب' + item.mark}</span><div><strong>{item.position}</strong><small>{item.key === 'kasra' ? 'Обратите внимание: знак находится снизу.' : 'Знак находится сверху, но имеет свою форму.'}</small></div></div>
-    <div className="harakat-examples"><div><h3>Попробуйте прочитать</h3><span>Нажимайте на примеры по порядку</span></div><div className="harakat-example-grid" dir="rtl">{item.examples.map((example, index) => <button type="button" key={example}><span>{example}</span><small dir="ltr">{['б','т','н','м'][index] + item.sound}</small></button>)}</div></div>
+    <div className="harakat-examples"><div><h3>Послушайте примеры</h3><span>Нажмите на слово</span></div><audio ref={exampleAudioRef} onEnded={() => setPlayingExample(null)} onPause={() => setPlayingExample(null)}/><div className="harakat-example-grid harakat-audio-examples" dir="rtl">{item.examples.map((example,index)=><button type="button" className={playingExample===index?'is-playing':''} onClick={()=>playExample(example,index)} key={example.text}><span>{example.text}</span><small dir="ltr">{playingExample===index?'Слушайте…':example.read}</small></button>)}</div></div>
     <div className="harakat-rule"><strong>Запомните</strong><div><span>ـَ</span> = а</div><div><span>ـِ</span> = и</div><div><span>ـُ</span> = у</div></div>
-    <aside className="harakat-audio-note">Для этого урока подбирается отдельная запись преподавателя: звук будет запускаться нажатием на каждый пример.</aside>
+    <aside className="quran-audio-source"><strong>Источник аудио</strong><span>Пословное произношение Корана · Quran Foundation</span><a href="https://quran.foundation" target="_blank" rel="noreferrer">Открыть источник</a></aside>
   </section>;
 }
 
