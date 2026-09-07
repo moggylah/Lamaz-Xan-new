@@ -1,6 +1,6 @@
 import {
+  AzkarHandIcon,
   CalendarIcon,
-  DhikrIcon,
   QiblaIcon,
   TimeIcon,
 } from './Icons.jsx';
@@ -9,7 +9,7 @@ import { t } from '../lib/i18n.js';
 const items = [
   { key: 'prayers', labelKey: 'tab.prayers', Icon: TimeIcon },
   { key: 'qibla', labelKey: 'tab.qibla', Icon: QiblaIcon },
-  { key: 'azkar', labelKey: 'tab.azkar', Icon: DhikrIcon },
+  { key: 'azkar', labelKey: 'tab.azkar', Icon: AzkarHandIcon },
   { key: 'calendar', labelKey: 'tab.calendar', Icon: CalendarIcon },
 ];
 

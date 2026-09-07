@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { BackIcon, CheckIcon, ChevronIcon, DhikrIcon, SunriseIcon, SunsetIcon } from './Icons.jsx';
+import { AzkarHandIcon, BackIcon, CheckIcon, ChevronIcon, SunriseIcon, SunsetIcon } from './Icons.jsx';
 import { AZKAR, getAzkarMeaning, getAzkarName } from '../lib/azkar.js';
 import { triggerHaptic } from '../lib/haptics.js';
 import { t } from '../lib/i18n.js';
@@ -19,7 +19,7 @@ function getBaseId(id = '') { return id.replace(/^after-/, ''); }
 const categories = [
   { key: 'morning', titleKey: 'azkar.morning', hintKey: 'azkar.morningHint', Icon: SunriseIcon },
   { key: 'evening', titleKey: 'azkar.evening', hintKey: 'azkar.eveningHint', Icon: SunsetIcon },
-  { key: 'afterPrayer', titleKey: 'azkar.afterPrayer', hintKey: 'azkar.afterPrayerHint', Icon: DhikrIcon },
+  { key: 'afterPrayer', titleKey: 'azkar.afterPrayer', hintKey: 'azkar.afterPrayerHint', Icon: AzkarHandIcon },
 ];
 
 function makeCounterKey(category, item) {

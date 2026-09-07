@@ -1,5 +1,5 @@
 import {
-  CalendarIcon, CheckIcon, CurrentIcon, DhikrIcon, EmptyCircleIcon, MoonIcon, QiblaIcon, StarIcon, SunIcon, SunriseIcon, SunsetIcon,
+  AzkarHandIcon, CalendarIcon, CheckIcon, CurrentIcon, EmptyCircleIcon, MoonIcon, QiblaIcon, StarIcon, SunIcon, SunriseIcon, SunsetIcon,
 } from './Icons.jsx';
 import { formatClock } from '../lib/date.js';
 import { getPastStatus } from '../lib/prayer.js';
@@ -53,7 +53,7 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
           <span>{t(language, 'tab.qibla')}</span>
         </button>
         <button type="button" onClick={() => onNavigate?.('azkar')}>
-          <span className="home-section-menu-icon"><DhikrIcon size={24} /></span>
+          <span className="home-section-menu-icon"><AzkarHandIcon size={24} /></span>
           <span>{t(language, 'tab.azkar')}</span>
         </button>
         <button type="button" onClick={() => onNavigate?.('calendar')}>

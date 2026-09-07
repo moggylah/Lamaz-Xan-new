@@ -197,6 +197,30 @@ export function DhikrIcon({ size = 24, className = '' }) {
 }
 
 
+export function AzkarHandIcon({ size = 24, className = '' }) {
+  return (
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M8.1 13V7.2a1.45 1.45 0 0 1 2.9 0v4.9-7.7a1.45 1.45 0 0 1 2.9 0v7.7-6.3a1.45 1.45 0 0 1 2.9 0v6.7-3.9a1.45 1.45 0 0 1 2.9 0v6.2c0 3.5-2.8 6.3-6.3 6.3h-1.7c-2.7 0-4.7-1.2-6-3.5l-1.4-2.4a1.55 1.55 0 0 1 2.5-1.8l1.3 1.5"
+        stroke="currentColor"
+        strokeWidth="1.55"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M7.3 15.1c2.9.1 5.1-.8 7-2.6l1.15-1.05"
+        stroke="currentColor"
+        strokeWidth="1.55"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="15.55" cy="11.35" r="1.05" fill="currentColor"/>
+      <circle cx="15.55" cy="8.65" r=".72" fill="currentColor" opacity=".52"/>
+      <circle cx="15.55" cy="6.4" r=".62" fill="currentColor" opacity=".26"/>
+    </svg>
+  );
+}
+
 export function LearnIcon({ size = 24, className = '' }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
