@@ -297,7 +297,7 @@ export default function App() {
       )}
 
       {view === 'qibla' && (
-        <QiblaCompass qiblaBearing={todayData.qibla} language={language}/>
+        <QiblaCompass qiblaBearing={todayData.qibla} location={location} language={language}/>
       )}
 
       {view === 'azkar' && (

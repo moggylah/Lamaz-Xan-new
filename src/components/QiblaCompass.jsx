@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { CompassMiniIcon, QiblaIcon } from './Icons.jsx';
 import { t } from '../lib/i18n.js';
+import { magvar } from 'magvar';
 
 function normalize(value) {
   return ((value % 360) + 360) % 360;
@@ -10,11 +11,14 @@ function signedAngle(value) {
   return ((value + 540) % 360) - 180;
 }
 
-function smoothHeading(previous, next, factor = 0.18) {
+function smoothHeading(previous, next, elapsedMs = 50) {
   if (previous == null) return normalize(next);
   const delta = signedAngle(next - previous);
+  const factor = Math.min(0.5, Math.max(0.12, 1 - Math.exp(-elapsedMs / 140)));
   return normalize(previous + delta * factor);
 }
+
+const SOURCE_PRIORITY = { absolute: 2, webkit: 3 };
 
 const SENSOR_TIMEOUT_MS = 5000;
 
@@ -24,23 +28,32 @@ function getScreenAngle() {
   return 0;
 }
 
-export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
+export default function QiblaCompass({ qiblaBearing, location, language = 'ru' }) {
   const [heading, setHeading] = useState(null);
   const [accuracy, setAccuracy] = useState(null);
   const [status, setStatus] = useState('idle');
+  const [tilted, setTilted] = useState(false);
 
   const listenersRef = useRef([]);
   const headingRef = useRef(null);
   const sourceRef = useRef(null);
   const timeoutRef = useRef(null);
   const lastEventRef = useRef(0);
+  const lastAppliedRef = useRef(0);
+
+  const magneticDeclination = useMemo(() => {
+    if (!Number.isFinite(location?.lat) || !Number.isFinite(location?.lng)) return 0;
+    try { return magvar(location.lat, location.lng, 0, new Date()); }
+    catch { return 0; }
+  }, [location?.lat, location?.lng]);
 
   const difference = useMemo(() => {
     if (heading == null) return null;
     return signedAngle(qiblaBearing - heading);
   }, [heading, qiblaBearing]);
 
-  const aligned = difference != null && Math.abs(difference) <= 6;
+  const reliableAccuracy = !Number.isFinite(accuracy) || accuracy <= 15;
+  const aligned = difference != null && Math.abs(difference) <= 5 && reliableAccuracy && !tilted;
   const dialAngle = heading == null ? 0 : normalize(-heading);
   const qiblaNeedleAngle = difference == null ? 0 : difference;
   const turnDegrees = difference == null ? 0 : Math.round(Math.abs(difference));
@@ -60,20 +73,21 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
 
   function applyHeading(value, source, sensorAccuracy = null) {
     if (!Number.isFinite(value)) return;
-    if (sourceRef.current === 'webkit' && source !== 'webkit') return;
-
     const now = performance.now();
-    if (sourceRef.current === source && now - lastEventRef.current < 12) return;
+    const previousSource = sourceRef.current;
+    const currentPriority = SOURCE_PRIORITY[previousSource] || 0;
+    const nextPriority = SOURCE_PRIORITY[source] || 0;
+    if (nextPriority < currentPriority && now - lastEventRef.current < 1500) return;
+    if (previousSource === source && now - lastEventRef.current < 16) return;
     lastEventRef.current = now;
+    sourceRef.current = source;
 
-    if (source === 'webkit') sourceRef.current = 'webkit';
-    else if (!sourceRef.current) sourceRef.current = source;
+    if (Number.isFinite(sensorAccuracy) && sensorAccuracy >= 0) setAccuracy(sensorAccuracy);
+    else if (source !== previousSource) setAccuracy(null);
 
-    if (Number.isFinite(sensorAccuracy) && sensorAccuracy >= 0) {
-      setAccuracy(sensorAccuracy);
-    }
-
-    const next = smoothHeading(headingRef.current, normalize(value));
+    const elapsed = lastAppliedRef.current ? now - lastAppliedRef.current : 50;
+    lastAppliedRef.current = now;
+    const next = smoothHeading(headingRef.current, normalize(value), elapsed);
     headingRef.current = next;
     setHeading(next);
     setStatus('active');
@@ -84,18 +98,20 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
   }
 
   function handleOrientation(event) {
+    const beta = Number.isFinite(event.beta) ? event.beta : 0;
+    const gamma = Number.isFinite(event.gamma) ? event.gamma : 0;
+    const isTooTilted = Math.abs(beta) > 70 || Math.abs(gamma) > 70;
+    setTilted(isTooTilted);
+    if (isTooTilted) return;
+
     if (Number.isFinite(event.webkitCompassHeading)) {
-      applyHeading(
-        event.webkitCompassHeading + getScreenAngle(),
-        'webkit',
-        event.webkitCompassAccuracy,
-      );
+      const trueHeading = event.webkitCompassHeading + magneticDeclination + getScreenAngle();
+      applyHeading(trueHeading, 'webkit', event.webkitCompassAccuracy);
       return;
     }
 
-    if (Number.isFinite(event.alpha)) {
-      const source = event.absolute === true ? 'absolute' : 'relative';
-      applyHeading(360 - event.alpha + getScreenAngle(), source);
+    if (event.absolute === true && Number.isFinite(event.alpha)) {
+      applyHeading(360 - event.alpha + getScreenAngle(), 'absolute');
     }
   }
 
@@ -110,7 +126,7 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
       }
 
       if (typeof Orientation.requestPermission === 'function') {
-        const permission = await Orientation.requestPermission();
+        const permission = await Orientation.requestPermission(true);
         if (permission !== 'granted') {
           setStatus('denied');
           return;
@@ -121,15 +137,16 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
       headingRef.current = null;
       sourceRef.current = null;
       lastEventRef.current = 0;
+      lastAppliedRef.current = 0;
       setAccuracy(null);
+      setTilted(false);
 
-      if ('ondeviceorientationabsolute' in window) {
-        window.addEventListener('deviceorientationabsolute', handleOrientation, true);
-        listenersRef.current.push({ eventName: 'deviceorientationabsolute', handler: handleOrientation });
-      } else {
-        window.addEventListener('deviceorientation', handleOrientation, true);
-        listenersRef.current.push({ eventName: 'deviceorientation', handler: handleOrientation });
-      }
+      window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+      window.addEventListener('deviceorientation', handleOrientation, true);
+      listenersRef.current.push(
+        { eventName: 'deviceorientationabsolute', handler: handleOrientation },
+        { eventName: 'deviceorientation', handler: handleOrientation },
+      );
 
       setStatus('listening');
       timeoutRef.current = window.setTimeout(() => {
@@ -142,7 +159,7 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
   }
 
   const needsActivation = heading == null;
-  const lowAccuracy = Number.isFinite(accuracy) && accuracy > 25;
+  const lowAccuracy = Number.isFinite(accuracy) && accuracy > 15;
 
   let guidance = t(language, 'qibla.instruction');
   if (difference != null) {
@@ -212,6 +229,7 @@ export default function QiblaCompass({ qiblaBearing, language = 'ru' }) {
         </button>
       )}
 
+      {tilted && <p className="sensor-note">{t(language, 'qibla.holdFlat')}</p>}
       {lowAccuracy && <p className="sensor-note">{t(language, 'qibla.calibrate')}</p>}
 
       {['denied', 'unsupported', 'unavailable', 'error'].includes(status) && (
