@@ -107,7 +107,7 @@ export async function sendDueNotifications({ times, prefs, now, timeZone, mosque
     if (sent[tag]) continue;
 
     const shown = await displayNotification(t(language, `notification.azkar.${key}Title`), {
-      body: t(language, 'notification.azkar.verse'),
+      body: `${t(language, 'notification.azkar.verse')}\n${t(language, 'notification.azkar.source')}`,
       tag,
       icon: '/app-icon-192.png',
       badge: '/app-icon-192.png',
