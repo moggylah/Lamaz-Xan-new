@@ -20,10 +20,11 @@ export function TimeIcon({ size = 24, className = '' }) {
 export function QiblaIcon({ size = 24, className = '' }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.65"/>
-      <path d="M12 4.3v1.4M12 18.3v1.4M4.3 12h1.4M18.3 12h1.4" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round"/>
-      <path d="m14.9 7.1-1.45 4.45-4.35 1.35 1.45-4.35 4.35-1.45Z" fill="currentColor" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round"/>
-      <circle cx="12" cy="12" r="1.15" fill="var(--cream-2, white)" stroke="currentColor" strokeWidth="1.15"/>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6"/>
+      <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round"/>
+      <path d="m15.25 8.75-1.9 4.6-4.6 1.9 1.9-4.6 4.6-1.9Z" stroke="currentColor" strokeWidth="1.45" strokeLinejoin="round"/>
+      <path d="m15.25 8.75-1.9 4.6-2.7-2.7 4.6-1.9Z" fill="currentColor"/>
+      <circle cx="12" cy="12" r=".95" fill="var(--cream-2, white)" stroke="currentColor" strokeWidth="1"/>
     </svg>
   );
 }
@@ -175,9 +176,10 @@ export function BellIcon({ size = 24, className = '' }) {
 export function CalendarIcon({ size = 24, className = '' }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="4" y="5.5" width="16" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.6"/>
-      <path d="M8 3.7v3.5M16 3.7v3.5M4.5 9.2h15" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-      <path d="M8 12.3h2M12 12.3h2M16 12.3h.1M8 15.8h2M12 15.8h2M16 15.8h.1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <rect x="3.5" y="4.8" width="17" height="15.5" rx="2.5" stroke="currentColor" strokeWidth="1.55"/>
+      <path d="M8 2.9v3.8M16 2.9v3.8M4 9.2h16" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round"/>
+      <path d="M8 13h8M8 16.8h5.5" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round"/>
+      <circle cx="17.1" cy="16.8" r="1.15" fill="currentColor"/>
     </svg>
   );
 }
@@ -196,30 +198,6 @@ export function DhikrIcon({ size = 24, className = '' }) {
   );
 }
 
-
-export function AzkarHandIcon({ size = 24, className = '' }) {
-  return (
-    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M7.9 13.9V7.3a1.5 1.5 0 0 1 3 0v5-7.9a1.5 1.5 0 0 1 3 0v7.9-6.4a1.5 1.5 0 0 1 3 0v7.4-4a1.5 1.5 0 0 1 3 0v5.5c0 3.6-2.8 6.4-6.4 6.4h-1.8c-3.8 0-6.7-2.9-6.7-6.7v-1.7"
-        stroke="currentColor"
-        strokeWidth="1.55"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M18.7 17.1c-1.2-1.8-2.8-3.1-4.7-3.9-1.2-.5-2.4-.7-3.65-.55"
-        stroke="currentColor"
-        strokeWidth="2.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="9.45" cy="12.65" r="1.12" fill="currentColor"/>
-      <circle cx="9.45" cy="9.75" r=".82" fill="currentColor" opacity=".55"/>
-      <circle cx="9.45" cy="7.15" r=".72" fill="currentColor" opacity=".3"/>
-    </svg>
-  );
-}
 
 export function LearnIcon({ size = 24, className = '' }) {
   return (
