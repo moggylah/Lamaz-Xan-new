@@ -32,7 +32,7 @@ export default function QuranLearningView() {
         <section className="quran-active-lesson">
           <header className="quran-lesson-heading"><div><span>Урок 1</span><h2>Арабский алфавит</h2></div><strong>28 букв</strong></header>
           <audio ref={audioRef} src="/audio/quran/arabic-alphabet.ogg" preload="auto" onTimeUpdate={trackLetter} onEnded={() => setActiveLetter(null)} />
-          <p className="quran-lesson-tip quran-letter-audio-tip"><span aria-hidden="true">♪</span><span><strong>Нажмите на букву, чтобы услышать её</strong>Повторное нажатие воспроизведёт звук ещё раз.</span></p>
+          <p className="quran-lesson-tip quran-letter-audio-tip"><span><strong>Нажмите на букву, чтобы услышать её</strong>Повторное нажатие воспроизведёт звук ещё раз.</span></p>
           <div className="quran-alphabet-grid" dir="rtl">{alphabet.map(([letter, name], index) => <button type="button" className={activeLetter === index ? 'is-playing' : ''} key={letter + name} onClick={() => playLetter(index)} aria-label={name + '. Прослушать произношение'}><span className="quran-letter">{letter}</span><span className="quran-letter-name" dir="ltr">{activeLetter === index ? 'Слушайте…' : name}</span></button>)}</div>
           <aside className="quran-audio-source"><strong>Источник аудио</strong><span>Произношение: Ibraheem alex · Wikimedia Commons</span><a href="https://commons.wikimedia.org/wiki/File:%D8%AD%D8%B1%D9%88%D9%81_%D8%A7%D9%84%D8%A3%D8%A8%D8%AC%D8%AF%D9%8A%D8%A9_%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_Arabic_alphabet.ogg" target="_blank" rel="noreferrer">GFDL 1.2+ · открыть оригинал</a></aside>
         </section>
