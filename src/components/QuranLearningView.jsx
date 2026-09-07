@@ -18,12 +18,12 @@ function HarakatLesson({ onBack }) {
     <button type="button" className="quran-inline-back" onClick={onBack}>‹ <span>К программе курса</span></button>
     <header className="quran-lesson-heading"><div><span>Урок 2</span><h2>Огласовки</h2></div><strong>3 знака</strong></header>
     <p className="harakat-intro">Огласовка добавляет к букве короткий гласный звук. Сама буква остаётся той же.</p>
-    <div className="harakat-tabs" role="tablist" aria-label="Огласовки">{harakat.map((value, index) => <button type="button" role="tab" aria-selected={selected === index} className={selected === index ? 'active' : ''} onClick={() => setSelected(index)} key={value.key}><span>{value.mark}</span><strong>{value.name}</strong></button>)}</div>
+    <div className="harakat-tabs" role="tablist" aria-label="Огласовки">{harakat.map((value, index) => <button type="button" role="tab" aria-selected={selected === index} className={selected === index ? 'active' : ''} onClick={() => setSelected(index)} key={value.key}><span>{'◌' + value.mark}</span><strong>{value.name}</strong></button>)}</div>
     <div className="harakat-focus-card">
-      <div className="harakat-symbol" aria-hidden="true"><span>ب</span><b>{item.mark}</b></div>
+      <div className="harakat-symbol" aria-hidden="true"><span>{'ب' + item.mark}</span></div>
       <div className="harakat-focus-copy"><span>{item.name}</span><h3>Короткий звук «{item.sound}»</h3><p>{item.position}. Произносится коротко, без растягивания.</p></div>
     </div>
-    <div className="harakat-position"><span className={'harakat-position-mark ' + item.key}>{item.mark}</span><div><strong>{item.position}</strong><small>{item.key === 'kasra' ? 'Обратите внимание: знак находится снизу.' : 'Знак находится сверху, но имеет свою форму.'}</small></div></div>
+    <div className="harakat-position"><span className={'harakat-position-mark ' + item.key}>{'ب' + item.mark}</span><div><strong>{item.position}</strong><small>{item.key === 'kasra' ? 'Обратите внимание: знак находится снизу.' : 'Знак находится сверху, но имеет свою форму.'}</small></div></div>
     <div className="harakat-examples"><div><h3>Попробуйте прочитать</h3><span>Нажимайте на примеры по порядку</span></div><div className="harakat-example-grid" dir="rtl">{item.examples.map((example, index) => <button type="button" key={example}><span>{example}</span><small dir="ltr">{['б','т','н','м'][index] + item.sound}</small></button>)}</div></div>
     <div className="harakat-rule"><strong>Запомните</strong><div><span>ـَ</span> = а</div><div><span>ـِ</span> = и</div><div><span>ـُ</span> = у</div></div>
     <aside className="harakat-audio-note">Для этого урока подбирается отдельная запись преподавателя: звук будет запускаться нажатием на каждый пример.</aside>
