@@ -147,7 +147,7 @@ export default function CalendarView({
       )}
 
       <div className="calendar-footer-actions">
-        <span className="calendar-source-badge">{selectedMosque ? t(language, 'calendar.mosqueSource', { mosque: selectedMosque.name }) : t(language, 'calendar.calculatedSource')}</span>
+        <span className="calendar-source-badge">{selectedMosque?.source !== 'openstreetmap' && selectedMosque ? t(language, 'calendar.mosqueSource', { mosque: selectedMosque.name }) : t(language, 'calendar.calculatedSource')}</span>
         <button type="button" className="calendar-pdf-link" onClick={downloadPdf}>{t(language, 'calendar.downloadPdf')}</button>
       </div>
     </section>
