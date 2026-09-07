@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { CheckIcon, LearnIcon } from './Icons.jsx';
+import { useRef, useState } from 'react';
+import { LearnIcon } from './Icons.jsx';
 
 const alphabet = [['ا','Алиф'],['ب','Ба'],['ت','Та'],['ث','Са'],['ج','Джим'],['ح','Ха'],['خ','Хо'],['د','Даль'],['ذ','Заль'],['ر','Ра'],['ز','Зай'],['س','Син'],['ش','Шин'],['ص','Сад'],['ض','Дад'],['ط','Та'],['ظ','За'],['ع','Айн'],['غ','Гайн'],['ف','Фа'],['ق','Каф'],['ك','Кяф'],['ل','Лям'],['م','Мим'],['ن','Нун'],['ه','Ха'],['و','Уау'],['ي','Йа']];
 const letterTimings = [[0.24,0.87],[1.70,2.47],[3.22,3.97],[4.96,5.67],[6.56,7.47],[8.20,9.15],[9.82,10.75],[11.60,12.43],[13.16,14.11],[15.10,16.05],[17.06,18.01],[18.60,19.71],[20.28,21.35],[22.06,23.03],[23.90,24.83],[25.80,26.57],[27.34,28.39],[29.12,30.09],[30.88,31.87],[32.58,33.59],[34.60,35.51],[36.20,37.07],[37.82,38.77],[39.42,40.45],[41.18,42.15],[42.96,43.89],[44.74,45.73],[46.50,47.31]];
@@ -9,22 +9,18 @@ export default function QuranLearningView() {
   const audioRef = useRef(null);
   const [level, setLevel] = useState('beginner');
   const [activeLetter, setActiveLetter] = useState(null);
-  const [heard, setHeard] = useState(() => { try { return new Set(JSON.parse(localStorage.getItem('lamaz-quran-letters') || '[]')); } catch { return new Set(); } });
-  useEffect(() => { localStorage.setItem('lamaz-quran-letters', JSON.stringify([...heard])); }, [heard]);
   function playLetter(index) {
     const audio = audioRef.current;
     if (!audio) return;
     const [start] = letterTimings[index];
     const begin = () => { audio.currentTime = start; setActiveLetter(index); audio.play().catch(() => setActiveLetter(null)); };
     if (audio.readyState >= 1) begin(); else audio.addEventListener('loadedmetadata', begin, { once: true });
-    setHeard((current) => { const next = new Set(current); next.add(index); return next; });
   }
   function trackLetter() {
     const audio = audioRef.current;
     if (activeLetter === null || !audio) return;
        if (audio.currentTime >= letterTimings[activeLetter][1]) { audio.pause(); setActiveLetter(null); }
   }
-  const progress = Math.round((heard.size / alphabet.length) * 100);
   return (
     <section className="quran-learning-screen">
       <div className="quran-course-hero"><div className="quran-course-hero-icon"><LearnIcon size={32} /></div><div><span className="quran-course-kicker">Пошаговый курс</span><h1>Учимся читать Коран</h1><p>От первой буквы до самостоятельного чтения — спокойно и последовательно.</p></div></div>
@@ -34,14 +30,13 @@ export default function QuranLearningView() {
       </div>
       {level === 'advanced' ? <div className="quran-coming-card"><span className="quran-coming-mark">ق</span><h2>Продвинутый курс готовится</h2><p>Здесь появятся махраджи, свойства букв и правила таджвида с проверенными аудиопримерами.</p><button type="button" onClick={() => setLevel('beginner')}>Начать с основ</button></div> : <>
         <section className="quran-active-lesson">
-          <header className="quran-lesson-heading"><div><span>Урок 1</span><h2>Арабский алфавит</h2></div><strong>{heard.size} / {alphabet.length}</strong></header>
-          <div className="quran-progress" aria-label={'Прогресс: ' + progress + '%'}><span style={{ width: progress + '%' }} /></div>
+          <header className="quran-lesson-heading"><div><span>Урок 1</span><h2>Арабский алфавит</h2></div><strong>28 букв</strong></header>
           <audio ref={audioRef} src="/audio/quran/arabic-alphabet.ogg" preload="auto" onTimeUpdate={trackLetter} onEnded={() => setActiveLetter(null)} />
           <p className="quran-lesson-tip quran-letter-audio-tip"><span aria-hidden="true">♪</span><span><strong>Нажмите на букву, чтобы услышать её</strong>Повторное нажатие воспроизведёт звук ещё раз.</span></p>
-          <div className="quran-alphabet-grid" dir="rtl">{alphabet.map(([letter, name], index) => { const done = heard.has(index); return <button type="button" className={(done ? 'is-heard ' : '') + (activeLetter === index ? 'is-playing' : '')} key={letter + name} onClick={() => playLetter(index)} aria-pressed={done} aria-label={name + '. Прослушать произношение'}><span className="quran-letter">{letter}</span><span className="quran-letter-name" dir="ltr">{activeLetter === index ? 'Слушайте…' : name}</span>{done && <span className="quran-letter-check"><CheckIcon size={15}/></span>}</button>; })}</div>
+          <div className="quran-alphabet-grid" dir="rtl">{alphabet.map(([letter, name], index) => <button type="button" className={activeLetter === index ? 'is-playing' : ''} key={letter + name} onClick={() => playLetter(index)} aria-label={name + '. Прослушать произношение'}><span className="quran-letter-sound" aria-hidden="true">♪</span><span className="quran-letter">{letter}</span><span className="quran-letter-name" dir="ltr">{activeLetter === index ? 'Слушайте…' : name}</span></button>)}</div>
           <aside className="quran-audio-source"><strong>Источник аудио</strong><span>Произношение: Ibraheem alex · Wikimedia Commons</span><a href="https://commons.wikimedia.org/wiki/File:%D8%AD%D8%B1%D9%88%D9%81_%D8%A7%D9%84%D8%A3%D8%A8%D8%AC%D8%AF%D9%8A%D8%A9_%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_Arabic_alphabet.ogg" target="_blank" rel="noreferrer">GFDL 1.2+ · открыть оригинал</a></aside>
         </section>
-        <div className="quran-course-list"><div className="quran-list-title"><h2>Программа курса</h2><span>10 уроков</span></div>{lessons.map(([title, hint, active], index) => <div className={'quran-course-row ' + (active ? 'active' : '')} key={title}><span className="quran-course-number">{active && heard.size === alphabet.length ? <CheckIcon size={18}/> : index + 1}</span><div><strong>{title}</strong><span>{hint}</span></div><span className="quran-course-state">{active ? 'Сейчас' : 'Скоро'}</span></div>)}</div>
+        <div className="quran-course-list"><div className="quran-list-title"><h2>Программа курса</h2><span>10 уроков</span></div>{lessons.map(([title, hint, active], index) => <div className={'quran-course-row ' + (active ? 'active' : '')} key={title}><span className="quran-course-number">{index + 1}</span><div><strong>{title}</strong><span>{hint}</span></div><span className="quran-course-state">{active ? 'Сейчас' : 'Скоро'}</span></div>)}</div>
       </>}
     </section>
   );
