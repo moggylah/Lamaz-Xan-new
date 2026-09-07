@@ -58,7 +58,7 @@ function HarakatLesson({ onBack }) {
 export default function QuranLearningView() {
   const audioRef = useRef(null);
   const [level, setLevel] = useState('beginner');
-  const [activeLesson, setActiveLesson] = useState(1);
+  const [activeLesson, setActiveLesson] = useState(0);
   const [activeLetter, setActiveLetter] = useState(null);
   function playLetter(index) {
     const audio = audioRef.current;
@@ -72,22 +72,33 @@ export default function QuranLearningView() {
     if (activeLetter === null || !audio) return;
        if (audio.currentTime >= letterTimings[activeLetter][1]) { audio.pause(); setActiveLetter(null); }
   }
+  const openLevel = (nextLevel) => { setLevel(nextLevel); setActiveLesson(0); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const openLesson = (number) => { setActiveLesson(number); requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' })); };
   return (
-    <section className="quran-learning-screen">
-      <div className="quran-course-hero"><div className="quran-course-hero-icon"><LearnIcon size={32} /></div><div><span className="quran-course-kicker">Пошаговый курс</span><h1>Учимся читать Коран</h1><p>От первой буквы до самостоятельного чтения — спокойно и последовательно.</p></div></div>
-      <div className="quran-level-switch" role="tablist" aria-label="Уровень обучения">
-        <button type="button" className={level === 'beginner' ? 'active' : ''} onClick={() => setLevel('beginner')} role="tab" aria-selected={level === 'beginner'}><strong>Начинающий</strong><span>С самого начала</span></button>
-        <button type="button" className={level === 'advanced' ? 'active' : ''} onClick={() => setLevel('advanced')} role="tab" aria-selected={level === 'advanced'}><strong>Продвинутый</strong><span>Таджвид · скоро</span></button>
+    <section className="quran-learning-screen quran-course-redesign">
+      <div className="quran-level-switch quran-level-switch-top" role="tablist" aria-label="Уровень обучения">
+        <button type="button" className={level === 'beginner' ? 'active' : ''} onClick={() => openLevel('beginner')} role="tab" aria-selected={level === 'beginner'}><strong>Начинающий</strong><span>Чтение с нуля</span></button>
+        <button type="button" className={level === 'advanced' ? 'active' : ''} onClick={() => openLevel('advanced')} role="tab" aria-selected={level === 'advanced'}><strong>Продвинутый</strong><span>Правила таджвида</span></button>
       </div>
-      {level === 'advanced' ? <div className="quran-coming-card"><span className="quran-coming-mark">ق</span><h2>Продвинутый курс готовится</h2><p>Здесь появятся махраджи, свойства букв и правила таджвида с проверенными аудиопримерами.</p><button type="button" onClick={() => setLevel('beginner')}>Начать с основ</button></div> : activeLesson === 2 ? <HarakatLesson onBack={() => setActiveLesson(1)} /> : activeLesson > 2 ? <CourseLesson number={activeLesson} onBack={() => setActiveLesson(1)} /> : <>
-        <section className="quran-active-lesson">
-          <header className="quran-lesson-heading"><div><span>Урок 1</span><h2>Арабский алфавит</h2></div><strong>28 букв</strong></header>
+      {level === 'advanced' ? <>
+        <div className="quran-course-hero quran-course-hero-compact"><div className="quran-course-hero-icon"><LearnIcon size={30}/></div><div><span className="quran-course-kicker">Следующий уровень</span><h1>Таджвид</h1><p>Правильное произношение и правила чтения Корана.</p></div></div>
+        <div className="quran-track-card"><div className="quran-track-heading"><div><span>Продвинутый курс</span><h2>Программа готовится</h2></div><strong>6 тем</strong></div>{['Введение в таджвид','Махраджи букв','Свойства букв','Правила нун и мим','Виды мадда','Знаки остановки'].map((title,index)=><div className="quran-track-row is-locked" key={title}><span className="quran-track-number">{index+1}</span><span className="quran-track-copy"><strong>{title}</strong><small>Будет добавлено после проверки материалов</small></span><span className="quran-track-lock">Скоро</span></div>)}</div>
+      </> : activeLesson === 0 ? <>
+        <div className="quran-course-hero quran-course-hero-compact"><div className="quran-course-hero-icon"><LearnIcon size={30}/></div><div><span className="quran-course-kicker">Курс для начинающих</span><h1>Учимся читать Коран</h1><p>10 последовательных уроков: от букв до первых аятов.</p></div></div>
+        <div className="quran-course-summary"><div><strong>10</strong><span>уроков</span></div><i/><div><strong>28</strong><span>букв</span></div><i/><div><strong>Шаг за шагом</strong><span>без спешки</span></div></div>
+        <div className="quran-track-card"><div className="quran-track-heading"><div><span>Ваш маршрут</span><h2>Программа курса</h2></div><strong>Начните с урока 1</strong></div>{lessons.map(([title,hint],index)=><button type="button" className="quran-track-row" onClick={()=>openLesson(index+1)} key={title}><span className="quran-track-number">{index+1}</span><span className="quran-track-copy"><strong>{title}</strong><small>{hint}</small></span><span className="quran-track-action">{index===0?'Слушать':'Открыть'} <b aria-hidden="true">›</b></span></button>)}</div>
+      </> : <>
+        {activeLesson === 1 && <section className="quran-active-lesson">
+          <button type="button" className="quran-inline-back" onClick={() => setActiveLesson(0)}>‹ <span>Все уроки</span></button>
+          <header className="quran-lesson-heading"><div><span>Урок 1 из 10</span><h2>Арабский алфавит</h2></div><strong>28 букв</strong></header>
           <audio ref={audioRef} src="/audio/quran/arabic-alphabet.ogg" preload="auto" onTimeUpdate={trackLetter} onEnded={() => setActiveLetter(null)} />
           <p className="quran-lesson-tip quran-letter-audio-tip"><span><strong>Нажмите на букву, чтобы услышать её</strong>Повторное нажатие воспроизведёт звук ещё раз.</span></p>
-          <div className="quran-alphabet-grid" dir="rtl">{alphabet.map(([letter, name], index) => <button type="button" className={activeLetter === index ? 'is-playing' : ''} key={letter + name} onClick={() => playLetter(index)} aria-label={name + '. Прослушать произношение'}><span className="quran-letter">{letter}</span><span className="quran-letter-name" dir="ltr">{activeLetter === index ? 'Слушайте…' : name}</span></button>)}</div>
+          <div className="quran-alphabet-grid" dir="rtl">{alphabet.map(([letter,name],index)=><button type="button" className={activeLetter===index?'is-playing':''} key={letter+name} onClick={()=>playLetter(index)} aria-label={name+'. Прослушать произношение'}><span className="quran-letter">{letter}</span><span className="quran-letter-name" dir="ltr">{activeLetter===index?'Слушайте…':name}</span></button>)}</div>
           <aside className="quran-audio-source"><strong>Источник аудио</strong><span>Произношение: Ibraheem alex · Wikimedia Commons</span><a href="https://commons.wikimedia.org/wiki/File:%D8%AD%D8%B1%D9%88%D9%81_%D8%A7%D9%84%D8%A3%D8%A8%D8%AC%D8%AF%D9%8A%D8%A9_%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_Arabic_alphabet.ogg" target="_blank" rel="noreferrer">GFDL 1.2+ · открыть оригинал</a></aside>
-        </section>
-        <div className="quran-course-list"><div className="quran-list-title"><h2>Программа курса</h2><span>10 уроков</span></div>{lessons.map(([title, hint], index) => { const available = true; return <button type="button" disabled={!available} onClick={() => available && setActiveLesson(index + 1)} className={'quran-course-row ' + (available ? 'available' : '')} key={title}><span className="quran-course-number">{index + 1}</span><span className="quran-course-copy"><strong>{title}</strong><span>{hint}</span></span><span className="quran-course-state">{index === 0 ? 'Открыт' : 'Начать'}</span></button>; })}</div>
+          <button type="button" className="quran-next-lesson" onClick={()=>openLesson(2)}><span><small>Следующий урок</small><strong>Огласовки</strong></span><b aria-hidden="true">›</b></button>
+        </section>}
+        {activeLesson === 2 && <HarakatLesson onBack={() => setActiveLesson(0)} />}
+        {activeLesson > 2 && <CourseLesson number={activeLesson} onBack={() => setActiveLesson(0)} />}
       </>}
     </section>
   );
