@@ -163,6 +163,16 @@ export function StarIcon({ size = 20 }) {
   );
 }
 
+export function VibrationIcon({ size = 24, className = '' }) {
+  return (
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="8" y="4" width="8" height="16" rx="2" stroke="currentColor" strokeWidth="1.55"/>
+      <path d="M5.5 8.2c-1.2 2.5-1.2 5.1 0 7.6M18.5 8.2c1.2 2.5 1.2 5.1 0 7.6M3.2 6.2c-2 3.8-2 7.8 0 11.6M20.8 6.2c2 3.8 2 7.8 0 11.6" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round"/>
+      <path d="M10.5 17.2h3" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
 export function BellIcon({ size = 24, className = '' }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">

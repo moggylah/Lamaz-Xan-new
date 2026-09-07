@@ -263,7 +263,7 @@ const extraTranslations = {
     'azkar.swipeHint': 'Листайте влево и вправо',
     'settings.vibration': 'Вибрация',
     'settings.vibrationHint': 'Счётчик азкаров и уведомления, если устройство поддерживает вибрацию',
-    'settings.title': 'Настройки', 'settings.prayerGroup': 'Намаз и местоположение', 'settings.alertsGroup': 'Уведомления', 'settings.applicationGroup': 'Приложение', 'settings.manualCoordinates': 'Ввести координаты вручную', 'settings.notificationVibration': 'Вибрация уведомлений', 'settings.notificationVibrationHint': 'Вибрировать при уведомлении о намазе', 'settings.notificationHelp': 'Почему уведомления могут не работать?', 'settings.haptics': 'Тактильный отклик', 'settings.hapticsHint': 'Вибрация счётчика азкаров при нажатии',
+    'settings.title': 'Настройки', 'settings.azkarGroup': 'Азкары', 'settings.prayerGroup': 'Намаз и местоположение', 'settings.alertsGroup': 'Уведомления', 'settings.applicationGroup': 'Приложение', 'settings.manualCoordinates': 'Ввести координаты вручную', 'settings.notificationVibration': 'Вибрация уведомлений', 'settings.notificationVibrationHint': 'Вибрировать при уведомлении о намазе', 'settings.notificationHelp': 'Почему уведомления могут не работать?', 'settings.haptics': 'Тактильный отклик', 'settings.hapticsHint': 'Вибрация счётчика азкаров при нажатии',
     'azkar.dhikrNumber': 'Зикр № {number}', 'azkar.playAudio': 'Прослушать', 'azkar.stopAudio': 'Остановить', 'azkar.audioHint': 'Произношение арабского текста', 'azkar.tapOptional': 'При желании отмечайте каждое прочтение', 'azkar.meaningSummary': 'О чём этот зикр', 'azkar.resetConfirm': 'Сбросить прогресс всей категории?', 'azkar.surahIkhlas': 'Сура «Аль-Ихляс»', 'azkar.surahFalaq': 'Сура «Аль-Фаляк»', 'azkar.surahNas': 'Сура «Ан-Нас»', 'azkar.baqarahLast': 'Сура «Аль-Бакара», аяты 285–286', 'azkar.ayatKursi': 'Аят аль-Курси · 2:255', 'settings.azkarCounter': 'Счётчик азкаров', 'settings.azkarCounterHint': 'Показывать необязательную отметку повторений',
   },
   en: {
@@ -284,7 +284,7 @@ const extraTranslations = {
     'azkar.swipeHint': 'Swipe left or right',
     'settings.vibration': 'Vibration',
     'settings.vibrationHint': 'Dhikr counter and notifications when vibration is supported',
-    'settings.title': 'Settings', 'settings.prayerGroup': 'Prayer and location', 'settings.alertsGroup': 'Notifications', 'settings.applicationGroup': 'App', 'settings.manualCoordinates': 'Enter coordinates manually', 'settings.notificationVibration': 'Notification vibration', 'settings.notificationVibrationHint': 'Vibrate for prayer notifications', 'settings.notificationHelp': 'Why might notifications not work?', 'settings.haptics': 'Haptic feedback', 'settings.hapticsHint': 'Vibration when tapping the dhikr counter',
+    'settings.title': 'Settings', 'settings.azkarGroup': 'Adhkar', 'settings.prayerGroup': 'Prayer and location', 'settings.alertsGroup': 'Notifications', 'settings.applicationGroup': 'App', 'settings.manualCoordinates': 'Enter coordinates manually', 'settings.notificationVibration': 'Notification vibration', 'settings.notificationVibrationHint': 'Vibrate for prayer notifications', 'settings.notificationHelp': 'Why might notifications not work?', 'settings.haptics': 'Haptic feedback', 'settings.hapticsHint': 'Vibration when tapping the dhikr counter',
     'azkar.dhikrNumber': 'Dhikr No. {number}', 'azkar.playAudio': 'Listen', 'azkar.stopAudio': 'Stop', 'azkar.audioHint': 'Arabic pronunciation', 'azkar.tapOptional': 'Optionally mark each reading', 'azkar.meaningSummary': 'What this dhikr is about', 'azkar.resetConfirm': 'Reset progress for this category?', 'azkar.surahIkhlas': 'Surah Al-Ikhlas', 'azkar.surahFalaq': 'Surah Al-Falaq', 'azkar.surahNas': 'Surah An-Nas', 'azkar.baqarahLast': 'Surah Al-Baqarah · 2:285–286', 'azkar.ayatKursi': 'Ayat al-Kursi · 2:255', 'settings.azkarCounter': 'Dhikr counter', 'settings.azkarCounterHint': 'Show the optional repetition tracker',
   },
   de: {
@@ -305,7 +305,7 @@ const extraTranslations = {
     'azkar.swipeHint': 'Nach links oder rechts wischen',
     'settings.vibration': 'Vibration',
     'settings.vibrationHint': 'Dhikr-Zähler und Benachrichtigungen, sofern Vibration unterstützt wird',
-    'settings.title': 'Einstellungen', 'settings.prayerGroup': 'Gebet und Standort', 'settings.alertsGroup': 'Benachrichtigungen', 'settings.applicationGroup': 'App', 'settings.manualCoordinates': 'Koordinaten manuell eingeben', 'settings.notificationVibration': 'Benachrichtigungsvibration', 'settings.notificationVibrationHint': 'Bei Gebetsbenachrichtigungen vibrieren', 'settings.notificationHelp': 'Warum funktionieren Benachrichtigungen eventuell nicht?', 'settings.haptics': 'Haptisches Feedback', 'settings.hapticsHint': 'Vibration beim Dhikr-Zähler',
+    'settings.title': 'Einstellungen', 'settings.azkarGroup': 'Adhkar', 'settings.prayerGroup': 'Gebet und Standort', 'settings.alertsGroup': 'Benachrichtigungen', 'settings.applicationGroup': 'App', 'settings.manualCoordinates': 'Koordinaten manuell eingeben', 'settings.notificationVibration': 'Benachrichtigungsvibration', 'settings.notificationVibrationHint': 'Bei Gebetsbenachrichtigungen vibrieren', 'settings.notificationHelp': 'Warum funktionieren Benachrichtigungen eventuell nicht?', 'settings.haptics': 'Haptisches Feedback', 'settings.hapticsHint': 'Vibration beim Dhikr-Zähler',
   },
   fr: {
     'azkar.position': '{current} sur {total}',
@@ -325,7 +325,7 @@ const extraTranslations = {
     'azkar.swipeHint': 'Balayez vers la gauche ou la droite',
     'settings.vibration': 'Vibration',
     'settings.vibrationHint': 'Compteur de dhikr et notifications si la vibration est prise en charge',
-    'settings.title': 'Réglages', 'settings.prayerGroup': 'Prière et localisation', 'settings.alertsGroup': 'Notifications', 'settings.applicationGroup': 'Application', 'settings.manualCoordinates': 'Saisir les coordonnées', 'settings.notificationVibration': 'Vibration des notifications', 'settings.notificationVibrationHint': 'Vibrer lors des notifications de prière', 'settings.notificationHelp': 'Pourquoi les notifications peuvent-elles échouer ?', 'settings.haptics': 'Retour haptique', 'settings.hapticsHint': 'Vibration du compteur de dhikr',
+    'settings.title': 'Réglages', 'settings.azkarGroup': 'Adhkar', 'settings.prayerGroup': 'Prière et localisation', 'settings.alertsGroup': 'Notifications', 'settings.applicationGroup': 'Application', 'settings.manualCoordinates': 'Saisir les coordonnées', 'settings.notificationVibration': 'Vibration des notifications', 'settings.notificationVibrationHint': 'Vibrer lors des notifications de prière', 'settings.notificationHelp': 'Pourquoi les notifications peuvent-elles échouer ?', 'settings.haptics': 'Retour haptique', 'settings.hapticsHint': 'Vibration du compteur de dhikr',
   },
   es: {
     'azkar.position': '{current} de {total}',
@@ -345,7 +345,7 @@ const extraTranslations = {
     'azkar.swipeHint': 'Desliza a la izquierda o a la derecha',
     'settings.vibration': 'Vibración',
     'settings.vibrationHint': 'Contador de dhikr y notificaciones si el dispositivo admite vibración',
-    'settings.title': 'Ajustes', 'settings.prayerGroup': 'Oración y ubicación', 'settings.alertsGroup': 'Notificaciones', 'settings.applicationGroup': 'Aplicación', 'settings.manualCoordinates': 'Introducir coordenadas', 'settings.notificationVibration': 'Vibración de notificaciones', 'settings.notificationVibrationHint': 'Vibrar con los avisos de oración', 'settings.notificationHelp': '¿Por qué pueden fallar las notificaciones?', 'settings.haptics': 'Respuesta háptica', 'settings.hapticsHint': 'Vibración del contador de dhikr',
+    'settings.title': 'Ajustes', 'settings.azkarGroup': 'Adhkar', 'settings.prayerGroup': 'Oración y ubicación', 'settings.alertsGroup': 'Notificaciones', 'settings.applicationGroup': 'Aplicación', 'settings.manualCoordinates': 'Introducir coordenadas', 'settings.notificationVibration': 'Vibración de notificaciones', 'settings.notificationVibrationHint': 'Vibrar con los avisos de oración', 'settings.notificationHelp': '¿Por qué pueden fallar las notificaciones?', 'settings.haptics': 'Respuesta háptica', 'settings.hapticsHint': 'Vibración del contador de dhikr',
   },
   ar: {
     'azkar.position': '{current} من {total}',
@@ -365,7 +365,7 @@ const extraTranslations = {
     'azkar.swipeHint': 'اسحب يمينًا أو يسارًا',
     'settings.vibration': 'الاهتزاز',
     'settings.vibrationHint': 'عداد الأذكار والإشعارات إذا كان الجهاز يدعم الاهتزاز',
-    'settings.title': 'الإعدادات', 'settings.prayerGroup': 'الصلاة والموقع', 'settings.alertsGroup': 'الإشعارات', 'settings.applicationGroup': 'التطبيق', 'settings.manualCoordinates': 'إدخال الإحداثيات يدويًا', 'settings.notificationVibration': 'اهتزاز الإشعارات', 'settings.notificationVibrationHint': 'الاهتزاز عند إشعارات الصلاة', 'settings.notificationHelp': 'لماذا قد لا تعمل الإشعارات؟', 'settings.haptics': 'الاستجابة اللمسية', 'settings.hapticsHint': 'اهتزاز عداد الأذكار عند الضغط',
+    'settings.title': 'الإعدادات', 'settings.azkarGroup': 'الأذكار', 'settings.prayerGroup': 'الصلاة والموقع', 'settings.alertsGroup': 'الإشعارات', 'settings.applicationGroup': 'التطبيق', 'settings.manualCoordinates': 'إدخال الإحداثيات يدويًا', 'settings.notificationVibration': 'اهتزاز الإشعارات', 'settings.notificationVibrationHint': 'الاهتزاز عند إشعارات الصلاة', 'settings.notificationHelp': 'لماذا قد لا تعمل الإشعارات؟', 'settings.haptics': 'الاستجابة اللمسية', 'settings.hapticsHint': 'اهتزاز عداد الأذكار عند الضغط',
   },
 };
 
