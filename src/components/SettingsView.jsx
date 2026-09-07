@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import MapPicker from './MapPicker.jsx';
+import LocationSearch from './LocationSearch.jsx';
 import MosqueSelector from './MosqueSelector.jsx';
 import { BackIcon, BellIcon, CalcIcon, DhikrIcon, ChevronIcon, DownIcon, GlobeIcon, LocationIcon, MoonIcon, MosqueIcon, SunIcon, VibrationIcon } from './Icons.jsx';
 import { MADHAB_OPTIONS, METHOD_OPTIONS } from '../lib/prayer.js';
@@ -70,6 +71,8 @@ export default function SettingsView({
         <SettingCard Icon={LocationIcon} title={t(language, 'settings.location')} subtitle={t(language, 'settings.timezone', { zone: timeZone })} onClick={() => toggle('location')} expanded={open === 'location'}/>
         {open === 'location' && (
           <div className="settings-panel location-panel">
+            <LocationSearch onSelect={onLocationChange} language={language}/>
+            <div className="selector-divider location-method-divider"><span>{t(language, 'settings.orUseGps')}</span></div>
             <button className="primary-action" onClick={onUseGps}>{gpsStatus === 'loading' ? t(language, 'settings.detecting') : t(language, 'settings.useCurrent')}</button>
             {gpsStatus === 'error' && <p className="panel-error">{t(language, 'settings.gpsError')}</p>}
             <div className="map-frame"><MapPicker location={location} onChange={onLocationChange} language={language}/></div>
