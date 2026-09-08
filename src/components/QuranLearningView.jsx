@@ -8,7 +8,7 @@ const lessons = [['Арабский алфавит','28 букв · произн
 const courseLessonData = {
   3: { title: 'Соединение букв', badge: 'Формы букв', intro: 'Большинство арабских букв меняют форму в зависимости от места в слове.', rule: 'Читайте справа налево и следите, соединяется ли буква с соседней.', cards: [{label:'Отдельно',arabic:'ب',hint:'ба'},{label:'В начале',arabic:'بـ',hint:'начальная форма'},{label:'В середине',arabic:'ـبـ',hint:'средняя форма'},{label:'В конце',arabic:'ـب',hint:'конечная форма'}], practice: ['بَابٌ','بَيْتٌ','كِتَابٌ'] },
   4: { title: 'Сукун', badge: 'Без гласного', intro: 'Сукун ْ показывает, что после согласной буквы нет гласного звука.', rule: 'Букву с сукуном произносят коротко и сразу переходят к следующей.', cards: [{label:'Знак',arabic:'بْ',hint:'б без гласного'},{label:'После фатхи',arabic:'أَبْ',hint:'аб'},{label:'После касры',arabic:'إِبْ',hint:'иб'},{label:'После даммы',arabic:'أُبْ',hint:'уб'}], practice: ['قُلْ','مِنْ','يَكْتُبُ'] },
-  5: { title: 'Танвин', badge: 'Двойные огласовки', intro: 'Танвин — двойная огласовка в конце слова, добавляющая короткий звук «н».', rule: 'При продолжении чтения звучит «ан», «ин» или «ун». При остановке правило меняется.', cards: [{label:'Фатхатан',arabic:'ـً',hint:'ан'},{label:'Касратан',arabic:'ـٍ',hint:'ин'},{label:'Дамматан',arabic:'ـٌ',hint:'ун'}], practice: ['كِتَابًا','كِتَابٍ','كِتَابٌ'] },
+  5: { title: 'Танвин', badge: 'Двойные огласовки', intro: 'Танвин — двойная огласовка в конце слова, добавляющая короткий звук «н».', rule: 'При продолжении чтения звучит «ан», «ин» или «ун». При остановке правило меняется.', cards: [{label:'Фатхатан',arabic:'بً',hint:'бан'},{label:'Касратан',arabic:'بٍ',hint:'бин'},{label:'Дамматан',arabic:'بٌ',hint:'бун'}], practice: ['كِتَابًا','كِتَابٍ','كِتَابٌ'] },
   6: { title: 'Долгие гласные', badge: 'Растягивание', intro: 'После короткой огласовки одна из трёх букв может удлинить звук.', rule: 'Долгий звук тянется примерно вдвое дольше короткого.', cards: [{label:'Фатха + алиф',arabic:'بَا',hint:'баа'},{label:'Касра + йа',arabic:'بِي',hint:'бии'},{label:'Дамма + уау',arabic:'بُو',hint:'буу'}], practice: ['قَالَ','قِيلَ','نُورٌ'] },
   7: { title: 'Шадда', badge: 'Удвоение', intro: 'Шадда ّ означает, что согласная буква произносится удвоенно.', rule: 'Первая часть удвоенной буквы читается с сукуном, вторая — со своей огласовкой.', cards: [{label:'С фатхой',arabic:'بَّ',hint:'бба'},{label:'С касрой',arabic:'بِّ',hint:'бби'},{label:'С даммой',arabic:'بُّ',hint:'ббу'}], practice: ['رَبِّ','إِنَّ','ثُمَّ'] },
   8: { title: 'Читаем слова', badge: 'Практика', intro: 'Соединяем буквы, огласовки, сукун и долгие гласные в короткие слова.', rule: 'Не угадывайте слово целиком: читайте его справа налево по частям.', cards: [{label:'Шаг 1',arabic:'قُـ',hint:'ку'},{label:'Шаг 2',arabic:'ـلْ',hint:'ль'},{label:'Вместе',arabic:'قُلْ',hint:'куль'}], practice: ['رَبٌّ','كِتَابٌ','نُورٌ','أَحَدٌ'] },
@@ -16,16 +16,17 @@ const courseLessonData = {
   10: { title: 'Первые аяты', badge: 'Чтение Корана', intro: 'Применяем изученные правила на знакомых коротких фрагментах.', rule: 'Читайте медленно, следите за огласовками и не спешите переходить к следующему слову.', cards: [{label:'Басмала',arabic:'بِسْمِ اللَّهِ',hint:'бисмилляхи'},{label:'Короткий аят',arabic:'قُلْ هُوَ اللَّهُ أَحَدٌ',hint:'Сура «Аль-Ихляс», аят 1'}], practice: ['الْحَمْدُ لِلَّهِ','اللَّهُ الصَّمَدُ'] }
 };
 
-function CourseLesson({ number, onBack }) {
+function CourseLesson({ number, onBack, onPrevious, onNext }) {
   const lesson = courseLessonData[number];
   return <section className="course-detail-lesson">
     <button type="button" className="quran-inline-back" onClick={onBack}>‹ <span>К программе курса</span></button>
     <header className="quran-lesson-heading"><div><span>Урок {number}</span><h2>{lesson.title}</h2></div><strong>{lesson.badge}</strong></header>
     <p className="course-detail-intro">{lesson.intro}</p>
     <div className="course-rule-card"><span>Правило</span><p>{lesson.rule}</p></div>
-    <div className={'course-concept-grid count-' + lesson.cards.length}>{lesson.cards.map((card,index)=><button type="button" disabled key={card.label}><small>{card.label}</small><strong dir="rtl">{card.arabic}</strong><span>{card.hint}</span></button>)}</div>
+    <div className={'course-concept-grid count-' + lesson.cards.length + (number === 10 ? ' verse-layout' : '')}>{lesson.cards.map((card,index)=><button type="button" disabled key={card.label}><small>{card.label}</small><strong dir="rtl">{card.arabic}</strong><span>{card.hint}</span></button>)}</div>
     <div className="course-practice"><div><span>Практика</span><h3>Прочитайте самостоятельно</h3></div>{lesson.practice.map((text,index)=><div className="course-practice-example" key={text}><strong dir="rtl">{text}</strong></div>)}</div>
     <aside className="harakat-audio-note">Озвучка будет подключаться только из проверенного источника и запускаться нажатием на пример.</aside>
+    <div className="quran-lesson-navigation"><button type="button" onClick={onPrevious}>‹ <span>Урок {number - 1}</span></button><button type="button" className="primary" onClick={onNext}><span>{number === 10 ? 'Все уроки' : 'Урок ' + (number + 1)}</span> ›</button></div>
   </section>;
 }
 
@@ -35,7 +36,7 @@ const harakat = [
   { key: 'damma', mark: 'ُ', name: 'Дамма', sound: 'у', position: 'Ставится над буквой', examples: [{text:'قُلْ',read:'куль',audio:'https://audio.qurancdn.com/wbw/112_001_001.mp3'},{text:'هُوَ',read:'хува',audio:'https://audio.qurancdn.com/wbw/112_001_002.mp3'}] },
 ];
 
-function HarakatLesson({ onBack }) {
+function HarakatLesson({ onBack, onNext }) {
   const [selected, setSelected] = useState(0);
   const [playingExample, setPlayingExample] = useState(null);
   const exampleAudioRef = useRef(null);
@@ -45,7 +46,7 @@ function HarakatLesson({ onBack }) {
     <button type="button" className="quran-inline-back" onClick={onBack}>‹ <span>К программе курса</span></button>
     <header className="quran-lesson-heading"><div><span>Урок 2</span><h2>Огласовки</h2></div><strong>3 знака</strong></header>
     <p className="harakat-intro">Огласовка добавляет к букве короткий гласный звук. Сама буква остаётся той же.</p>
-    <div className="harakat-tabs" role="tablist" aria-label="Огласовки">{harakat.map((value, index) => <button type="button" role="tab" aria-selected={selected === index} className={selected === index ? 'active' : ''} onClick={() => setSelected(index)} key={value.key}><span>{'◌' + value.mark}</span><strong>{value.name}</strong></button>)}</div>
+    <div className="harakat-tabs" role="tablist" aria-label="Огласовки">{harakat.map((value, index) => <button type="button" role="tab" aria-selected={selected === index} className={selected === index ? 'active' : ''} onClick={() => setSelected(index)} key={value.key}><span>{'ب' + value.mark}</span><strong>{value.name}</strong></button>)}</div>
     <div className="harakat-focus-card">
       <div className="harakat-symbol" aria-hidden="true"><span>{'ب' + item.mark}</span></div>
       <div className="harakat-focus-copy"><span>{item.name}</span><h3>Короткий звук «{item.sound}»</h3><p>{item.position}. Произносится коротко, без растягивания.</p></div>
@@ -53,7 +54,7 @@ function HarakatLesson({ onBack }) {
     <div className="harakat-position"><span className={'harakat-position-mark ' + item.key}>{'ب' + item.mark}</span><div><strong>{item.position}</strong><small>{item.key === 'kasra' ? 'Обратите внимание: знак находится снизу.' : 'Знак находится сверху, но имеет свою форму.'}</small></div></div>
     <div className="harakat-examples"><div><h3>Послушайте примеры</h3><span>Нажмите на слово</span></div><audio ref={exampleAudioRef} onEnded={() => setPlayingExample(null)} onPause={() => setPlayingExample(null)}/><div className="harakat-example-grid harakat-audio-examples" dir="rtl">{item.examples.map((example,index)=><button type="button" className={playingExample===index?'is-playing':''} onClick={()=>playExample(example,index)} key={example.text}><span>{example.text}</span><small dir="ltr">{playingExample===index?'Слушайте…':example.read}</small></button>)}</div></div>
     <div className="harakat-rule"><strong>Запомните</strong><div><span>ـَ</span> = а</div><div><span>ـِ</span> = и</div><div><span>ـُ</span> = у</div></div>
-    <aside className="quran-audio-source"><strong>Источник аудио</strong><span>Пословное произношение Корана · Quran Foundation</span><a href="https://quran.foundation" target="_blank" rel="noreferrer">Открыть источник</a></aside>
+    <aside className="quran-audio-source"><strong>Источник аудио</strong><span>Пословное произношение Корана · Quran Foundation</span><a href="https://quran.foundation" target="_blank" rel="noreferrer">Открыть источник</a></aside><button type="button" className="quran-next-lesson" onClick={onNext}><span><small>Следующий урок</small><strong>Соединение букв</strong></span><b aria-hidden="true">›</b></button>
   </section>;
 }
 
@@ -75,7 +76,7 @@ export default function QuranLearningView() {
        if (audio.currentTime >= letterTimings[activeLetter][1]) { audio.pause(); setActiveLetter(null); }
   }
   const openLevel = (nextLevel) => { setLevel(nextLevel); setActiveLesson(0); window.scrollTo({ top: 0, behavior: 'smooth' }); };
-  const openLesson = (number) => { setActiveLesson(number); requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'smooth' })); };
+  const openLesson = (number) => { setActiveLesson(number); requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' })); };
   return (
     <section className="quran-learning-screen quran-course-redesign">
       <div className="quran-level-switch quran-level-switch-top" role="tablist" aria-label="Уровень обучения">
@@ -103,8 +104,8 @@ export default function QuranLearningView() {
           <aside className="quran-audio-source"><strong>Источник аудио</strong><span>Произношение: Ibraheem alex · Wikimedia Commons</span><a href="https://commons.wikimedia.org/wiki/File:%D8%AD%D8%B1%D9%88%D9%81_%D8%A7%D9%84%D8%A3%D8%A8%D8%AC%D8%AF%D9%8A%D8%A9_%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_Arabic_alphabet.ogg" target="_blank" rel="noreferrer">GFDL 1.2+ · открыть оригинал</a></aside>
           <button type="button" className="quran-next-lesson" onClick={()=>openLesson(2)}><span><small>Следующий урок</small><strong>Огласовки</strong></span><b aria-hidden="true">›</b></button>
         </section>}
-        {activeLesson === 2 && <HarakatLesson onBack={() => setActiveLesson(0)} />}
-        {activeLesson > 2 && <CourseLesson number={activeLesson} onBack={() => setActiveLesson(0)} />}
+        {activeLesson === 2 && <HarakatLesson onBack={() => setActiveLesson(0)} onNext={() => openLesson(3)} />}
+        {activeLesson > 2 && <CourseLesson number={activeLesson} onBack={() => setActiveLesson(0)} onPrevious={() => openLesson(activeLesson - 1)} onNext={() => activeLesson === 10 ? setActiveLesson(0) : openLesson(activeLesson + 1)} />}
       </>}
     </section>
   );
