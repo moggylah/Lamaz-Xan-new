@@ -5130,3 +5130,56 @@ input[type="radio"]:active {
   input[type="checkbox"],
   input[type="radio"] { transition: none; }
 }
+
+/* Home navigation: readable two-column cards instead of a cramped four-item strip. */
+.prayer-screen .home-section-menu {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 4px 28px;
+  padding: 0;
+  border: 0;
+}
+.prayer-screen .home-section-menu button {
+  min-height: 88px;
+  padding: 13px 10px 12px;
+  border: 1px solid rgba(28,56,43,.12);
+  border-radius: 17px;
+  background: rgba(255,253,248,.42);
+  box-shadow: none;
+}
+.prayer-screen .home-section-menu button:nth-child(2n),
+.prayer-screen .home-section-menu button:last-child {
+  border-right: 1px solid rgba(28,56,43,.12);
+}
+.prayer-screen .home-section-menu .home-section-menu-icon {
+  width: 37px;
+  height: 37px;
+}
+.prayer-screen .home-section-menu button > span:last-child {
+  overflow: visible;
+  white-space: normal;
+  text-align: center;
+  font-size: 10.5px;
+  line-height: 1.25;
+}
+html[data-theme="dark"] .prayer-screen .home-section-menu {
+  border: 0;
+}
+html[data-theme="dark"] .prayer-screen .home-section-menu button {
+  border-color: rgba(220,230,224,.12);
+  background: rgba(255,255,255,.018);
+}
+
+@media (max-width: 380px) {
+  .prayer-screen .home-section-menu {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .prayer-screen .home-section-menu button {
+    min-height: 82px;
+    padding: 11px 7px;
+  }
+  .prayer-screen .home-section-menu button > span:last-child {
+    font-size: 10px;
+  }
+}
