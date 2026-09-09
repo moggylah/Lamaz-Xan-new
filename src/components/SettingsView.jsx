@@ -2,7 +2,7 @@ import { useState } from 'react';
 import MapPicker from './MapPicker.jsx';
 import LocationSearch from './LocationSearch.jsx';
 import MosqueSelector from './MosqueSelector.jsx';
-import { BackIcon, BellIcon, CalcIcon, DhikrIcon, ChevronIcon, DownIcon, GlobeIcon, LocationIcon, MoonIcon, MosqueIcon, SunIcon, VibrationIcon } from './Icons.jsx';
+import { BackIcon, BellIcon, CalcIcon, DhikrIcon, ChevronIcon, DownIcon, GlobeIcon, HeartIcon, LocationIcon, MoonIcon, MosqueIcon, SourcesIcon, SunIcon, VibrationIcon } from './Icons.jsx';
 import { MADHAB_OPTIONS, METHOD_OPTIONS } from '../lib/prayer.js';
 import { NOTIFICATION_ROWS } from '../lib/notifications.js';
 import { LANGUAGES, t } from '../lib/i18n.js';
@@ -27,6 +27,7 @@ export default function SettingsView({
   const toggle = (name) => setOpen((current) => current === name ? null : name);
   const methodLabel = t(language, `method.${method}`);
   const mosqueSubtitle = selectedMosque?.name || (mosqueScheduleStatus === 'loading' ? t(language, 'settings.updating') : t(language, 'settings.noMosque'));
+  const [donationNotice, setDonationNotice] = useState(false);
 
   return (
     <section className="settings-screen">
@@ -221,6 +222,28 @@ export default function SettingsView({
           </span>
           <input type="checkbox" checked={hapticsEnabled} onChange={(event) => onHapticsChange?.(event.target.checked)} aria-label={t(language, 'settings.haptics')}/>
         </div>
+
+        <h2 className="settings-group-title settings-group-spaced">О приложении</h2>
+        <SettingCard Icon={SourcesIcon} title="Источники и материалы" subtitle="Данные, расписания и аудиозаписи" onClick={() => toggle('sources')} expanded={open === 'sources'}/>
+        {open === 'sources' && (
+          <div className="settings-panel app-sources-panel">
+            <div className="app-source-item"><strong>Время намаза</strong><p>Расчёт на устройстве библиотекой Adhan по выбранному методу. При выборе мечети используется её расписание из My-Masjid.</p></div>
+            <div className="app-source-item"><strong>Города и карта</strong><p>Поиск мест — OpenStreetMap Nominatim; карта — OpenStreetMap и Leaflet.</p></div>
+            <div className="app-source-item"><strong>Обучение Корану</strong><p>Аудио аятов и слов — Quran Foundation. Алфавит — запись Ibraheem Alex с Wikimedia Commons, лицензия GFDL 1.2+.</p></div>
+            <div className="app-source-item"><strong>Азкары и обучение</strong><p>Основа текстов — Коран и достоверные сборники хадисов. Полный перечень ссылок будет приведён здесь после итоговой проверки материалов преподавателем.</p></div>
+            <p className="app-sources-note">Сторонние сервисы принадлежат их правообладателям. Lamaz Xan не заявляет права на их материалы.</p>
+          </div>
+        )}
+
+        <SettingCard Icon={HeartIcon} title="Поддержать проект" subtitle="Помочь развитию Lamaz Xan" onClick={() => toggle('donation')} expanded={open === 'donation'}/>
+        {open === 'donation' && (
+          <div className="settings-panel donation-panel">
+            <strong>Поддержка остаётся добровольной</strong>
+            <p>Приложение будет платным, а донат — дополнительной возможностью поддержать разработку, новые уроки и проверку материалов.</p>
+            <button type="button" className="donation-action" onClick={() => setDonationNotice(true)}><HeartIcon size={19}/>Поддержать Lamaz Xan</button>
+            {donationNotice && <p className="donation-notice" role="status">Платёжный сервис пока не подключён. Перед публикацией сюда будет добавлена ваша безопасная ссылка для оплаты.</p>}
+          </div>
+        )}
       </div>
 
     </section>

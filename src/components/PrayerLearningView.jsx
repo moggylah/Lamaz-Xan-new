@@ -128,7 +128,7 @@ function SectionBack({ onClick, label = 'Назад' }) {
 
 function Details({ item }) {
   const [open, setOpen] = useState(false);
-  const hasMore = item.detail || item.arabic || item.source;
+  const hasMore = item.detail || item.arabic;
   if (!hasMore) return null;
 
   return (
@@ -147,7 +147,6 @@ function Details({ item }) {
               {item.translation && <div className="learning-translation">{item.translation}</div>}
             </div>
           )}
-          {item.source && <p className="learning-proof"><strong>Довод:</strong> {item.source}</p>}
         </div>
       )}
     </div>
@@ -273,7 +272,6 @@ function StaticTopic({ topic, onBack }) {
       </div>
       <div className="learning-note-card">
         {topic.bullets.map((bullet) => <p key={bullet}>{bullet}</p>)}
-        {topic.source && <p className="learning-proof"><strong>Основа:</strong> {topic.source}</p>}
       </div>
     </div>
   );

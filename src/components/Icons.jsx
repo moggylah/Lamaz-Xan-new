@@ -217,3 +217,20 @@ export function LearnIcon({ size = 24, className = '' }) {
     </svg>
   );
 }
+
+export function SourcesIcon({ size = 24, className = '' }) {
+  return (
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M6 4.5h9.5A2.5 2.5 0 0 1 18 7v12H8.5A2.5 2.5 0 0 1 6 16.5v-12Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M8.5 19A2.5 2.5 0 0 1 6 16.5 2.5 2.5 0 0 1 8.5 14H18M9.5 8h5M9.5 11h3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+export function HeartIcon({ size = 24, className = '' }) {
+  return (
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 20s-7.5-4.5-7.5-10.1A4.4 4.4 0 0 1 12 6.8a4.4 4.4 0 0 1 7.5 3.1C19.5 15.5 12 20 12 20Z" stroke="currentColor" strokeWidth="1.55" strokeLinejoin="round"/>
+    </svg>
+  );
+}

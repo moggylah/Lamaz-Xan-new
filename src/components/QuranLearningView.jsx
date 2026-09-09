@@ -50,7 +50,6 @@ function LevelLesson({ level, index, onBack, onPrevious, onNext }) {
     <header className="quran-lesson-heading"><div><span>Урок {index+1} из {levelLessonData[level].length}</span><h2>{lesson.title}</h2></div><strong>{lesson.badge}</strong></header>
     <p className="course-detail-intro">{lesson.intro}</p><div className="course-rule-card"><span>Правило</span><p>{lesson.rule}</p></div>
     <audio ref={audioRef} onEnded={()=>setPlaying(null)}/><div className={'level-example-grid count-'+lesson.examples.length}>{lesson.examples.map((example,i)=><button type="button" className={playing===i?'is-playing':''} onClick={()=>play(example,i)} key={example.arabic}><small>{example.label}</small><strong dir="rtl">{example.arabic}</strong><span>{playing===i?'Слушайте…':example.hint}</span></button>)}</div>
-    <div className="quran-lesson-audio-credit">Нажмите на пример, чтобы услышать аят · Quran Foundation</div>
     <div className="quran-lesson-navigation"><button type="button" onClick={onPrevious}>‹ <span>{index===0?'Все уроки':'Урок '+index}</span></button><button type="button" className="primary" onClick={onNext}><span>{index===levelLessonData[level].length-1?'Все уроки':'Урок '+(index+2)}</span> ›</button></div>
   </section>;
 }
@@ -67,7 +66,6 @@ function CourseLesson({ number, onBack, onPrevious, onNext }) {
     <div className="course-rule-card"><span>Правило</span><p>{lesson.rule}</p></div><audio ref={lessonAudioRef} onEnded={() => setPlayingItem(null)} />
     <div className={'course-concept-grid count-' + lesson.cards.length + (number === 10 ? ' verse-layout' : '')}>{lesson.cards.map((card,index)=><button type="button" disabled={!card.audio} className={playingItem==='card-'+index?'is-playing':''} onClick={()=>playItem(card,'card-'+index)} key={card.label}><small>{card.label}</small><strong dir="rtl">{card.arabic}</strong><span>{card.hint}</span></button>)}</div>
     <div className="course-practice"><div><span>Практика</span><h3>Прочитайте самостоятельно</h3></div>{lesson.practice.map((item,index)=><button type="button" className={'course-practice-example '+(playingItem==='practice-'+index?'is-playing':'')} onClick={()=>playItem(item,'practice-'+index)} key={item.text}><strong dir="rtl">{item.text}</strong><span>{playingItem==='practice-'+index?'Слушайте…':'Нажмите, чтобы прослушать'}</span></button>)}</div>
-    <div className="quran-lesson-audio-credit">Аудио: Quran Foundation · пословная запись Корана</div>
     <div className="quran-lesson-navigation"><button type="button" onClick={onPrevious}>‹ <span>Урок {number - 1}</span></button><button type="button" className="primary" onClick={onNext}><span>{number === 10 ? 'Все уроки' : 'Урок ' + (number + 1)}</span> ›</button></div>
   </section>;
 }
@@ -96,7 +94,7 @@ function HarakatLesson({ onBack, onNext }) {
     <div className="harakat-position"><span className={'harakat-position-mark ' + item.key}>{'ب' + item.mark}</span><div><strong>{item.position}</strong><small>{item.key === 'kasra' ? 'Обратите внимание: знак находится снизу.' : 'Знак находится сверху, но имеет свою форму.'}</small></div></div>
     <div className="harakat-examples"><div><h3>Послушайте примеры</h3><span>Нажмите на слово</span></div><audio ref={exampleAudioRef} onEnded={() => setPlayingExample(null)} onPause={() => setPlayingExample(null)}/><div className="harakat-example-grid harakat-audio-examples" dir="rtl">{item.examples.map((example,index)=><button type="button" className={playingExample===index?'is-playing':''} onClick={()=>playExample(example,index)} key={example.text}><span>{example.text}</span><small dir="ltr">{playingExample===index?'Слушайте…':example.read}</small></button>)}</div></div>
     <div className="harakat-rule"><strong>Запомните</strong><div><span>ـَ</span> = а</div><div><span>ـِ</span> = и</div><div><span>ـُ</span> = у</div></div>
-    <aside className="quran-audio-source"><strong>Источник аудио</strong><span>Пословное произношение Корана · Quran Foundation</span><a href="https://quran.foundation" target="_blank" rel="noreferrer">Открыть источник</a></aside><button type="button" className="quran-next-lesson" onClick={onNext}><span><small>Следующий урок</small><strong>Соединение букв</strong></span><b aria-hidden="true">›</b></button>
+    <button type="button" className="quran-next-lesson" onClick={onNext}><span><small>Следующий урок</small><strong>Соединение букв</strong></span><b aria-hidden="true">›</b></button>
   </section>;
 }
 
@@ -143,7 +141,6 @@ export default function QuranLearningView() {
           <audio ref={audioRef} src="/audio/quran/arabic-alphabet.ogg" preload="auto" onTimeUpdate={trackLetter} onEnded={() => setActiveLetter(null)} />
           <p className="quran-lesson-tip quran-letter-audio-tip"><span><strong>Нажмите на букву, чтобы услышать её</strong>Повторное нажатие воспроизведёт звук ещё раз.</span></p>
           <div className="quran-alphabet-grid" dir="rtl">{alphabet.map(([letter,name],index)=><button type="button" className={activeLetter===index?'is-playing':''} key={letter+name} onClick={()=>playLetter(index)} aria-label={name+'. Прослушать произношение'}><span className="quran-letter">{letter}</span><span className="quran-letter-name" dir="ltr">{activeLetter===index?'Слушайте…':name}</span></button>)}</div>
-          <aside className="quran-audio-source"><strong>Источник аудио</strong><span>Произношение: Ibraheem alex · Wikimedia Commons</span><a href="https://commons.wikimedia.org/wiki/File:%D8%AD%D8%B1%D9%88%D9%81_%D8%A7%D9%84%D8%A3%D8%A8%D8%AC%D8%AF%D9%8A%D8%A9_%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_Arabic_alphabet.ogg" target="_blank" rel="noreferrer">GFDL 1.2+ · открыть оригинал</a></aside>
           <button type="button" className="quran-next-lesson" onClick={()=>openLesson(2)}><span><small>Следующий урок</small><strong>Огласовки</strong></span><b aria-hidden="true">›</b></button>
         </section>}
         {activeLesson === 2 && <HarakatLesson onBack={() => setActiveLesson(0)} onNext={() => openLesson(3)} />}

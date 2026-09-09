@@ -109,7 +109,6 @@ export default function LocationSearch({ onSelect, language = 'ru' }) {
           {status === 'error' && <p className="panel-error">{t(language, 'settings.locationSearchError')}</p>}
         </div>
       )}
-      <small className="location-search-credit">{t(language, 'settings.searchPoweredBy')}</small>
     </div>
   );
 }

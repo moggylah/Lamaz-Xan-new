@@ -323,11 +323,6 @@ export default function AzkarView({ language = 'ru', hapticsEnabled = true, coun
               </details>
             </div>
 
-            {currentItem.reference && (
-              <div className="azkar-meta azkar-slide-meta">
-                <span>{currentItem.reference}</span>
-              </div>
-            )}
           </div>
 
           {counterEnabled && (
