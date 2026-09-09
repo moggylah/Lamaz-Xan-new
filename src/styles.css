@@ -4124,14 +4124,11 @@ html[data-theme="dark"] .quiz-options button { background:#111f19; border-color:
   from { opacity: 0; transform: translateY(-7px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.home-section-menu:has(.home-more-sections) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.home-section-menu:has(.home-more-sections) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .home-section-menu .home-more-sections {
   grid-column: 1 / -1;
   grid-template-columns: minmax(0, 1fr) 28px;
   padding-inline: 5px;
-}
-@media (max-width: 380px) {
-  .home-section-menu:has(.home-more-sections) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-schedule-panel { animation: none; }

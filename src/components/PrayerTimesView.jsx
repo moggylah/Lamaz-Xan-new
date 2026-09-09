@@ -59,29 +59,6 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
         </span>
       </button>
 
-      <nav className="home-section-menu" aria-label={t(language, 'aria.sections')}>
-        <button type="button" onClick={() => onNavigate?.('qibla')}>
-          <span className="home-section-menu-icon"><QiblaIcon size={24}/></span>
-          <span>{t(language, 'tab.qibla')}</span>
-        </button>
-        <button type="button" onClick={() => onNavigate?.('azkar')}>
-          <span className="home-section-menu-icon"><DhikrIcon size={24}/></span>
-          <span>{t(language, 'tab.azkar')}</span>
-        </button>
-        <button type="button" onClick={() => onNavigate?.('calendar')}>
-          <span className="home-section-menu-icon"><CalendarIcon size={24}/></span>
-          <span>{t(language, 'tab.calendar')}</span>
-        </button>
-        <button type="button" onClick={() => onNavigate?.('quran')}>
-          <span className="home-section-menu-icon"><LearnIcon size={24}/></span>
-          <span>{t(language, 'quran.title')}</span>
-        </button>
-        <button type="button" className="home-more-sections" onClick={() => onNavigate?.('sections')}>
-          <span className="home-more-copy"><strong>{t(language, 'sections.title')}</strong><small>{t(language, 'sections.homeHint')}</small></span>
-          <span className="home-more-arrow" aria-hidden="true">›</span>
-        </button>
-      </nav>
-
       {scheduleOpen && <div id="today-prayer-schedule" className="home-schedule-panel">
         <div className="schedule-heading">
           <div>
@@ -131,6 +108,29 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
         })}
         </div>
       </div>}
+
+      <nav className="home-section-menu" aria-label={t(language, 'aria.sections')}>
+        <button type="button" onClick={() => onNavigate?.('qibla')}>
+          <span className="home-section-menu-icon"><QiblaIcon size={24}/></span>
+          <span>{t(language, 'tab.qibla')}</span>
+        </button>
+        <button type="button" onClick={() => onNavigate?.('azkar')}>
+          <span className="home-section-menu-icon"><DhikrIcon size={24}/></span>
+          <span>{t(language, 'tab.azkar')}</span>
+        </button>
+        <button type="button" onClick={() => onNavigate?.('calendar')}>
+          <span className="home-section-menu-icon"><CalendarIcon size={24}/></span>
+          <span>{t(language, 'tab.calendar')}</span>
+        </button>
+        <button type="button" onClick={() => onNavigate?.('quran')}>
+          <span className="home-section-menu-icon"><LearnIcon size={24}/></span>
+          <span>{t(language, 'quran.title')}</span>
+        </button>
+        <button type="button" className="home-more-sections" onClick={() => onNavigate?.('sections')}>
+          <span className="home-more-copy"><strong>{t(language, 'sections.title')}</strong><small>{t(language, 'sections.homeHint')}</small></span>
+          <span className="home-more-arrow" aria-hidden="true">›</span>
+        </button>
+      </nav>
 
     </section>
   );
