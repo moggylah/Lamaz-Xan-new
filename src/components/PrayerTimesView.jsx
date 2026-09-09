@@ -62,7 +62,7 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
         </button>
         <button type="button" className="home-more-sections" onClick={() => onNavigate?.('sections')}>
           <span className="home-section-menu-icon"><LearnIcon size={24}/></span>
-          <span className="home-more-copy"><strong>Другие разделы</strong><small>Обучение Корану и новые возможности</small></span>
+          <span className="home-more-copy"><strong>{t(language, 'sections.title')}</strong><small>{t(language, 'sections.homeHint')}</small></span>
           <span className="home-more-arrow" aria-hidden="true">›</span>
         </button>
       </nav>

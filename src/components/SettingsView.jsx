@@ -223,25 +223,22 @@ export default function SettingsView({
           <input type="checkbox" checked={hapticsEnabled} onChange={(event) => onHapticsChange?.(event.target.checked)} aria-label={t(language, 'settings.haptics')}/>
         </div>
 
-        <h2 className="settings-group-title settings-group-spaced">О приложении</h2>
-        <SettingCard Icon={SourcesIcon} title="Источники и материалы" subtitle="Данные, расписания и аудиозаписи" onClick={() => toggle('sources')} expanded={open === 'sources'}/>
+        <h2 className="settings-group-title settings-group-spaced">{t(language, 'settings.aboutGroup')}</h2>
+        <SettingCard Icon={SourcesIcon} title={t(language, 'settings.sources')} subtitle={t(language, 'settings.sourcesHint')} onClick={() => toggle('sources')} expanded={open === 'sources'}/>
         {open === 'sources' && (
           <div className="settings-panel app-sources-panel">
-            <div className="app-source-item"><strong>Время намаза</strong><p>Расчёт на устройстве библиотекой Adhan по выбранному методу. При выборе мечети используется её расписание из My-Masjid.</p></div>
-            <div className="app-source-item"><strong>Города и карта</strong><p>Поиск мест — OpenStreetMap Nominatim; карта — OpenStreetMap и Leaflet.</p></div>
-            <div className="app-source-item"><strong>Обучение Корану</strong><p>Аудио аятов и слов — Quran Foundation. Алфавит — запись Ibraheem Alex с Wikimedia Commons, лицензия GFDL 1.2+.</p></div>
-            <div className="app-source-item"><strong>Азкары и обучение</strong><p>Основа текстов — Коран и достоверные сборники хадисов. Полный перечень ссылок будет приведён здесь после итоговой проверки материалов преподавателем.</p></div>
-            <p className="app-sources-note">Сторонние сервисы принадлежат их правообладателям. Lamaz Xan не заявляет права на их материалы.</p>
+            {['prayer', 'map', 'quran', 'azkar'].map((key) => <div className="app-source-item" key={key}><strong>{t(language, `settings.source.${key}.title`)}</strong><p>{t(language, `settings.source.${key}.text`)}</p></div>)}
+            <p className="app-sources-note">{t(language, 'settings.sourcesNote')}</p>
           </div>
         )}
 
-        <SettingCard Icon={HeartIcon} title="Поддержать проект" subtitle="Помочь развитию Lamaz Xan" onClick={() => toggle('donation')} expanded={open === 'donation'}/>
+        <SettingCard Icon={HeartIcon} title={t(language, 'settings.donate')} subtitle={t(language, 'settings.donateHint')} onClick={() => toggle('donation')} expanded={open === 'donation'}/>
         {open === 'donation' && (
           <div className="settings-panel donation-panel">
-            <strong>Поддержка остаётся добровольной</strong>
-            <p>Приложение будет платным, а донат — дополнительной возможностью поддержать разработку, новые уроки и проверку материалов.</p>
-            <button type="button" className="donation-action" onClick={() => setDonationNotice(true)}><HeartIcon size={19}/>Поддержать Lamaz Xan</button>
-            {donationNotice && <p className="donation-notice" role="status">Платёжный сервис пока не подключён. Перед публикацией сюда будет добавлена ваша безопасная ссылка для оплаты.</p>}
+            <strong>{t(language, 'settings.donateTitle')}</strong>
+            <p>{t(language, 'settings.donateText')}</p>
+            <button type="button" className="donation-action" onClick={() => setDonationNotice(true)}><HeartIcon size={19}/>{t(language, 'settings.donateAction')}</button>
+            {donationNotice && <p className="donation-notice" role="status">{t(language, 'settings.donateNotice')}</p>}
           </div>
         )}
       </div>

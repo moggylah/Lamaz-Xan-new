@@ -3,15 +3,15 @@ import { t } from '../lib/i18n.js';
 
 export default function SectionsView({ language = 'ru', onNavigate }) {
   const sections = [
-    { view: 'quran', Icon: LearnIcon, title: t(language, 'quran.title'), description: 'Уроки для начинающих и продолжающих' },
+    { view: 'quran', Icon: LearnIcon, title: t(language, 'quran.title'), description: t(language, 'sections.quranHint') },
   ];
 
   return (
     <section className="sections-screen">
       <header className="sections-intro">
-        <span>ВОЗМОЖНОСТИ</span>
-        <h1>Другие разделы</h1>
-        <p>Обучение и новые возможности будут появляться здесь, не перегружая главный экран.</p>
+        <span>{t(language, 'sections.kicker')}</span>
+        <h1>{t(language, 'sections.title')}</h1>
+        <p>{t(language, 'sections.intro')}</p>
       </header>
 
       <div className="sections-list">
