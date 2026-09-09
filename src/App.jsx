@@ -13,6 +13,7 @@ import { calculatePrayerData, getLastThirdStart, getNextFard } from './lib/praye
 import { DEFAULT_NOTIFICATION_PREFS, sendDueNotifications } from './lib/notifications.js';
 import { getDevicePosition, getNativeNotificationPermission, isNativeApp, requestNativeNotificationPermission, syncNativeNotifications } from './lib/native.js';
 import { t } from './lib/i18n.js';
+import { triggerButtonHaptic } from './lib/haptics.js';
 import {
   extractMosqueDay,
   getMosqueTimings,
@@ -77,6 +78,18 @@ export default function App() {
     const timer = window.setInterval(() => setNow(new Date()), 1000);
     return () => window.clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    function handleInteractiveClick(event) {
+      const control = event.target.closest('button, [role="button"], input[type="checkbox"], input[type="radio"], select');
+      if (!control || control.disabled || control.getAttribute('aria-disabled') === 'true') return;
+      if (control.classList.contains('azkar-counter-zone')) return;
+      triggerButtonHaptic(hapticsEnabled);
+    }
+
+    document.addEventListener('click', handleInteractiveClick, true);
+    return () => document.removeEventListener('click', handleInteractiveClick, true);
+  }, [hapticsEnabled]);
 
   useLayoutEffect(() => {
     const resolvedTheme = theme === 'dark' ? 'dark' : 'light';

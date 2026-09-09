@@ -22,3 +22,17 @@ export function triggerHaptic(pattern = 18, enabled = true) {
     return false;
   }
 }
+
+export function triggerButtonHaptic(enabled = true) {
+  if (!enabled) return false;
+  if (isNativeApp) {
+    void Haptics.impact({ style: ImpactStyle.Light });
+    return true;
+  }
+  if (!canVibrate()) return false;
+  try {
+    return navigator.vibrate(10);
+  } catch {
+    return false;
+  }
+}
