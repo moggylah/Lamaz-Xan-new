@@ -40,11 +40,11 @@ export default function Header({ dates, onSettings, onHome, onThemeToggle, langu
           >
             {theme === 'dark' ? <SunIcon size={23} /> : <MoonIcon size={23} />}
           </button>
-          <div className="header-brand-lockup" aria-label="Lamaz Xan — Your prayer, your strength">
+          <div className="header-brand-lockup" aria-label="Lamaz Xan — Prayer, the pillar of Islam">
             <BrandLogo variant="mark" className="header-brand-mark" theme={theme} />
             <span className="header-brand-copy">
               <strong>Lamaz Xan</strong>
-              <small>Your prayer, your strength</small>
+              <small>Prayer, the pillar of Islam</small>
             </span>
           </div>
           <button
