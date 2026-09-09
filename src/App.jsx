@@ -7,6 +7,7 @@ import SettingsView from './components/SettingsView.jsx';
 import CalendarView from './components/CalendarView.jsx';
 import AzkarView from './components/AzkarView.jsx';
 import QuranLearningView from './components/QuranLearningView.jsx';
+import SectionsView from './components/SectionsView.jsx';
 import { addCalendarDays, getDateDisplay, getLocalDateParts } from './lib/date.js';
 import { calculatePrayerData, getLastThirdStart, getNextFard } from './lib/prayer.js';
 import { DEFAULT_NOTIFICATION_PREFS, sendDueNotifications } from './lib/notifications.js';
@@ -34,7 +35,7 @@ function readString(key, fallback) {
 
 function getInitialView() {
   const requested = new URLSearchParams(window.location.search).get('view');
-  return ['prayers', 'qibla', 'azkar', 'calendar', 'quran'].includes(requested) ? requested : 'prayers';
+  return ['prayers', 'sections', 'qibla', 'azkar', 'calendar', 'quran'].includes(requested) ? requested : 'prayers';
 }
 
 export default function App() {
@@ -277,7 +278,7 @@ export default function App() {
       <Header
         dates={dates}
         view={view}
-        onHome={() => navigateTo('prayers')}
+        onHome={() => navigateTo(view === 'sections' ? 'prayers' : 'sections')}
         onSettings={() => navigateTo('settings')}
         onThemeToggle={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
         language={language}
@@ -296,6 +297,8 @@ export default function App() {
           onNavigate={navigateTo}
         />
       )}
+
+      {view === 'sections' && <SectionsView language={language} onNavigate={navigateTo}/>} 
 
       {view === 'qibla' && (
         <QiblaCompass qiblaBearing={todayData.qibla} location={location} language={language}/>

@@ -4,6 +4,7 @@ import { BackIcon, GearIcon, MoonIcon, SunIcon } from './Icons.jsx';
 import { t } from '../lib/i18n.js';
 
 const titleKeys = {
+  sections: 'sections.title',
   qibla: 'tab.qibla',
   azkar: 'tab.azkar',
   calendar: 'tab.calendar',
@@ -68,7 +69,7 @@ export default function Header({ dates, onSettings, onHome, onThemeToggle, langu
           type="button"
           className={`icon-button section-back-button ${scrolled ? 'is-floating' : ''}`}
           onClick={onHome}
-          aria-label={t(language, 'tab.prayers')}
+          aria-label={view === 'sections' ? t(language, 'tab.prayers') : t(language, 'sections.title')}
         >
           <BackIcon size={25} />
         </button>

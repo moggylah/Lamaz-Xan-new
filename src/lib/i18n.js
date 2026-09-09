@@ -10,6 +10,7 @@ export const LANGUAGES = [
 
 const translations = {
   ru: {
+    'sections.title': 'Разделы',
     'aria.sections': 'Разделы', 'aria.date': 'Дата', 'aria.settings': 'Настройки', 'aria.back': 'Назад', 'aria.map': 'Карта выбора местоположения',
     'tab.prayers': 'Намазы', 'tab.qibla': 'Кибла', 'tab.azkar': 'Азкары', 'tab.calendar': 'Календарь', 'tab.learning': 'Обучение намазу', 'learning.homeHint': 'Пошаговое обучение намазу',
     'calendar.date': 'Дата', 'calendar.previous': 'Предыдущий месяц', 'calendar.next': 'Следующий месяц', 'calendar.downloadPdf': 'Скачать PDF', 'calendar.pdfTitle': 'Расписание намазов', 'calendar.source': 'Источник', 'calendar.mosqueSource': 'Расписание мечети: {mosque}', 'calendar.calculatedSource': 'Рассчитано по выбранному методу', 'calendar.today': 'Сегодня', 'calendar.day': 'День', 'calendar.month': 'Месяц', 'calendar.view': 'Вид календаря', 'calendar.previousWeek': 'Предыдущая неделя', 'calendar.nextWeek': 'Следующая неделя',
