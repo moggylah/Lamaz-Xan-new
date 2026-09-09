@@ -60,13 +60,12 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
           <span className="home-section-menu-icon"><CalendarIcon size={24}/></span>
           <span>{t(language, 'tab.calendar')}</span>
         </button>
+        <button type="button" className="home-more-sections" onClick={() => onNavigate?.('sections')}>
+          <span className="home-section-menu-icon"><LearnIcon size={24}/></span>
+          <span className="home-more-copy"><strong>Другие разделы</strong><small>Обучение Корану и новые возможности</small></span>
+          <span className="home-more-arrow" aria-hidden="true">›</span>
+        </button>
       </nav>
-
-      <button type="button" className="quran-home-entry sections-home-entry" onClick={() => onNavigate?.('sections')}>
-        <span className="quran-home-entry-icon"><LearnIcon size={27} /></span>
-        <span><strong>Другие разделы</strong><small>Обучение Корану и новые возможности</small></span>
-        <span className="quran-home-entry-arrow" aria-hidden="true">›</span>
-      </button>
 
       <div className="schedule-heading">
         <div>
