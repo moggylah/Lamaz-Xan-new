@@ -5134,23 +5134,22 @@ input[type="radio"]:active {
 /* Home navigation: readable two-column cards instead of a cramped four-item strip. */
 .prayer-screen .home-section-menu {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 0;
   margin: 0 4px 28px;
   padding: 0;
-  border: 0;
+  border-top: 1px solid rgba(28,56,43,.13);
+  border-bottom: 1px solid rgba(28,56,43,.13);
 }
 .prayer-screen .home-section-menu button {
-  min-height: 88px;
-  padding: 13px 10px 12px;
-  border: 1px solid rgba(28,56,43,.12);
-  border-radius: 17px;
-  background: rgba(255,253,248,.42);
+  min-height: 82px;
+  padding: 12px 10px 11px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
 }
-.prayer-screen .home-section-menu button:nth-child(2n),
-.prayer-screen .home-section-menu button:last-child {
-  border-right: 1px solid rgba(28,56,43,.12);
-}
+.prayer-screen .home-section-menu button:nth-child(odd) { border-right: 1px solid rgba(28,56,43,.1); }
+.prayer-screen .home-section-menu button:nth-child(-n+2) { border-bottom: 1px solid rgba(28,56,43,.1); }
 .prayer-screen .home-section-menu .home-section-menu-icon {
   width: 37px;
   height: 37px;
@@ -5163,17 +5162,20 @@ input[type="radio"]:active {
   line-height: 1.25;
 }
 html[data-theme="dark"] .prayer-screen .home-section-menu {
-  border: 0;
+  border-color: rgba(220,230,224,.11);
 }
 html[data-theme="dark"] .prayer-screen .home-section-menu button {
-  border-color: rgba(220,230,224,.12);
-  background: rgba(255,255,255,.018);
+  background: transparent;
+}
+html[data-theme="dark"] .prayer-screen .home-section-menu button:nth-child(odd),
+html[data-theme="dark"] .prayer-screen .home-section-menu button:nth-child(-n+2) {
+  border-color: rgba(220,230,224,.1);
 }
 
 @media (max-width: 380px) {
   .prayer-screen .home-section-menu {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    gap: 0;
   }
   .prayer-screen .home-section-menu button {
     min-height: 82px;
