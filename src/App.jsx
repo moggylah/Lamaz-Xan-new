@@ -8,6 +8,7 @@ import CalendarView from './components/CalendarView.jsx';
 import AzkarView from './components/AzkarView.jsx';
 import QuranLearningView from './components/QuranLearningView.jsx';
 import SectionsView from './components/SectionsView.jsx';
+import TodayScheduleView from './components/TodayScheduleView.jsx';
 import { addCalendarDays, getDateDisplay, getLocalDateParts } from './lib/date.js';
 import { calculatePrayerData, getLastThirdStart, getNextFard } from './lib/prayer.js';
 import { DEFAULT_NOTIFICATION_PREFS, sendDueNotifications } from './lib/notifications.js';
@@ -38,7 +39,7 @@ function readString(key, fallback) {
 
 function getInitialView() {
   const requested = new URLSearchParams(window.location.search).get('view');
-  return ['prayers', 'sections', 'qibla', 'azkar', 'calendar', 'quran'].includes(requested) ? requested : 'prayers';
+  return ['prayers', 'schedule', 'sections', 'qibla', 'azkar', 'calendar', 'quran'].includes(requested) ? requested : 'prayers';
 }
 
 export default function App() {
@@ -317,18 +318,17 @@ export default function App() {
 
       {view === 'prayers' && (
         <PrayerTimesView
-          times={displayTimes}
           timeZone={timeZone}
           now={now}
           nextFard={nextFard}
-          iqamahTimes={iqamahTimes}
-          mosqueName={todayMosqueDay ? selectedMosque?.name : ''}
           language={language}
           onNavigate={navigateTo}
         />
       )}
 
       {view === 'sections' && <SectionsView language={language} onNavigate={navigateTo}/>}
+
+      {view === 'schedule' && <TodayScheduleView times={displayTimes} timeZone={timeZone} now={now} nextFard={nextFard} iqamahTimes={iqamahTimes} mosqueName={todayMosqueDay ? selectedMosque?.name : ''} language={language}/>}
 
       {view === 'qibla' && (
         <QiblaCompass qiblaBearing={todayData.qibla} location={location} language={language}/>
