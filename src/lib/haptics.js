@@ -1,3 +1,6 @@
+import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
+import { isNativeApp } from './native.js';
+
 export function canVibrate() {
   return typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function';
 }
@@ -5,7 +8,11 @@ export function canVibrate() {
 export function triggerHaptic(pattern = 18, enabled = true) {
   if (!enabled) return false;
   if (isNativeApp) {
-    void Haptics.impact({ style: ImpactStyle.Light });
+    if (Array.isArray(pattern)) {
+      void Haptics.notification({ type: NotificationType.Success });
+    } else {
+      void Haptics.impact({ style: ImpactStyle.Medium });
+    }
     return true;
   }
   if (!canVibrate()) return false;
@@ -15,5 +22,3 @@ export function triggerHaptic(pattern = 18, enabled = true) {
     return false;
   }
 }
-import { Haptics, ImpactStyle } from '@capacitor/haptics';
-import { isNativeApp } from './native.js';
