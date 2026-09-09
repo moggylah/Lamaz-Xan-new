@@ -278,7 +278,7 @@ export default function App() {
       <Header
         dates={dates}
         view={view}
-        onHome={() => navigateTo(view === 'sections' ? 'prayers' : 'sections')}
+        onHome={() => navigateTo(view === 'quran' ? 'sections' : 'prayers')}
         onSettings={() => navigateTo('settings')}
         onThemeToggle={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
         language={language}

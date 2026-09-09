@@ -1,5 +1,5 @@
 import {
-  LearnIcon, CheckIcon, CurrentIcon, EmptyCircleIcon, MoonIcon, StarIcon, SunIcon, SunriseIcon, SunsetIcon,
+  CalendarIcon, DhikrIcon, LearnIcon, CheckIcon, CurrentIcon, EmptyCircleIcon, MoonIcon, QiblaIcon, StarIcon, SunIcon, SunriseIcon, SunsetIcon,
 } from './Icons.jsx';
 import { formatClock } from '../lib/date.js';
 import { getPastStatus } from '../lib/prayer.js';
@@ -47,9 +47,24 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
         </div>
       </div>
 
+      <nav className="home-section-menu" aria-label={t(language, 'aria.sections')}>
+        <button type="button" onClick={() => onNavigate?.('qibla')}>
+          <span className="home-section-menu-icon"><QiblaIcon size={24}/></span>
+          <span>{t(language, 'tab.qibla')}</span>
+        </button>
+        <button type="button" onClick={() => onNavigate?.('azkar')}>
+          <span className="home-section-menu-icon"><DhikrIcon size={24}/></span>
+          <span>{t(language, 'tab.azkar')}</span>
+        </button>
+        <button type="button" onClick={() => onNavigate?.('calendar')}>
+          <span className="home-section-menu-icon"><CalendarIcon size={24}/></span>
+          <span>{t(language, 'tab.calendar')}</span>
+        </button>
+      </nav>
+
       <button type="button" className="quran-home-entry sections-home-entry" onClick={() => onNavigate?.('sections')}>
         <span className="quran-home-entry-icon"><LearnIcon size={27} /></span>
-        <span><strong>Все разделы</strong><small>Кибла, азкары, календарь и обучение</small></span>
+        <span><strong>Другие разделы</strong><small>Обучение Корану и новые возможности</small></span>
         <span className="quran-home-entry-arrow" aria-hidden="true">›</span>
       </button>
 
