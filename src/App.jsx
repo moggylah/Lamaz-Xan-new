@@ -298,7 +298,7 @@ export default function App() {
         />
       )}
 
-      {view === 'sections' && <SectionsView language={language} onNavigate={navigateTo}/>} 
+      {view === 'sections' && <SectionsView language={language} onNavigate={navigateTo}/>}
 
       {view === 'qibla' && (
         <QiblaCompass qiblaBearing={todayData.qibla} location={location} language={language}/>
