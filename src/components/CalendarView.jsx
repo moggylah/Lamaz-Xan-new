@@ -68,8 +68,8 @@ export default function CalendarView({
     return row.dateParts.year === todayParts.year && row.dateParts.month === todayParts.month && row.dateParts.day === todayParts.day;
   }
 
-  function downloadPdf() {
-    downloadMonthlySchedulePdf({ rows, year: monthState.year, month: monthState.month, timeZone, language });
+  async function downloadPdf() {
+    await downloadMonthlySchedulePdf({ rows, year: monthState.year, month: monthState.month, timeZone, language });
   }
 
   const selectedDateTitle = selectedRow?.date.toLocaleDateString(locale, {

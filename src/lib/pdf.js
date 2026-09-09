@@ -1,3 +1,6 @@
+import { Capacitor } from '@capacitor/core';
+import { Directory, Filesystem } from '@capacitor/filesystem';
+import { Share } from '@capacitor/share';
 import { formatClock, formatMonthTitle, formatWeekday } from './date.js';
 import { t } from './i18n.js';
 
@@ -84,9 +87,37 @@ function imageBytesToPdf(jpegBytes, imageWidth, imageHeight) {
   return concatBytes(chunks);
 }
 
-function downloadBytes(bytes, filename) {
+function bytesToBase64(bytes) {
+  let binary = '';
+  const chunkSize = 0x8000;
+  for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+  }
+  return btoa(binary);
+}
+
+async function downloadBytes(bytes, filename) {
+  if (Capacitor.isNativePlatform()) {
+    const saved = await Filesystem.writeFile({
+      path: filename,
+      data: bytesToBase64(bytes),
+      directory: Directory.Cache,
+    });
+    await Share.share({
+      title: filename,
+      url: saved.uri,
+      dialogTitle: filename,
+    });
+    return;
+  }
+
   const blob = new Blob([bytes], { type: 'application/pdf' });
   const url = URL.createObjectURL(blob);
+  const preview = window.open(url, '_blank', 'noopener,noreferrer');
+  if (preview) {
+    window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    return;
+  }
   const link = document.createElement('a');
   link.href = url;
   link.download = filename;
@@ -108,7 +139,7 @@ function fitText(ctx, text, maxWidth) {
   return `${value}…`;
 }
 
-export function downloadMonthlySchedulePdf({
+export async function downloadMonthlySchedulePdf({
   rows,
   year,
   month,
@@ -222,5 +253,5 @@ export function downloadMonthlySchedulePdf({
   const pdfBytes = imageBytesToPdf(jpegBytes, width, height);
   const filename = `lamaz-xan-${year}-${String(month).padStart(2, '0')}.pdf`;
 
-  downloadBytes(pdfBytes, filename);
+  await downloadBytes(pdfBytes, filename);
 }
