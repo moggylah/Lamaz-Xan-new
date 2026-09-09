@@ -4094,6 +4094,50 @@ html[data-theme="dark"] .quiz-options button { background:#111f19; border-color:
   .appearance-switch button { transition:none; }
 }
 
+/* Expandable daily schedule and scalable home hub. */
+.home-next-prayer-button {
+  width: calc(100% - 8px);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  padding-bottom: 36px;
+}
+.next-prayer-expand {
+  position: absolute;
+  inset-inline: 17px;
+  bottom: 10px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid rgba(28,56,43,.1);
+  color: var(--green);
+  font-size: 9.5px;
+  font-weight: 750;
+}
+.next-prayer-expand span { color: var(--gold); font-size: 17px; line-height: .7; }
+.home-schedule-panel { margin: -8px 4px 25px; animation: homeScheduleReveal 180ms ease-out; }
+.home-schedule-panel .schedule-heading { margin-top: 0; }
+@keyframes homeScheduleReveal {
+  from { opacity: 0; transform: translateY(-7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.home-section-menu:has(.home-more-sections) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.home-section-menu .home-more-sections {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  padding-inline: 5px;
+}
+@media (max-width: 380px) {
+  .home-section-menu:has(.home-more-sections) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-schedule-panel { animation: none; }
+}
+html[data-theme="dark"] .next-prayer-expand { border-color: rgba(220,230,224,.1); }
+
 /* Calendar: week picker, focused day and compact month view */
 .calendar-redesign { overflow: visible; }
 

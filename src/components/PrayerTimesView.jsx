@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   CalendarIcon, DhikrIcon, LearnIcon, CheckIcon, CurrentIcon, EmptyCircleIcon, MoonIcon, QiblaIcon, StarIcon, SunIcon, SunriseIcon, SunsetIcon,
 } from './Icons.jsx';
@@ -27,10 +28,17 @@ function formatCountdown(ms) {
 
 export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamahTimes = {}, mosqueName = '', language = 'ru', onNavigate }) {
   const nextTime = nextFard.time;
+  const [scheduleOpen, setScheduleOpen] = useState(false);
 
   return (
     <section className="prayer-screen">
-      <div className="next-prayer-card">
+      <button
+        type="button"
+        className="next-prayer-card home-next-prayer-button"
+        onClick={() => setScheduleOpen((open) => !open)}
+        aria-expanded={scheduleOpen}
+        aria-controls="today-prayer-schedule"
+      >
         <div className="next-prayer-copy">
           <span className="next-label">{t(language, 'prayer.next')}</span>
           <strong className="next-name">{t(language, `prayer.${nextFard.key}`)}</strong>
@@ -45,7 +53,11 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
         <div className="next-prayer-watermark" aria-hidden="true">
           <MoonIcon size={112} />
         </div>
-      </div>
+        <span className="next-prayer-expand">
+          {t(language, scheduleOpen ? 'prayer.hideSchedule' : 'prayer.showSchedule')}
+          <span aria-hidden="true">{scheduleOpen ? '⌃' : '⌄'}</span>
+        </span>
+      </button>
 
       <nav className="home-section-menu" aria-label={t(language, 'aria.sections')}>
         <button type="button" onClick={() => onNavigate?.('qibla')}>
@@ -60,22 +72,26 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
           <span className="home-section-menu-icon"><CalendarIcon size={24}/></span>
           <span>{t(language, 'tab.calendar')}</span>
         </button>
-        <button type="button" className="home-more-sections" onClick={() => onNavigate?.('sections')}>
+        <button type="button" onClick={() => onNavigate?.('quran')}>
           <span className="home-section-menu-icon"><LearnIcon size={24}/></span>
+          <span>{t(language, 'quran.title')}</span>
+        </button>
+        <button type="button" className="home-more-sections" onClick={() => onNavigate?.('sections')}>
           <span className="home-more-copy"><strong>{t(language, 'sections.title')}</strong><small>{t(language, 'sections.homeHint')}</small></span>
           <span className="home-more-arrow" aria-hidden="true">›</span>
         </button>
       </nav>
 
-      <div className="schedule-heading">
-        <div>
-          <strong>{t(language, 'prayer.schedule')}</strong>
-          {mosqueName && <span>{mosqueName}</span>}
+      {scheduleOpen && <div id="today-prayer-schedule" className="home-schedule-panel">
+        <div className="schedule-heading">
+          <div>
+            <strong>{t(language, 'prayer.todaySchedule')}</strong>
+            {mosqueName && <span>{mosqueName}</span>}
+          </div>
+          {mosqueName && <span className="schedule-source-dot" aria-hidden="true" />}
         </div>
-        {mosqueName && <span className="schedule-source-dot" aria-hidden="true" />}
-      </div>
 
-      <div className="prayer-list" role="list" aria-label={t(language, 'prayer.schedule')}>
+        <div className="prayer-list" role="list" aria-label={t(language, 'prayer.schedule')}>
         {rows.map(({ key, type, Icon, subLabelKey }) => {
           const time = times[key];
           const status = getPastStatus(key, time, now, nextFard.key, nextFard.tomorrow);
@@ -113,7 +129,8 @@ export default function PrayerTimesView({ times, timeZone, now, nextFard, iqamah
             </div>
           );
         })}
-      </div>
+        </div>
+      </div>}
 
     </section>
   );
