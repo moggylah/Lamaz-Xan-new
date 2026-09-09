@@ -8,6 +8,7 @@ import {
   reverseGeocodeDeviceLocation,
 } from '../lib/mymasjid.js';
 import { t } from '../lib/i18n.js';
+import { getDevicePosition } from '../lib/native.js';
 
 export default function MosqueSelector({ selectedMosque, onSelect, onClear, onLocationDetected, language = 'ru' }) {
   const [countries, setCountries] = useState([]);
@@ -55,10 +56,9 @@ export default function MosqueSelector({ selectedMosque, onSelect, onClear, onLo
   }
 
   async function findNearby() {
-    if (!navigator.geolocation) { setError(t(language, 'mosque.noGeolocation')); return; }
     setLoading('nearby'); setError('');
-    navigator.geolocation.getCurrentPosition(async ({ coords }) => {
-      try {
+    try {
+        const { coords } = await getDevicePosition();
         const lat = Number(coords.latitude.toFixed(6));
         const lng = Number(coords.longitude.toFixed(6));
         onLocationDetected?.({ lat, lng });
@@ -79,12 +79,10 @@ export default function MosqueSelector({ selectedMosque, onSelect, onClear, onLo
         const nearbyMosques = await getMosques(country.id, city.id);
         setMosques(nearbyMosques);
         if (!nearbyMosques.length) setError(t(language, 'mosque.noneInCity'));
-      } catch { setError(t(language, 'mosque.autoMatchError')); }
-      finally { setLoading(''); }
-    }, () => {
+    } catch {
       setLoading('');
       setError(t(language, 'mosque.locationDenied'));
-    }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
+    }
   }
 
   const selectedLabel = useMemo(() => selectedMosque ? [selectedMosque.name, selectedMosque.city].filter(Boolean).join(' · ') : '', [selectedMosque]);

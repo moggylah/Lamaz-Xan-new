@@ -1,0 +1,15 @@
+{
+  "appId": "com.lamazxan.app",
+  "appName": "Lamaz Xan",
+  "webDir": "dist",
+  "ios": {
+    "contentInset": "automatic",
+    "preferredContentMode": "mobile"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "app_icon",
+      "iconColor": "#174f3a"
+    }
+  }
+}

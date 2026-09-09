@@ -1,6 +1,13 @@
-const API_BASE = '/my-masjid-api/api';
+import { Capacitor, CapacitorHttp } from '@capacitor/core';
+
+const API_BASE = Capacitor.isNativePlatform() ? 'https://time.my-masjid.com/api' : '/my-masjid-api/api';
 
 async function fetchJson(path) {
+  if (Capacitor.isNativePlatform()) {
+    const response = await CapacitorHttp.get({ url: `${API_BASE}${path}`, headers: { Accept: 'application/json' } });
+    if (response.status < 200 || response.status >= 300) throw new Error(`My-Masjid API: ${response.status}`);
+    return response.data?.model ?? response.data;
+  }
   const response = await fetch(`${API_BASE}${path}`, {
     headers: { Accept: 'application/json' },
   });

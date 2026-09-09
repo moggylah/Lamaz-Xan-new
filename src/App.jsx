@@ -11,6 +11,8 @@ import SectionsView from './components/SectionsView.jsx';
 import { addCalendarDays, getDateDisplay, getLocalDateParts } from './lib/date.js';
 import { calculatePrayerData, getLastThirdStart, getNextFard } from './lib/prayer.js';
 import { DEFAULT_NOTIFICATION_PREFS, sendDueNotifications } from './lib/notifications.js';
+import { getDevicePosition, getNativeNotificationPermission, isNativeApp, requestNativeNotificationPermission, syncNativeNotifications } from './lib/native.js';
+import { t } from './lib/i18n.js';
 import {
   extractMosqueDay,
   getMosqueTimings,
@@ -67,7 +69,7 @@ export default function App() {
   });
   const [hapticsEnabled, setHapticsEnabled] = useState(() => readString('lamaz-haptics', 'true') !== 'false');
   const [azkarCounterEnabled, setAzkarCounterEnabled] = useState(() => readString('lamaz-azkar-counter', 'true') !== 'false');
-  const [notificationPermission, setNotificationPermission] = useState(() => ('Notification' in window ? Notification.permission : 'unsupported'));
+  const [notificationPermission, setNotificationPermission] = useState(() => (isNativeApp ? 'default' : ('Notification' in window ? Notification.permission : 'unsupported')));
   const [gpsStatus, setGpsStatus] = useState('idle');
   const [now, setNow] = useState(new Date());
 
@@ -173,6 +175,22 @@ export default function App() {
   const dates = useMemo(() => getDateDisplay(now, timeZone, language), [now, timeZone, language]);
 
   useEffect(() => {
+    if (isNativeApp) getNativeNotificationPermission().then(setNotificationPermission);
+  }, []);
+
+  useEffect(() => {
+    if (!isNativeApp) return;
+    syncNativeNotifications({
+      todayTimes: displayTimes,
+      tomorrowTimes: tomorrowData.times,
+      prefs: notificationPrefs,
+      language,
+      translate: t,
+      mosqueName: todayMosqueDay ? selectedMosque?.name : '',
+    }).catch((error) => console.warn('Native notifications:', error));
+  }, [displayTimes, tomorrowData.times, notificationPrefs, language, todayMosqueDay, selectedMosque?.name]);
+
+  useEffect(() => {
     if (!notificationPrefs.enabled || notificationPermission !== 'granted') return undefined;
     const check = () => sendDueNotifications({
       times: displayTimes,
@@ -188,6 +206,12 @@ export default function App() {
   }, [displayTimes, notificationPrefs, notificationPermission, timeZone, todayMosqueDay, selectedMosque?.name, language]);
 
   async function requestNotifications() {
+    if (isNativeApp) {
+      const permission = await requestNativeNotificationPermission();
+      setNotificationPermission(permission);
+      if (permission === 'granted') setNotificationPrefs((current) => ({ ...current, enabled: true }));
+      return;
+    }
     if (!('Notification' in window)) {
       setNotificationPermission('unsupported');
       return;
@@ -203,20 +227,13 @@ export default function App() {
     }
   }
 
-  function useGps() {
-    if (!navigator.geolocation) {
-      setGpsStatus('error');
-      return;
-    }
+  async function useGps() {
     setGpsStatus('loading');
-    navigator.geolocation.getCurrentPosition(
-      ({ coords }) => {
-        setLocation({ lat: Number(coords.latitude.toFixed(6)), lng: Number(coords.longitude.toFixed(6)) });
-        setGpsStatus('success');
-      },
-      () => setGpsStatus('error'),
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 },
-    );
+    try {
+      const { coords } = await getDevicePosition();
+      setLocation({ lat: Number(coords.latitude.toFixed(6)), lng: Number(coords.longitude.toFixed(6)) });
+      setGpsStatus('success');
+    } catch { setGpsStatus('error'); }
   }
 
   function selectMosque({ mosque, schedule }) {

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { CompassMiniIcon, QiblaIcon } from './Icons.jsx';
 import { t } from '../lib/i18n.js';
 import { magvar } from 'magvar';
+import { Compass } from '@capawesome/capacitor-compass';
+import { getDevicePosition, isNativeApp } from '../lib/native.js';
 
 function normalize(value) {
   return ((value % 360) + 360) % 360;
@@ -38,6 +40,7 @@ export default function QiblaCompass({ qiblaBearing, location, language = 'ru' }
   const headingRef = useRef(null);
   const sourceRef = useRef(null);
   const timeoutRef = useRef(null);
+  const nativeHandleRef = useRef(null);
   const lastEventRef = useRef(0);
   const lastAppliedRef = useRef(0);
 
@@ -59,6 +62,11 @@ export default function QiblaCompass({ qiblaBearing, location, language = 'ru' }
   const turnDegrees = difference == null ? 0 : Math.round(Math.abs(difference));
 
   function removeListeners() {
+    if (nativeHandleRef.current) {
+      void nativeHandleRef.current.remove();
+      nativeHandleRef.current = null;
+      void Compass.stopHeadingUpdates();
+    }
     for (const { eventName, handler } of listenersRef.current) {
       window.removeEventListener(eventName, handler, true);
     }
@@ -118,6 +126,33 @@ export default function QiblaCompass({ qiblaBearing, location, language = 'ru' }
   async function startCompass() {
     try {
       setStatus('requesting');
+      if (isNativeApp) {
+        const { available } = await Compass.isAvailable();
+        if (!available) {
+          setStatus('unsupported');
+          return;
+        }
+        try { await getDevicePosition(); } catch { /* Magnetic heading still works without location. */ }
+        removeListeners();
+        headingRef.current = null;
+        sourceRef.current = null;
+        lastEventRef.current = 0;
+        lastAppliedRef.current = 0;
+        setAccuracy(null);
+        setTilted(false);
+        nativeHandleRef.current = await Compass.addListener('headingChange', (event) => {
+          const trueHeading = Number.isFinite(event.trueHeading) ? event.trueHeading : null;
+          const magneticHeading = Number.isFinite(event.magneticHeading) ? event.magneticHeading : null;
+          const value = trueHeading ?? (magneticHeading == null ? null : magneticHeading + magneticDeclination);
+          applyHeading(value, 'webkit', event.accuracy);
+        });
+        await Compass.startHeadingUpdates();
+        setStatus('listening');
+        timeoutRef.current = window.setTimeout(() => {
+          if (headingRef.current == null) setStatus('unavailable');
+        }, SENSOR_TIMEOUT_MS);
+        return;
+      }
       const Orientation = window.DeviceOrientationEvent;
 
       if (!Orientation) {
