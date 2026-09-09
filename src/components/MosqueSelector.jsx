@@ -70,7 +70,6 @@ export default function MosqueSelector({ selectedMosque, onSelect, onClear, onLo
         setCities(countryCities);
         const city = findBestNamedMatch(countryCities, [geo.city, geo.locality, geo.principalSubdivision]);
         if (!city) {
-          setLoading('');
           const place = geo.city || geo.locality || geo.principalSubdivision || geo.countryName;
           setError(t(language, 'mosque.detectedChoose', { place }));
           return;
@@ -80,8 +79,9 @@ export default function MosqueSelector({ selectedMosque, onSelect, onClear, onLo
         setMosques(nearbyMosques);
         if (!nearbyMosques.length) setError(t(language, 'mosque.noneInCity'));
     } catch {
-      setLoading('');
       setError(t(language, 'mosque.locationDenied'));
+    } finally {
+      setLoading('');
     }
   }
 
