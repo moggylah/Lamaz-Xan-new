@@ -4135,6 +4135,41 @@ html[data-theme="dark"] .quiz-options button { background:#111f19; border-color:
 }
 html[data-theme="dark"] .next-prayer-expand { border-color: rgba(220,230,224,.1); }
 
+/* Crisp, theme-aware brand lockup with an editable English tagline. */
+.header-brand-lockup {
+  width: min(218px, calc(100% - 116px));
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.header-brand-mark { width: 39px; height: 44px; object-fit: contain; flex: 0 0 auto; }
+.header-brand-copy { min-width: 0; display: grid; gap: 2px; text-align: left; line-height: 1; }
+.header-brand-copy strong {
+  color: var(--green);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -.025em;
+  white-space: nowrap;
+}
+.header-brand-copy small {
+  color: var(--gold);
+  font-size: 7.5px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+html[data-theme="dark"] .header-brand-copy strong { color: #f2ead9; }
+@media (max-width: 380px) {
+  .header-brand-lockup { gap: 6px; }
+  .header-brand-mark { width: 34px; height: 40px; }
+  .header-brand-copy strong { font-size: 21px; }
+  .header-brand-copy small { font-size: 6.5px; letter-spacing: .06em; }
+}
+
 /* Calendar: week picker, focused day and compact month view */
 .calendar-redesign { overflow: visible; }
 
