@@ -1,5 +1,5 @@
 import {
-  CalendarIcon, DhikrIcon, LearnIcon, MoonIcon, PrayerScheduleIcon, QiblaIcon,
+  CalendarIcon, DhikrIcon, MoonIcon, PrayerScheduleIcon, QiblaIcon, QuranIcon,
 } from './Icons.jsx';
 import { formatClock } from '../lib/date.js';
 import { t } from '../lib/i18n.js';
@@ -57,7 +57,7 @@ export default function PrayerTimesView({ timeZone, now, nextFard, language = 'r
           <span>{t(language, 'tab.azkar')}</span>
         </button>
         <button type="button" onClick={() => onNavigate?.('quran')}>
-          <span className="home-section-menu-icon"><LearnIcon size={24}/></span>
+          <span className="home-section-menu-icon"><QuranIcon size={24}/></span>
           <span>{t(language, 'quran.shortTitle')}</span>
         </button>
         <button type="button" onClick={() => onNavigate?.('calendar')}>

@@ -233,6 +233,17 @@ export function LearnIcon({ size = 24, className = '' }) {
   );
 }
 
+export function QuranIcon({ size = 24, className = '' }) {
+  return (
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M6.2 3.8h10.9c1 0 1.8.8 1.8 1.8v13.1c0 .8-.7 1.5-1.5 1.5H6.2c-.9 0-1.7-.8-1.7-1.7v-13c0-.9.8-1.7 1.7-1.7Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M7.2 3.8v16.4M9.1 7.1h7.2v8.8H9.1z" stroke="currentColor" strokeWidth="1.35" strokeLinejoin="round"/>
+      <path d="m12.7 8.7.8 1.45 1.45.8-1.45.8-.8 1.45-.8-1.45-1.45-.8 1.45-.8.8-1.45Z" stroke="currentColor" strokeWidth="1.05" strokeLinejoin="round"/>
+      <path d="M10.5 17.8h4.4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
 export function SourcesIcon({ size = 24, className = '' }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">

@@ -644,6 +644,27 @@ html[data-theme="dark"] .prayer-screen .home-primary-links .home-section-menu-ic
   background: rgba(132,185,158,.08) !important;
 }
 
+/* Primary section controls use a centered icon-over-label composition. */
+.prayer-screen .home-primary-links button {
+  grid-template-columns: 1fr;
+  grid-template-rows: 38px auto;
+  justify-items: center;
+  align-content: center;
+  gap: 7px;
+  text-align: center;
+}
+.prayer-screen .home-primary-links button > span:last-child {
+  width: 100%;
+  text-align: center;
+}
+@media (max-width: 350px) {
+  .prayer-screen .home-primary-links button {
+    grid-template-columns: 1fr;
+    grid-template-rows: 36px auto;
+    gap: 6px;
+  }
+}
+
 /* Final home navigation: compact icon rail, not a table. */
 .prayer-screen .home-section-menu:has(.home-more-sections) {
   display: grid;
