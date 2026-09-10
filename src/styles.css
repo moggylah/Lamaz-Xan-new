@@ -682,9 +682,9 @@ html[data-theme="dark"] .prayer-screen .home-primary-links .home-section-menu-ic
   line-height: 1.2;
 }
 .schedule-date-current small {
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: rgba(183,141,55,.12);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
   color: #956d22;
   font-size: 8px;
   font-weight: 800;
@@ -701,7 +701,7 @@ html[data-theme="dark"] .schedule-date-navigation > button {
   background: rgba(132,185,158,.08);
 }
 html[data-theme="dark"] .schedule-date-current small {
-  background: rgba(211,174,91,.12);
+  background: transparent;
   color: #d7b765;
 }
 
