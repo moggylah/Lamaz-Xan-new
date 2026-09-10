@@ -4422,7 +4422,7 @@ html[data-theme="dark"] .next-prayer-expand { border-color: rgba(220,230,224,.1)
   color: var(--green);
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: -.025em;
   white-space: nowrap;
 }
