@@ -38,8 +38,11 @@ export default function PrayerTimesView({ timeZone, now, nextFard, language = 'r
           <MoonIcon size={112} />
         </div>
         <span className="next-prayer-expand">
-          {t(language, 'prayer.showSchedule')}
-          <span aria-hidden="true">›</span>
+          <span className="next-prayer-expand-copy">
+            <CalendarIcon size={15}/>
+            {t(language, 'prayer.todaySchedule')}
+          </span>
+          <span className="next-prayer-expand-arrow" aria-hidden="true">›</span>
         </span>
       </button>
 

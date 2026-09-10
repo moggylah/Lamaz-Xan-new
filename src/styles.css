@@ -560,6 +560,51 @@ html[data-theme="dark"] .home-primary-links button {
   .home-primary-links button > span:last-child { font-size: 9.5px; }
 }
 
+/* The schedule action is part of the card flow, so it never crosses the prayer time. */
+.next-prayer-card.home-next-prayer-button {
+  min-height: 174px;
+  padding: 22px 17px 14px;
+  grid-template-rows: minmax(82px, auto) auto;
+  column-gap: 18px;
+  row-gap: 13px;
+}
+.home-next-prayer-button .next-prayer-expand {
+  position: relative;
+  inset: auto;
+  bottom: auto;
+  grid-column: 1 / -1;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 11px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(23,79,58,.065);
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10.5px;
+  font-weight: 750;
+}
+.home-next-prayer-button .next-prayer-expand .next-prayer-expand-copy {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--green);
+  font-size: 10.5px;
+  line-height: 1.2;
+}
+.home-next-prayer-button .next-prayer-expand-arrow {
+  color: var(--gold);
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1;
+}
+html[data-theme="dark"] .home-next-prayer-button .next-prayer-expand {
+  border: 0;
+  background: rgba(132,185,158,.1);
+}
+
 /* Final home navigation: compact icon rail, not a table. */
 .prayer-screen .home-section-menu:has(.home-more-sections) {
   display: grid;
