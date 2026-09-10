@@ -47,8 +47,8 @@ export default function TodayScheduleView({ location, method, madhab, timeZone, 
       <div className="schedule-date-navigation">
         <button type="button" onClick={() => setSelectedDate((date) => addCalendarDays(date, -1))} aria-label="Previous day">‹</button>
         <button type="button" className="schedule-date-current" onClick={() => setSelectedDate(todayParts)} disabled={isToday}>
+          <small>{t(language, 'calendar.today')}</small>
           <strong>{dateDisplay.headline}</strong>
-          {!isToday && <small>{t(language, 'calendar.today')}</small>}
         </button>
         <button type="button" onClick={() => setSelectedDate((date) => addCalendarDays(date, 1))} aria-label="Next day">›</button>
       </div>
