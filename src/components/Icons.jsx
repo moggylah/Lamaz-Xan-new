@@ -194,6 +194,21 @@ export function CalendarIcon({ size = 24, className = '' }) {
   );
 }
 
+export function PrayerScheduleIcon({ size = 24, className = '' }) {
+  return (
+    <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="8.4" stroke="currentColor" strokeWidth="1.55"/>
+      <circle cx="12" cy="5.8" r="1" fill="currentColor"/>
+      <circle cx="17.9" cy="10.1" r="1" fill="currentColor"/>
+      <circle cx="15.7" cy="17.1" r="1" fill="currentColor"/>
+      <circle cx="8.3" cy="17.1" r="1" fill="currentColor"/>
+      <circle cx="6.1" cy="10.1" r="1" fill="currentColor"/>
+      <path d="M12 8.4v4.1l2.8 1.7" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="12" cy="12.5" r="1.05" fill="currentColor"/>
+    </svg>
+  );
+}
+
 export function DhikrIcon({ size = 24, className = '' }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">

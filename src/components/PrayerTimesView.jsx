@@ -1,5 +1,5 @@
 import {
-  CalendarIcon, DhikrIcon, LearnIcon, MoonIcon, MosqueIcon, QiblaIcon,
+  CalendarIcon, DhikrIcon, LearnIcon, MoonIcon, PrayerScheduleIcon, QiblaIcon,
 } from './Icons.jsx';
 import { formatClock } from '../lib/date.js';
 import { t } from '../lib/i18n.js';
@@ -39,13 +39,14 @@ export default function PrayerTimesView({ timeZone, now, nextFard, language = 'r
         </div>
         <span className="next-prayer-expand">
           <span className="next-prayer-expand-copy">
-            <MosqueIcon size={16}/>
+            <PrayerScheduleIcon size={17}/>
             {t(language, 'prayer.todaySchedule')}
           </span>
           <span className="next-prayer-expand-arrow" aria-hidden="true">›</span>
         </span>
       </button>
 
+      <h2 className="home-primary-title">{t(language, 'aria.sections')}</h2>
       <nav className="home-primary-links" aria-label={t(language, 'aria.sections')}>
         <button type="button" onClick={() => onNavigate?.('qibla')}>
           <span className="home-section-menu-icon"><QiblaIcon size={24}/></span>
