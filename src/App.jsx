@@ -187,6 +187,11 @@ export default function App() {
   const displayTimes = useMemo(() => ({ ...todayData.times, qiyam: qiyamTime }), [todayData.times, qiyamTime]);
   const nextFard = useMemo(() => getNextFard({ now, todayData, tomorrowData }), [now, todayData, tomorrowData]);
   const dates = useMemo(() => getDateDisplay(now, timeZone, language), [now, timeZone, language]);
+  const automaticTheme = now >= todayData.times.sunrise && now < todayData.times.maghrib ? 'light' : 'dark';
+
+  useEffect(() => {
+    setTheme(automaticTheme);
+  }, [automaticTheme]);
 
   useEffect(() => {
     if (isNativeApp) getNativeNotificationPermission().then(setNotificationPermission);
@@ -309,9 +314,8 @@ export default function App() {
       <Header
         dates={dates}
         view={view}
-        onHome={() => navigateTo(view === 'quran' ? 'sections' : 'prayers')}
+        onHome={() => navigateTo('prayers')}
         onSettings={() => navigateTo('settings')}
-        onThemeToggle={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}
         language={language}
         theme={theme}
       />

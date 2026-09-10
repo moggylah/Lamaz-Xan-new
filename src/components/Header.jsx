@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import BrandLogo from './BrandLogo.jsx';
-import { BackIcon, GearIcon, MoonIcon, SunIcon } from './Icons.jsx';
+import { BackIcon, GearIcon } from './Icons.jsx';
 import { t } from '../lib/i18n.js';
 
 const titleKeys = {
@@ -9,10 +9,10 @@ const titleKeys = {
   qibla: 'tab.qibla',
   azkar: 'tab.azkar',
   calendar: 'tab.calendar',
-  quran: 'quran.title',
+  quran: 'quran.shortTitle',
 };
 
-export default function Header({ dates, onSettings, onHome, onThemeToggle, language = 'ru', view = 'prayers', theme = 'light' }) {
+export default function Header({ dates, onSettings, onHome, language = 'ru', view = 'prayers', theme = 'light' }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -31,15 +31,7 @@ export default function Header({ dates, onSettings, onHome, onThemeToggle, langu
     return (
       <header className="app-header app-header-home">
         <div className="brand-row">
-          <button
-            type="button"
-            className="icon-button theme-button"
-            onClick={onThemeToggle}
-            aria-label={theme === 'dark' ? t(language, 'settings.light') : t(language, 'settings.dark')}
-            aria-pressed={theme === 'dark'}
-          >
-            {theme === 'dark' ? <SunIcon size={23} /> : <MoonIcon size={23} />}
-          </button>
+          <span className="header-home-spacer" aria-hidden="true" />
           <div className="header-brand-lockup" aria-label="Lamaz Xan — Prayer, the pillar of Islam">
             <BrandLogo variant="mark" className="header-brand-mark" theme={theme} />
             <span className="header-brand-copy">

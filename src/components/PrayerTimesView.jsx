@@ -1,5 +1,5 @@
 import {
-  CalendarIcon, DhikrIcon, MoonIcon, PrayerScheduleIcon, QiblaIcon, QuranIcon,
+  CalendarIcon, DhikrIcon, PrayerScheduleIcon, QiblaIcon, QuranIcon,
 } from './Icons.jsx';
 import { formatClock } from '../lib/date.js';
 import { t } from '../lib/i18n.js';
@@ -34,9 +34,6 @@ export default function PrayerTimesView({ timeZone, now, nextFard, language = 'r
           <strong className="countdown">{formatCountdown(nextTime - now)}</strong>
         </div>
 
-        <div className="next-prayer-watermark" aria-hidden="true">
-          <MoonIcon size={112} />
-        </div>
         <span className="next-prayer-expand">
           <span className="next-prayer-expand-copy">
             <PrayerScheduleIcon size={17}/>
@@ -53,7 +50,7 @@ export default function PrayerTimesView({ timeZone, now, nextFard, language = 'r
           <span>{t(language, 'tab.qibla')}</span>
         </button>
         <button type="button" onClick={() => onNavigate?.('azkar')}>
-          <span className="home-section-menu-icon"><DhikrIcon size={24}/></span>
+          <span className="home-section-menu-icon"><DhikrIcon size={24} className="home-azkar-icon"/></span>
           <span>{t(language, 'tab.azkar')}</span>
         </button>
         <button type="button" onClick={() => onNavigate?.('quran')}>

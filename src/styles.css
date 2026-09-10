@@ -4654,6 +4654,13 @@ html[data-theme="dark"] .calendar-month-grid tr.is-today td { background: #1b332
 }
 
 /* Home theme switch */
+.app-header-home .brand-row .header-home-spacer {
+  position: absolute;
+  inset-inline-start: 0;
+  width: 48px;
+  height: 48px;
+}
+
 .app-header-home .brand-row .theme-button {
   position: absolute;
   inset-inline-start: 0;
@@ -5268,6 +5275,16 @@ html[data-theme="dark"] .quran-course-redesign .harakat-symbol{background:transp
 .qibla-guide-card{border:0;border-bottom:1px solid rgba(28,56,43,.13);border-radius:0;background:transparent;box-shadow:none}.qibla-readout{border:0;border-top:1px solid rgba(28,56,43,.13);border-bottom:1px solid rgba(28,56,43,.13);border-radius:0;background:transparent;box-shadow:none}.qibla-readout-main strong{font-family:Georgia,'Times New Roman',serif;font-weight:600}
 html[data-theme="dark"] .next-prayer-card,html[data-theme="dark"] .home-section-menu,html[data-theme="dark"] .prayer-list,html[data-theme="dark"] .quran-home-entry,html[data-theme="dark"] .azkar-time-guide,html[data-theme="dark"] .azkar-section-list,html[data-theme="dark"] .azkar-section-card,html[data-theme="dark"] .azkar-position-card,html[data-theme="dark"] .azkar-slide,html[data-theme="dark"] .calendar-toolbar,html[data-theme="dark"] .calendar-actions-row,html[data-theme="dark"] .calendar-selected-day,html[data-theme="dark"] .calendar-footer-actions,html[data-theme="dark"] .settings-row-card,html[data-theme="dark"] .settings-simple-card,html[data-theme="dark"] .language-card,html[data-theme="dark"] .settings-panel,html[data-theme="dark"] .qibla-guide-card,html[data-theme="dark"] .qibla-readout{background:transparent;box-shadow:none;border-color:rgba(220,230,224,.11)}html[data-theme="dark"] .settings-text strong,html[data-theme="dark"] .settings-simple-copy strong,html[data-theme="dark"] .azkar-section-copy strong{color:#e8eeea}html[data-theme="dark"] .settings-leading,html[data-theme="dark"] .azkar-section-icon,html[data-theme="dark"] .quran-home-entry-icon{background:transparent;border-color:rgba(132,185,158,.22)}
 .language-card .language-select,html[data-theme="dark"] .language-card .language-select{padding:0;background:transparent;box-shadow:none;color:inherit}
+
+/* Quran landing: the library remains a placeholder while lessons stay available. */
+.quran-hub-screen{padding:12px 8px 42px}.quran-hub-intro{padding:10px 5px 24px;border-bottom:1px solid rgba(28,56,43,.14)}.quran-hub-intro>span{color:#9a7a37;font-size:8px;font-weight:800;letter-spacing:.17em}.quran-hub-intro h1{margin:8px 0 0;color:#22372c;font-family:Georgia,'Times New Roman',serif;font-size:30px;font-weight:600;letter-spacing:-.025em}.quran-hub-list{border-bottom:1px solid rgba(28,56,43,.14)}.quran-hub-row{width:100%;min-height:94px;padding:16px 5px;border:0;border-bottom:1px solid rgba(28,56,43,.1);background:transparent;color:var(--green);display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:13px;text-align:left;font:inherit}.quran-hub-row:last-child{border-bottom:0}.quran-hub-row:is(button){cursor:pointer}.quran-hub-row:is(button):active{background:rgba(23,79,58,.04)}.quran-hub-icon{width:46px;height:46px;border:1px solid rgba(23,79,58,.16);border-radius:50%;display:grid;place-items:center}.quran-hub-copy strong{color:#24372d;font-family:Georgia,'Times New Roman',serif;font-size:18px;font-weight:600}.quran-hub-status{padding:5px 8px;border-radius:999px;background:rgba(184,142,56,.09);color:#9a762e;font-size:8px;font-weight:750;letter-spacing:.08em;text-transform:uppercase}.quran-hub-arrow{color:#9a6e21;font-size:27px;line-height:1}.quran-hub-back{margin:0 0 17px;padding:5px 2px;border:0;background:transparent;color:var(--green);display:flex;align-items:center;gap:5px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}.quran-hub-back:first-letter{font-size:20px}.quran-hub-back:active{opacity:.65}
+html[data-theme="dark"] .quran-hub-intro,html[data-theme="dark"] .quran-hub-list,html[data-theme="dark"] .quran-hub-row{border-color:rgba(220,230,224,.1)}html[data-theme="dark"] .quran-hub-intro h1,html[data-theme="dark"] .quran-hub-copy strong{color:#e8eeea}html[data-theme="dark"] .quran-hub-icon{border-color:rgba(132,185,158,.24)}html[data-theme="dark"] .quran-hub-status{background:rgba(211,174,91,.08);color:#d5b665}
+
+/* Home cleanup: no decorative timer surface or crescent, and balanced shortcut icons. */
+.next-prayer-card .next-prayer-countdown,
+html[data-theme="dark"] .next-prayer-card .next-prayer-countdown{background:transparent;box-shadow:none}
+.next-prayer-watermark{display:none}
+.prayer-screen .home-primary-links .home-section-menu-icon .home-azkar-icon{width:28px;height:28px}
 
 /* Sources and voluntary support */
 .app-sources-panel{display:grid;gap:0}.app-source-item{padding:13px 2px;border-bottom:1px solid rgba(28,56,43,.09)}.app-source-item:first-child{padding-top:2px}.app-source-item strong{color:#244035;font-family:Georgia,'Times New Roman',serif;font-size:14px;font-weight:600}.app-source-item p{margin:5px 0 0;color:#737d77;font-size:10.5px;line-height:1.55}.app-sources-note{margin:14px 2px 0;color:#8a928d;font-size:9px;line-height:1.5}.donation-panel>strong{color:#244035;font-family:Georgia,'Times New Roman',serif;font-size:16px;font-weight:600}.donation-panel>p{margin:7px 0 15px;color:#737d77;font-size:10.5px;line-height:1.55}.donation-action{width:100%;min-height:48px;border:0;border-radius:14px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;gap:9px;font:inherit;font-size:12px;font-weight:750;cursor:pointer}.donation-action:active{transform:scale(.985)}.donation-panel .donation-notice{margin:12px 0 0;padding:10px 12px;border-left:2px solid var(--gold);background:rgba(184,142,56,.07);color:#68736c}.calendar-footer-actions>span:empty{display:none}.calendar-footer-actions{justify-content:flex-end}

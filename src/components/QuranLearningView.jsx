@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { LearnIcon } from './Icons.jsx';
+import { LearnIcon, QuranIcon } from './Icons.jsx';
 
 const alphabet = [['ا','Алиф'],['ب','Ба'],['ت','Та'],['ث','Са'],['ج','Джим'],['ح','Ха'],['خ','Хо'],['د','Даль'],['ذ','Заль'],['ر','Ра'],['ز','Зай'],['س','Син'],['ش','Шин'],['ص','Сад'],['ض','Дад'],['ط','Та'],['ظ','За'],['ع','Айн'],['غ','Гайн'],['ف','Фа'],['ق','Каф'],['ك','Кяф'],['ل','Лям'],['م','Мим'],['ن','Нун'],['ه','Ха'],['و','Уау'],['ي','Йа']];
 const letterTimings = [[0.24,0.87],[1.70,2.47],[3.22,3.97],[4.96,5.67],[6.56,7.47],[8.20,9.15],[9.82,10.75],[11.60,12.43],[13.16,14.11],[15.10,16.05],[17.06,18.01],[18.60,19.71],[20.28,21.35],[22.06,23.03],[23.90,24.83],[25.80,26.57],[27.34,28.39],[29.12,30.09],[30.88,31.87],[32.58,33.59],[34.60,35.51],[36.20,37.07],[37.82,38.77],[39.42,40.45],[41.18,42.15],[42.96,43.89],[44.74,45.73],[46.50,47.31]];
@@ -100,6 +100,7 @@ function HarakatLesson({ onBack, onNext }) {
 
 export default function QuranLearningView() {
   const audioRef = useRef(null);
+  const [section, setSection] = useState('home');
   const [level, setLevel] = useState('beginner');
   const [activeLesson, setActiveLesson] = useState(0);
   const [activeLetter, setActiveLetter] = useState(null);
@@ -117,8 +118,31 @@ export default function QuranLearningView() {
   }
   const openLevel = (nextLevel) => { setLevel(nextLevel); setActiveLesson(0); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const openLesson = (number) => { setActiveLesson(number); requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' })); };
+  if (section === 'home') {
+    return (
+      <section className="quran-hub-screen">
+        <div className="quran-hub-intro">
+          <span>РАЗДЕЛЫ</span>
+          <h1>Коран</h1>
+        </div>
+        <div className="quran-hub-list">
+          <div className="quran-hub-row is-coming" aria-label="Коран. Раздел скоро появится">
+            <span className="quran-hub-icon"><QuranIcon size={29}/></span>
+            <span className="quran-hub-copy"><strong>Коран</strong></span>
+            <span className="quran-hub-status">Скоро</span>
+          </div>
+          <button type="button" className="quran-hub-row" onClick={() => setSection('learning')}>
+            <span className="quran-hub-icon"><LearnIcon size={28}/></span>
+            <span className="quran-hub-copy"><strong>Обучение Корану</strong></span>
+            <span className="quran-hub-arrow" aria-hidden="true">›</span>
+          </button>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="quran-learning-screen quran-course-redesign">
+      <button type="button" className="quran-hub-back" onClick={() => { setSection('home'); setActiveLesson(0); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>‹ <span>К разделам</span></button>
       <div className="quran-level-switch quran-level-switch-top" role="tablist" aria-label="Уровень обучения">
         <button type="button" className={level === 'beginner' ? 'active' : ''} onClick={() => openLevel('beginner')} role="tab" aria-selected={level === 'beginner'}><strong>Начинающий</strong><span>Чтение с нуля</span></button>
         <button type="button" className={level === 'intermediate' ? 'active' : ''} onClick={() => openLevel('intermediate')} role="tab" aria-selected={level === 'intermediate'}><strong>Средний</strong><span>Уверенное чтение</span></button>
