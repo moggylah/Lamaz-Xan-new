@@ -230,7 +230,7 @@ const translations = {
 
 const extraTranslations = {
   ce: {
-    'quran.title': 'Q̇ur’an Iamo',
+    'quran.title': 'Q̇ur’an Iamo', 'quran.shortTitle': 'Q̇ur’an',
     'sections.title': 'Khin daq̇oş',
     'sections.kicker': 'Taronaş',
     'sections.homeHint': 'Q̇ur’an Iamaran a, kerla taronaş a',
@@ -274,7 +274,7 @@ const extraTranslations = {
     'common.loadingError': 'Çudaqar gal dalla',
   },
   ru: {
-    'quran.title': 'Обучение Корану',
+    'quran.title': 'Обучение Корану', 'quran.shortTitle': 'Коран',
     'sections.title': 'Другие разделы',
     'sections.kicker': 'Возможности',
     'sections.homeHint': 'Обучение Корану и новые возможности',
@@ -319,7 +319,7 @@ const extraTranslations = {
     'azkar.dhikrNumber': 'Зикр № {number}', 'azkar.playAudio': 'Прослушать', 'azkar.stopAudio': 'Остановить', 'azkar.audioHint': 'Произношение арабского текста', 'azkar.tapOptional': 'При желании отмечайте каждое прочтение', 'azkar.meaningSummary': 'О чём этот зикр', 'azkar.resetConfirm': 'Сбросить прогресс всей категории?', 'azkar.surahIkhlas': 'Сура «Аль-Ихляс»', 'azkar.surahFalaq': 'Сура «Аль-Фаляк»', 'azkar.surahNas': 'Сура «Ан-Нас»', 'azkar.baqarahLast': 'Сура «Аль-Бакара», аяты 285–286', 'azkar.ayatKursi': 'Аят аль-Курси · 2:255', 'settings.azkarCounter': 'Счётчик азкаров', 'settings.azkarCounterHint': 'Показывать необязательную отметку повторений',
   },
   en: {
-    'quran.title': 'Learn Quran',
+    'quran.title': 'Learn Quran', 'quran.shortTitle': 'Quran',
     'azkar.position': '{current} of {total}',
     'azkar.itemsCount': '{count} dhikr',
     'azkar.scrollContinue': 'Swipe up to continue',
@@ -341,7 +341,7 @@ const extraTranslations = {
     'azkar.dhikrNumber': 'Dhikr No. {number}', 'azkar.playAudio': 'Listen', 'azkar.stopAudio': 'Stop', 'azkar.audioHint': 'Arabic pronunciation', 'azkar.tapOptional': 'Optionally mark each reading', 'azkar.meaningSummary': 'What this dhikr is about', 'azkar.resetConfirm': 'Reset progress for this category?', 'azkar.surahIkhlas': 'Surah Al-Ikhlas', 'azkar.surahFalaq': 'Surah Al-Falaq', 'azkar.surahNas': 'Surah An-Nas', 'azkar.baqarahLast': 'Surah Al-Baqarah · 2:285–286', 'azkar.ayatKursi': 'Ayat al-Kursi · 2:255', 'settings.azkarCounter': 'Dhikr counter', 'settings.azkarCounterHint': 'Show the optional repetition tracker',
   },
   de: {
-    'quran.title': 'Koran lernen',
+    'quran.title': 'Koran lernen', 'quran.shortTitle': 'Koran',
     'azkar.position': '{current} von {total}',
     'azkar.itemsCount': '{count} Dhikr',
     'azkar.scrollContinue': 'Nach oben wischen, um weiterzulesen',
@@ -362,7 +362,7 @@ const extraTranslations = {
     'settings.title': 'Einstellungen', 'settings.locationSearch': 'Land oder Stadt suchen', 'settings.locationSearchPlaceholder': 'Zum Beispiel: Berlin oder Deutschland', 'settings.locationSearchHint': 'Mindestens 3 Buchstaben eingeben', 'settings.searching': 'Suche…', 'settings.locationNotFound': 'Keine Ergebnisse. Namen genauer eingeben.', 'settings.locationSearchError': 'Suche fehlgeschlagen. Internetverbindung prüfen.', 'settings.countryResult': 'Land', 'settings.cityResult': 'Stadt', 'settings.orUseGps': 'oder automatisch bestimmen', 'settings.searchPoweredBy': 'Suchdaten von OpenStreetMap', 'settings.azkarGroup': 'Adhkar', 'settings.prayerGroup': 'Gebet und Standort', 'settings.alertsGroup': 'Benachrichtigungen', 'settings.applicationGroup': 'App', 'settings.manualCoordinates': 'Koordinaten manuell eingeben', 'settings.notificationVibration': 'Benachrichtigungsvibration', 'settings.notificationVibrationHint': 'Bei Gebetsbenachrichtigungen vibrieren', 'settings.notificationHelp': 'Warum funktionieren Benachrichtigungen eventuell nicht?', 'settings.haptics': 'Haptisches Feedback', 'settings.hapticsHint': 'Vibration beim Dhikr-Zähler',
   },
   fr: {
-    'quran.title': 'Apprendre le Coran',
+    'quran.title': 'Apprendre le Coran', 'quran.shortTitle': 'Coran',
     'azkar.position': '{current} sur {total}',
     'azkar.itemsCount': '{count} dhikrs',
     'azkar.scrollContinue': 'Faites glisser vers le haut pour continuer',
@@ -383,7 +383,7 @@ const extraTranslations = {
     'settings.title': 'Réglages', 'settings.locationSearch': 'Rechercher un pays ou une ville', 'settings.locationSearchPlaceholder': 'Par exemple : Berlin ou Allemagne', 'settings.locationSearchHint': 'Saisissez au moins 3 lettres', 'settings.searching': 'Recherche…', 'settings.locationNotFound': 'Aucun résultat. Précisez le nom.', 'settings.locationSearchError': 'Échec de la recherche. Vérifiez la connexion Internet.', 'settings.countryResult': 'Pays', 'settings.cityResult': 'Ville', 'settings.orUseGps': 'ou détecter automatiquement', 'settings.searchPoweredBy': 'Données de recherche OpenStreetMap', 'settings.azkarGroup': 'Adhkar', 'settings.prayerGroup': 'Prière et localisation', 'settings.alertsGroup': 'Notifications', 'settings.applicationGroup': 'Application', 'settings.manualCoordinates': 'Saisir les coordonnées', 'settings.notificationVibration': 'Vibration des notifications', 'settings.notificationVibrationHint': 'Vibrer lors des notifications de prière', 'settings.notificationHelp': 'Pourquoi les notifications peuvent-elles échouer ?', 'settings.haptics': 'Retour haptique', 'settings.hapticsHint': 'Vibration du compteur de dhikr',
   },
   es: {
-    'quran.title': 'Aprender el Corán',
+    'quran.title': 'Aprender el Corán', 'quran.shortTitle': 'Corán',
     'azkar.position': '{current} de {total}',
     'azkar.itemsCount': '{count} dhikrs',
     'azkar.scrollContinue': 'Desliza hacia arriba para continuar',
@@ -404,7 +404,7 @@ const extraTranslations = {
     'settings.title': 'Ajustes', 'settings.locationSearch': 'Buscar país o ciudad', 'settings.locationSearchPlaceholder': 'Por ejemplo: Berlín o Alemania', 'settings.locationSearchHint': 'Introduce al menos 3 letras', 'settings.searching': 'Buscando…', 'settings.locationNotFound': 'Sin resultados. Precisa el nombre.', 'settings.locationSearchError': 'Error de búsqueda. Comprueba la conexión a Internet.', 'settings.countryResult': 'País', 'settings.cityResult': 'Ciudad', 'settings.orUseGps': 'o detectar automáticamente', 'settings.searchPoweredBy': 'Datos de búsqueda de OpenStreetMap', 'settings.azkarGroup': 'Adhkar', 'settings.prayerGroup': 'Oración y ubicación', 'settings.alertsGroup': 'Notificaciones', 'settings.applicationGroup': 'Aplicación', 'settings.manualCoordinates': 'Introducir coordenadas', 'settings.notificationVibration': 'Vibración de notificaciones', 'settings.notificationVibrationHint': 'Vibrar con los avisos de oración', 'settings.notificationHelp': '¿Por qué pueden fallar las notificaciones?', 'settings.haptics': 'Respuesta háptica', 'settings.hapticsHint': 'Vibración del contador de dhikr',
   },
   ar: {
-    'quran.title': 'تعلم القرآن',
+    'quran.title': 'تعلم القرآن', 'quran.shortTitle': 'القرآن',
     'azkar.position': '{current} من {total}',
     'azkar.itemsCount': '{count} أذكار',
     'azkar.scrollContinue': 'اسحب إلى الأعلى للمتابعة',

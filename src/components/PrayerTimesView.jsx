@@ -1,5 +1,5 @@
 import {
-  CalendarIcon, DhikrIcon, LearnIcon, MoonIcon, QiblaIcon,
+  CalendarIcon, DhikrIcon, LearnIcon, MoonIcon, MosqueIcon, QiblaIcon,
 } from './Icons.jsx';
 import { formatClock } from '../lib/date.js';
 import { t } from '../lib/i18n.js';
@@ -39,7 +39,7 @@ export default function PrayerTimesView({ timeZone, now, nextFard, language = 'r
         </div>
         <span className="next-prayer-expand">
           <span className="next-prayer-expand-copy">
-            <CalendarIcon size={15}/>
+            <MosqueIcon size={16}/>
             {t(language, 'prayer.todaySchedule')}
           </span>
           <span className="next-prayer-expand-arrow" aria-hidden="true">›</span>
@@ -55,13 +55,13 @@ export default function PrayerTimesView({ timeZone, now, nextFard, language = 'r
           <span className="home-section-menu-icon"><DhikrIcon size={24}/></span>
           <span>{t(language, 'tab.azkar')}</span>
         </button>
+        <button type="button" onClick={() => onNavigate?.('quran')}>
+          <span className="home-section-menu-icon"><LearnIcon size={24}/></span>
+          <span>{t(language, 'quran.shortTitle')}</span>
+        </button>
         <button type="button" onClick={() => onNavigate?.('calendar')}>
           <span className="home-section-menu-icon"><CalendarIcon size={24}/></span>
           <span>{t(language, 'tab.calendar')}</span>
-        </button>
-        <button type="button" onClick={() => onNavigate?.('quran')}>
-          <span className="home-section-menu-icon"><LearnIcon size={24}/></span>
-          <span>{t(language, 'quran.title')}</span>
         </button>
       </nav>
 
