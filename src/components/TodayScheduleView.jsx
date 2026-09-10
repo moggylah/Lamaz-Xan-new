@@ -39,7 +39,6 @@ export default function TodayScheduleView({ location, method, madhab, timeZone, 
   return (
     <section className="today-schedule-screen">
       <header className="today-schedule-intro">
-        <span>{isToday ? t(language, 'calendar.today') : dateDisplay.weekday}</span>
         <h1>{t(language, 'prayer.schedule')}</h1>
         {selectedMosqueDay && <p>{selectedMosque?.name}</p>}
       </header>
