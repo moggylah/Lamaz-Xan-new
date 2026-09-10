@@ -644,6 +644,54 @@ html[data-theme="dark"] .prayer-screen .home-primary-links .home-section-menu-ic
   background: transparent !important;
 }
 
+/* Day-by-day navigation on the full prayer schedule screen. */
+.schedule-date-navigation {
+  margin: 15px 4px 17px;
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 46px;
+  align-items: stretch;
+  gap: 8px;
+}
+.schedule-date-navigation > button {
+  border: 0;
+  border-radius: 14px;
+  background: rgba(23,79,58,.055);
+  color: var(--green);
+  cursor: pointer;
+}
+.schedule-date-navigation > button:first-child,
+.schedule-date-navigation > button:last-child {
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  font-weight: 400;
+}
+.schedule-date-navigation .schedule-date-current {
+  padding: 7px 10px;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  text-align: center;
+}
+.schedule-date-current strong {
+  font-size: 11px;
+  line-height: 1.25;
+}
+.schedule-date-current small {
+  color: #9a7a37;
+  font-size: 8.5px;
+  font-weight: 750;
+}
+.schedule-date-current:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.today-schedule-screen .prayer-list { margin-top: 0; }
+html[data-theme="dark"] .schedule-date-navigation > button {
+  background: rgba(132,185,158,.08);
+}
+
 /* Primary section controls use a centered icon-over-label composition. */
 .prayer-screen .home-primary-links button {
   grid-template-columns: 1fr;

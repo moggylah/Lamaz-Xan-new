@@ -328,7 +328,7 @@ export default function App() {
 
       {view === 'sections' && <SectionsView language={language} onNavigate={navigateTo}/>}
 
-      {view === 'schedule' && <TodayScheduleView times={displayTimes} timeZone={timeZone} now={now} nextFard={nextFard} iqamahTimes={iqamahTimes} mosqueName={todayMosqueDay ? selectedMosque?.name : ''} language={language}/>}
+      {view === 'schedule' && <TodayScheduleView location={location} method={method} madhab={madhab} timeZone={timeZone} now={now} nextFard={nextFard} mosqueSchedule={mosqueSchedule} selectedMosque={selectedMosque} duhaOffset={duhaOffset} todayParts={localDate} language={language}/>}
 
       {view === 'qibla' && (
         <QiblaCompass qiblaBearing={todayData.qibla} location={location} language={language}/>

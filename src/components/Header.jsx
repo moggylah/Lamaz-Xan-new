@@ -4,7 +4,7 @@ import { BackIcon, GearIcon, MoonIcon, SunIcon } from './Icons.jsx';
 import { t } from '../lib/i18n.js';
 
 const titleKeys = {
-  schedule: 'prayer.todaySchedule',
+  schedule: 'prayer.schedule',
   sections: 'sections.title',
   qibla: 'tab.qibla',
   azkar: 'tab.azkar',
