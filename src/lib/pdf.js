@@ -33,6 +33,20 @@ function dataUrlToBytes(dataUrl) {
   return bytes;
 }
 
+function loadImage(source) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = source;
+  });
+}
+
+function roundedRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.roundRect(x, y, width, height, radius);
+}
+
 function imageBytesToPdf(jpegBytes, imageWidth, imageHeight) {
   const pageWidth = 842;
   const pageHeight = 595;
@@ -145,6 +159,7 @@ export async function downloadMonthlySchedulePdf({
   month,
   timeZone,
   language,
+  sourceLabel,
 }) {
   const monthTitle = formatMonthTitle(year, month, language);
 
@@ -159,15 +174,55 @@ export async function downloadMonthlySchedulePdf({
   ctx.fillStyle = '#f8f5ee';
   ctx.fillRect(0, 0, width, height);
 
-  ctx.fillStyle = '#174f3a';
-  ctx.font = '700 58px Arial, sans-serif';
-  ctx.textAlign = 'left';
-  ctx.fillText('Lamaz Xan', 92, 95);
+  const green = '#174f3a';
+  const ink = '#203129';
+  const gold = '#b88e38';
+  const muted = '#7b857f';
+  const paper = '#fffdf8';
+  const line = '#dce1db';
+  const left = 92;
+  const right = width - left;
 
-  ctx.fillStyle = '#1e2923';
-  ctx.font = '700 48px Arial, sans-serif';
+  ctx.fillStyle = green;
+  ctx.fillRect(0, 0, width, 18);
+
+  try {
+    const logo = await loadImage('/lamaz-xan-logo.png');
+    ctx.drawImage(logo, left, 56, 104, 104);
+  } catch {
+    // The wordmark remains usable if an embedded browser cannot load the image.
+  }
+
+  ctx.fillStyle = green;
+  ctx.font = '600 54px Georgia, serif';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText('Lamaz Xan', 220, 103);
+  ctx.fillStyle = gold;
+  ctx.font = '700 18px Arial, sans-serif';
+  ctx.letterSpacing = '2px';
+  ctx.fillText('PRAYER, THE PILLAR OF ISLAM', 223, 137);
+  ctx.letterSpacing = '0px';
+
+  ctx.textAlign = 'right';
+  ctx.fillStyle = muted;
+  ctx.font = '500 20px Arial, sans-serif';
+  ctx.fillText(timeZone, right, 99);
+
+  ctx.strokeStyle = '#d4c29a';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(left, 184);
+  ctx.lineTo(right, 184);
+  ctx.stroke();
+
+  ctx.fillStyle = gold;
+  ctx.font = '700 18px Arial, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText(`${t(language, 'calendar.pdfTitle')} — ${monthTitle}`, width / 2, 160);
+  ctx.fillText(String(year), width / 2, 235);
+  ctx.fillStyle = ink;
+  ctx.font = '600 52px Georgia, serif';
+  ctx.fillText(`${t(language, 'calendar.pdfTitle')} · ${monthTitle}`, width / 2, 292);
 
   const prayerKeys = ['fajr', 'sunrise', 'duha', 'dhuhr', 'asr', 'maghrib', 'isha', 'qiyam'];
   const headers = [
@@ -175,33 +230,29 @@ export async function downloadMonthlySchedulePdf({
     ...prayerKeys.map((key) => t(language, `prayer.${key}`)),
   ];
 
-  const left = 72;
-  const top = 210;
+  const top = 340;
   const tableWidth = width - left * 2;
-  const dateWidth = 260;
+  const dateWidth = 270;
   const otherWidth = (tableWidth - dateWidth) / prayerKeys.length;
-  const headerHeight = 64;
-  const rowHeight = 42;
+  const headerHeight = 68;
+  const rowHeight = 36;
   const columnWidths = [dateWidth, ...prayerKeys.map(() => otherWidth)];
 
   let x = left;
 
-  ctx.fillStyle = '#e9f0e9';
-  ctx.fillRect(left, top, tableWidth, headerHeight);
+  ctx.fillStyle = green;
+  roundedRect(ctx, left, top, tableWidth, headerHeight, 18);
+  ctx.fill();
 
-  ctx.strokeStyle = '#d8ddd7';
-  ctx.lineWidth = 2;
-
-  ctx.font = '700 24px Arial, sans-serif';
+  ctx.font = '700 20px Arial, sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = '#174f3a';
+  ctx.fillStyle = '#fffdf8';
 
   headers.forEach((header, index) => {
     const cellWidth = columnWidths[index];
-    ctx.strokeRect(x, top, cellWidth, headerHeight);
     ctx.fillText(
-      fitText(ctx, header, cellWidth - 18),
+      fitText(ctx, header, cellWidth - 22),
       x + cellWidth / 2,
       top + headerHeight / 2,
     );
@@ -212,25 +263,28 @@ export async function downloadMonthlySchedulePdf({
     const y = top + headerHeight + rowIndex * rowHeight;
     x = left;
 
-    if (rowIndex % 2 === 0) {
-      ctx.fillStyle = '#fffdf8';
+    const weekday = formatWeekday(row.date, timeZone, language, true);
+    const isFriday = row.date.getDay() === 5;
+
+    if (isFriday) {
+      ctx.fillStyle = '#edf2ec';
+      ctx.fillRect(left, y, tableWidth, rowHeight);
+    } else if (rowIndex % 2 === 0) {
+      ctx.fillStyle = paper;
       ctx.fillRect(left, y, tableWidth, rowHeight);
     }
-
-    const weekday = formatWeekday(row.date, timeZone, language, true);
 
     const values = [
       `${row.dateParts.day} ${weekday}`,
       ...prayerKeys.map((key) => formatClock(row.times[key], timeZone, language)),
     ];
 
-    ctx.font = '400 23px Arial, sans-serif';
+    ctx.font = `${isFriday ? '700' : '400'} 19px Arial, sans-serif`;
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#252e29';
+    ctx.fillStyle = isFriday ? green : ink;
 
     values.forEach((value, index) => {
       const cellWidth = columnWidths[index];
-      ctx.strokeRect(x, y, cellWidth, rowHeight);
       ctx.fillText(
         fitText(ctx, value, cellWidth - 16),
         x + cellWidth / 2,
@@ -238,16 +292,33 @@ export async function downloadMonthlySchedulePdf({
       );
       x += cellWidth;
     });
+
+    ctx.strokeStyle = line;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(left, y + rowHeight);
+    ctx.lineTo(right, y + rowHeight);
+    ctx.stroke();
   });
 
-  ctx.fillStyle = '#8a918c';
-  ctx.font = '400 20px Arial, sans-serif';
+  const footerY = top + headerHeight + rows.length * rowHeight + 54;
+  ctx.fillStyle = muted;
+  ctx.font = '400 18px Arial, sans-serif';
   ctx.textAlign = 'left';
   ctx.fillText(
     `${t(language, 'prayer.qiyam')}: ${t(language, 'prayer.lastThird')}`,
     left,
-    height - 55,
+    footerY,
   );
+
+  ctx.fillStyle = ink;
+  ctx.font = '600 18px Arial, sans-serif';
+  ctx.fillText(sourceLabel || t(language, 'calendar.calculatedSource'), left, footerY + 35);
+
+  ctx.textAlign = 'right';
+  ctx.fillStyle = muted;
+  ctx.font = '400 17px Arial, sans-serif';
+  ctx.fillText('Lamaz Xan · Prayer, the pillar of Islam', right, footerY + 35);
 
   const jpegBytes = dataUrlToBytes(canvas.toDataURL('image/jpeg', 0.94));
   const pdfBytes = imageBytesToPdf(jpegBytes, width, height);

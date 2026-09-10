@@ -69,7 +69,10 @@ export default function CalendarView({
   }
 
   async function downloadPdf() {
-    await downloadMonthlySchedulePdf({ rows, year: monthState.year, month: monthState.month, timeZone, language });
+    const sourceLabel = selectedMosque?.name
+      ? t(language, 'calendar.mosqueSource', { mosque: selectedMosque.name })
+      : t(language, 'calendar.calculatedSource');
+    await downloadMonthlySchedulePdf({ rows, year: monthState.year, month: monthState.month, timeZone, language, sourceLabel });
   }
 
   const selectedDateTitle = selectedRow?.date.toLocaleDateString(locale, {
