@@ -3544,6 +3544,10 @@ html[data-theme="dark"] .prayer-screen .home-section-menu .home-more-sections {
   box-shadow: 0 7px 20px rgba(34, 49, 41, .055);
 }
 
+.app-header-home .brand-row .settings-button:active {
+  transform: translateY(-50%) scale(.965);
+}
+
 .date-display {
   display: grid;
   justify-items: center;
