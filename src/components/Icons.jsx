@@ -59,8 +59,10 @@ export function CalcIcon({ size = 24, className = '' }) {
 export function MosqueIcon({ size = 24, className = '' }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M5 19.5V11l2-2v10.5M17 19.5V9l2 2v8.5M8 19.5v-7.2c0-2 1.8-3.8 4-4.8 2.2 1 4 2.8 4 4.8v7.2" stroke="currentColor" strokeWidth="1.45" strokeLinejoin="round"/>
-      <path d="M3.5 19.5h17M11 19.5v-4.2h2v4.2M12 4.3V2.8M11.2 3.2h1.6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+      <path d="M7.2 20V11.4h9.6V20M7.2 11.4c.25-2.45 2.15-3.7 4.8-5.2 2.65 1.5 4.55 2.75 4.8 5.2" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3.7 20V8.7h2.5V20M17.8 20V8.7h2.5V20M3.15 8.7h3.6L4.95 6.8 3.15 8.7ZM17.25 8.7h3.6l-1.8-1.9-1.8 1.9Z" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M2.6 20h18.8M10.5 20v-4.2a1.5 1.5 0 0 1 3 0V20M12 6.1V4.5" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round"/>
+      <path d="M13.15 2.8a1.55 1.55 0 1 0 .15 2.8 1.85 1.85 0 1 1-.15-2.8Z" fill="currentColor"/>
     </svg>
   );
 }
