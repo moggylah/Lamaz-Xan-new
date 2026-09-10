@@ -43,7 +43,7 @@ export default function PrayerTimesView({ timeZone, now, nextFard, language = 'r
         </span>
       </button>
 
-      <nav className="home-section-menu" aria-label={t(language, 'aria.sections')}>
+      <nav className="home-primary-links" aria-label={t(language, 'aria.sections')}>
         <button type="button" onClick={() => onNavigate?.('qibla')}>
           <span className="home-section-menu-icon"><QiblaIcon size={24}/></span>
           <span>{t(language, 'tab.qibla')}</span>
