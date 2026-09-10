@@ -245,7 +245,7 @@ export default function QiblaCompass({ qiblaBearing, location, language = 'ru' }
       </div>
 
       <div className={`qibla-readout ${aligned ? 'is-aligned' : ''}`}>
-        <CompassMiniIcon size={22} />
+        {aligned ? <QiblaIcon size={22} /> : <CompassMiniIcon size={22} />}
         <div className="qibla-readout-main">
           <strong>
             {aligned
