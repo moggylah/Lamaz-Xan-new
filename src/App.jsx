@@ -325,6 +325,7 @@ export default function App() {
           timeZone={timeZone}
           now={now}
           nextFard={nextFard}
+          mosqueName={todayMosqueDay ? selectedMosque?.name : ''}
           language={language}
           onNavigate={navigateTo}
         />

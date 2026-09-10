@@ -1,5 +1,5 @@
 import {
-  CalendarIcon, DhikrIcon, PrayerScheduleIcon, QiblaIcon, QuranIcon,
+  CalendarIcon, DhikrIcon, MosqueIcon, PrayerScheduleIcon, QiblaIcon, QuranIcon,
 } from './Icons.jsx';
 import { formatClock } from '../lib/date.js';
 import { t } from '../lib/i18n.js';
@@ -13,7 +13,7 @@ function formatCountdown(ms) {
   return [hours, minutes, seconds].map((value) => String(value).padStart(2, '0')).join(':');
 }
 
-export default function PrayerTimesView({ timeZone, now, nextFard, language = 'ru', onNavigate }) {
+export default function PrayerTimesView({ timeZone, now, nextFard, mosqueName = '', language = 'ru', onNavigate }) {
   const nextTime = nextFard.time;
 
   return (
@@ -27,6 +27,12 @@ export default function PrayerTimesView({ timeZone, now, nextFard, language = 'r
           <span className="next-label">{t(language, 'prayer.next')}</span>
           <strong className="next-name">{t(language, `prayer.${nextFard.key}`)}</strong>
           <span className="next-at">{t(language, 'prayer.until', { time: formatClock(nextTime, timeZone, language) })}</span>
+          {mosqueName && (
+            <span className="next-prayer-mosque" title={mosqueName}>
+              <MosqueIcon size={13}/>
+              <span>{mosqueName}</span>
+            </span>
+          )}
         </div>
 
         <div className="next-prayer-countdown">
