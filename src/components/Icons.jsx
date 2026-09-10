@@ -236,11 +236,11 @@ export function LearnIcon({ size = 24, className = '' }) {
 export function QuranIcon({ size = 24, className = '' }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="4.4" y="2.8" width="15.2" height="18.4" rx="1.7" stroke="currentColor" strokeWidth="1.45"/>
-      <path d="M7 2.8v18.4M8.9 5.2h8.3v13.6H8.9z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>
-      <path d="m10.1 7.4.9-1h1.2M16 7.4l-.9-1h-1.2M10.1 16.6l.9 1h1.2M16 16.6l-.9 1h-1.2" stroke="currentColor" strokeWidth="1.05" strokeLinecap="round"/>
-      <path d="m13.05 8.2 1.1 1.25 1.35.75-.75 1.35-1.7 2.25-1.7-2.25-.75-1.35 1.35-.75 1.1-1.25Z" stroke="currentColor" strokeWidth="1.05" strokeLinejoin="round"/>
-      <path d="M11.9 11.1h2.3M12.35 12.35h1.4" stroke="currentColor" strokeWidth=".95" strokeLinecap="round"/>
+      <rect x="4.6" y="2.5" width="14.8" height="19" rx="1.55" stroke="currentColor" strokeWidth="1.45"/>
+      <rect x="6.55" y="4.45" width="10.9" height="15.1" rx=".7" stroke="currentColor" strokeWidth="1.15"/>
+      <path d="M8.15 8V6.2h1.8M15.85 8V6.2h-1.8M8.15 16v1.8h1.8M15.85 16v1.8h-1.8" stroke="currentColor" strokeWidth="1.05" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="m12 7.8 1.15 1.3 1.55.75-.75 1.45.75 1.45-1.55.75L12 16.2l-1.15-2.7-1.55-.75.75-1.45-.75-1.45 1.55-.75L12 7.8Z" stroke="currentColor" strokeWidth="1.05" strokeLinejoin="round"/>
+      <path d="m12 10.1.7 1.2-.7 1.2-.7-1.2.7-1.2Z" fill="currentColor"/>
     </svg>
   );
 }
